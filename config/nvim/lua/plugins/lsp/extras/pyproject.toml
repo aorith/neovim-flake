@@ -1,0 +1,42 @@
+[tool.black]
+profile = "black"
+line-length = 140
+target-version = ['py37'] # 'py38'
+include = '\.pyi?$' # ^(?!urls).*\.pyi?$
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | migrations
+)/
+'''
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+# https://beta.ruff.rs/docs/configuration/#using-pyprojecttoml
+target-version = "py310"
+line-length = 140
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501", # line too long
+]
+
+[tool.ruff.isort]
+known-third-party = ["fastapi", "pydantic", "starlette"]

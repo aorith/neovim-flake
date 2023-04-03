@@ -1,0 +1,57 @@
+{pkgs}:
+with pkgs.vimPlugins; [
+  # themes
+  kanagawa-nvim
+  tokyonight-nvim
+  gruvbox-nvim
+  catppuccin-nvim
+  nord-nvim
+
+  lualine-nvim
+  bufferline-nvim
+  neo-tree-nvim
+  which-key-nvim
+  #indent-blankline-nvim
+  gitsigns-nvim
+  undotree
+  FTerm-nvim
+
+  editorconfig-nvim
+
+  telescope-nvim
+  telescope-fzf-native-nvim
+  telescope-manix # nix documentation
+
+  nvim-treesitter-textobjects
+  nvim-treesitter.withAllGrammars
+
+  # Completion
+  nvim-cmp
+  cmp-buffer
+  cmp-cmdline
+  cmp-nvim-lsp
+  cmp-path
+  cmp_luasnip
+  luasnip
+
+  # LSP
+  nvim-lspconfig
+  null-ls-nvim
+  trouble-nvim
+  nvim-navic
+
+  # UI
+  noice-nvim
+  nvim-notify
+
+  # deps
+  dressing-nvim
+  lspkind-nvim
+  nui-nvim
+  nvim-web-devicons
+  plenary-nvim
+  refactoring-nvim
+
+  # not in nixpkgs
+  vim-varnish
+]
