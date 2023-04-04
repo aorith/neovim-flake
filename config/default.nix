@@ -29,6 +29,7 @@
       cp ${pkgs.substituteAll {
         src = ./nvim/lua/plugins/lsp/servers.lua;
 
+        bashls = pkgs.nodePackages.bash-language-server;
         gopls = pkgs.gopls;
         lua_ls = pkgs.lua-language-server;
         nil = pkgs.nil;

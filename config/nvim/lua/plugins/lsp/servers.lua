@@ -3,6 +3,7 @@
 local pyproject_path = require("core.utils").get_pyproject_path()
 
 return {
+  bashls = { config = { cmd = { "@bashls@/bin/bash-language-server", "start" } } },
   nil_ls = { config = { cmd = { "@nil@/bin/nil" } } },
   gopls = { config = { cmd = { "@gopls@/bin/gopls" } } },
   sqls = { config = { cmd = { "@sqls@/bin/sqls" } } },
