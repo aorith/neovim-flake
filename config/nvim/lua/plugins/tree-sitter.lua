@@ -1,5 +1,6 @@
 require("nvim-treesitter.configs").setup({
-  highlight = { enable = true, disable = {}, additional_vim_regex_highlighting = {} },
+  -- TODO: bash treesitter highlights is messed up when it finds something like 'echo >&2 "blah"'
+  highlight = { enable = true, disable = {"sh", "bash"}, additional_vim_regex_highlighting = {"sh", "bash"} },
   indent = { enable = true, disable = { "python" } },
 
   -- managed by nix
