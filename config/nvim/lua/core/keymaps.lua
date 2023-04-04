@@ -15,6 +15,8 @@ end, { desc = "Get active LSP clients" })
 
 -- Misc
 map("n", "x", '"_x', { desc = "Avoid 'x' copying to the register" })
+map("v", "<leader>y", '"+y', { remap = true, desc = "Copy to the system clipboard"})
+map("n", "<leader>y", '"+yy', { remap = true, desc = "Copy to the system clipboard"})
 
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })

@@ -20,7 +20,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_perl_provider = 0
 
 vim.opt.autoindent = true
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamed" -- don't copy to the system clipboard
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.confirm = true -- confirm to save changes before exiting a modified buffer
 vim.opt.cursorline = true -- Highlight cursor line
