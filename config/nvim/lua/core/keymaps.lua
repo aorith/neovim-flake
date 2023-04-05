@@ -15,8 +15,8 @@ end, { desc = "Get active LSP clients" })
 
 -- Misc
 map("n", "x", '"_x', { desc = "Avoid 'x' copying to the register" })
-map("v", "<leader>y", '"+y', { remap = true, desc = "Copy to the system clipboard"})
-map("n", "<leader>y", '"+yy', { remap = true, desc = "Copy to the system clipboard"})
+map("v", "<leader>y", '"+y', { remap = true, desc = "Copy to the system clipboard" })
+map("n", "<leader>y", '"+yy', { remap = true, desc = "Copy to the system clipboard" })
 
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
@@ -45,6 +45,22 @@ map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 if vim.fn.has("nvim-0.9.0") == 1 then
   map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 end
+
+-- buffers
+vim.keymap.set("n", "<leader><space>", "<cmd>Telescope buffers<CR>", { desc = "Find buffers" })
+vim.keymap.set("n", "<leader><TAB>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<leader>b", function()
+  local curbufnr = vim.api.nvim_get_current_buf()
+  local bufinfo
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if bufnr ~= curbufnr and vim.api.nvim_buf_get_option(bufnr, "modified") == false then
+      bufinfo = vim.fn.getbufinfo(bufnr)[1]
+      if bufinfo.loaded == 1 and bufinfo.listed == 1 then
+        vim.cmd("bd! " .. tostring(bufnr))
+      end
+    end
+  end
+end, { desc = "Close other unmodified buffers" })
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })

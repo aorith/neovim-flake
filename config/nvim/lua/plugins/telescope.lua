@@ -1,9 +1,14 @@
 require("telescope").setup({
   defaults = {
     layout_config = {
-      height = 0.95,
-      preview_width = 75,
-      width = 0.95,
+      height = 0.97,
+      width = 0.97,
+      vertical = {
+        preview_width = 0.60,
+      },
+      horizontal = {
+        preview_width = 0.60,
+      },
     },
     file_ignore_patterns = { "venv", "__pycache__", ".git" },
     prompt_prefix = " ",

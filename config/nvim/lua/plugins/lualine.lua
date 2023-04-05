@@ -17,7 +17,7 @@ local filename = {
 
 local filetype = {
   "filetype",
-  colored = true,
+  colored = false,
   icon_only = false,
 }
 
@@ -27,14 +27,15 @@ require("lualine").setup({
   options = {
     theme = require("core.theme").theme_name(),
     icons_enabled = true,
+    globalstatus = true,
     disabled_filetypes = { statusline = disabled_filetypes, winbar = disabled_filetypes },
     refresh = {
-      statusline = 500,
-      tabline = 1000,
-      winbar = 500,
+      statusline = 800,
+      tabline = 800,
+      winbar = 800,
     },
   },
-  extensions = { "neo-tree", "nvim-tree", "quickfix", "fugitive" },
+  extensions = { "neo-tree", "quickfix", "toggleterm" }, -- TODO: trouble
 
   sections = {
     lualine_a = {
@@ -42,8 +43,19 @@ require("lualine").setup({
     },
     lualine_b = { "branch" },
     lualine_c = {
-      { "diff" },
-      { "diagnostics" },
+      {
+        "diff",
+        on_click = function()
+          vim.cmd("Gitsigns diffthis")
+        end,
+      },
+      {
+        "diagnostics",
+        on_click = function()
+          -- open quickfix list when clicking on the diagnostics lualine entry
+          vim.diagnostic.setqflist()
+        end,
+      },
     },
     lualine_x = {},
     lualine_y = {
@@ -58,7 +70,7 @@ require("lualine").setup({
   },
   inactive_sections = {},
 
-  tabbar = {},
+  tabline = { lualine_a = { { "buffers", mode = 2, icons_enabled = false, symbols = { alternate_file = " " } } } },
 
   winbar = {
     lualine_x = {
@@ -71,18 +83,16 @@ require("lualine").setup({
         end,
       },
     },
-    lualine_y = {
-      filetype,
-    },
+    lualine_y = {},
     lualine_z = {
+      filetype,
       filename,
     },
   },
   inactive_winbar = {
-    lualine_y = {
-      filetype,
-    },
+    lualine_y = {},
     lualine_z = {
+      filetype,
       filename,
     },
   },

@@ -8,13 +8,12 @@ with pkgs.vimPlugins; [
   nord-nvim
 
   lualine-nvim
-  bufferline-nvim
   neo-tree-nvim
   which-key-nvim
   #indent-blankline-nvim
   gitsigns-nvim
   undotree
-  FTerm-nvim
+  toggleterm-nvim
 
   editorconfig-nvim
 

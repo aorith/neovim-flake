@@ -41,7 +41,7 @@ local null_ls_sources = {
   formatting.yamlfmt.with({ command = "@yamlfmt@/bin/yamlfmt" }),
   formatting.stylua.with({
     command = "@stylua@/bin/stylua",
-    extra_args = { "--config-path", vim.fn.expand("~/.config/nvim/stylua.toml") },
+    extra_args = { "--config-path", vim.fn.getenv("XDG_CONFIG_HOME") .. "/nvim/stylua.toml" },
   }),
 
   diagnostics.tidy.with({ command = "@tidy@/bin/tidy" }),
