@@ -70,7 +70,7 @@ require("lualine").setup({
   },
   inactive_sections = {},
 
-  tabline = { lualine_a = { { "buffers", mode = 2, icons_enabled = false, symbols = { alternate_file = " " } } } },
+  tabline = { lualine_a = { { "buffers", mode = 2, icons_enabled = false, symbols = { alternate_file = "" } } } },
 
   winbar = {
     lualine_x = {
