@@ -60,7 +60,7 @@ vim.keymap.set("n", "<leader>b", function()
       end
     end
   end
-end, { desc = "Close other unmodified buffers" })
+end, { desc = "Close all other unmodified buffers" })
 
 -- windows
 map("n", "<leader>ww", "<C-W>p", { desc = "Other window" })
