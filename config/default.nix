@@ -32,6 +32,7 @@
         bashls = pkgs.nodePackages.bash-language-server;
         gopls = pkgs.gopls;
         lua_ls = pkgs.lua-language-server;
+        marksman = pkgs.marksman;
         nil = pkgs.nil;
         pyright = pkgs.nodePackages.pyright;
         sqls = pkgs.sqls;

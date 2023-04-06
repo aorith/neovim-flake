@@ -56,4 +56,3 @@ This is an (incomplete) example:
   };
 }
 ```
-

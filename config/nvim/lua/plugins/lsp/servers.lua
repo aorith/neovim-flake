@@ -16,6 +16,7 @@ return {
   },
   tsserver = { config = { cmd = { "@typescript@/bin/typescript-language-server" } } },
   terraformls = { config = { cmd = { "@terraformls@/bin/terraform-ls" } } },
+  marksman = { config = { cmd = { "@marksman@/bin/marksman", "server" } } },
 
   lua_ls = {
     config = {
