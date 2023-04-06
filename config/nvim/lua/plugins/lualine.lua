@@ -57,7 +57,16 @@ require("lualine").setup({
         end,
       },
     },
-    lualine_x = {},
+    lualine_x = {
+      {
+        require("noice").api.status.command.get,
+        cond = require("noice").api.status.command.has,
+      },
+      {
+        require("noice").api.status.mode.get,
+        cond = require("noice").api.status.mode.has,
+      },
+    },
     lualine_y = {
       { "progress", separator = " ", padding = { left = 1, right = 0 } },
       { "location", padding = { left = 0, right = 1 } },
@@ -70,10 +79,21 @@ require("lualine").setup({
   },
   inactive_sections = {},
 
-  tabline = { lualine_a = { { "buffers", mode = 2, icons_enabled = false, symbols = { alternate_file = "" } } } },
+  tabline = {
+    lualine_a = {
+      {
+        "buffers",
+        mode = 2,
+        separator = "",
+        icons_enabled = false,
+        symbols = { alternate_file = "" },
+      },
+    },
+  },
 
   winbar = {
-    lualine_x = {
+    lualine_c = {
+      filename,
       {
         function()
           return navic.get_location()
@@ -83,17 +103,16 @@ require("lualine").setup({
         end,
       },
     },
-    lualine_y = {},
-    lualine_z = {
+    lualine_x = {
       filetype,
-      filename,
     },
   },
   inactive_winbar = {
-    lualine_y = {},
-    lualine_z = {
-      filetype,
+    lualine_c = {
       filename,
+    },
+    lualine_x = {
+      filetype,
     },
   },
 })
