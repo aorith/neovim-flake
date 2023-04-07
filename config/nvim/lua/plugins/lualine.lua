@@ -13,12 +13,16 @@ local filename = {
     unnamed = "[No Name]",
     newfile = "[New]",
   },
+  component_separators = "",
+  section_separators = "",
 }
 
 local filetype = {
   "filetype",
   colored = false,
   icon_only = false,
+  component_separators = "",
+  section_separators = "",
 }
 
 local disabled_filetypes = { "dashboard", "lazy", "alpha", "neo-tree", "Trouble", "noice" }
@@ -92,8 +96,10 @@ require("lualine").setup({
   },
 
   winbar = {
-    lualine_c = {
+    lualine_b = {
       filename,
+    },
+    lualine_c = {
       {
         function()
           return navic.get_location()
@@ -101,6 +107,8 @@ require("lualine").setup({
         cond = function()
           return navic.is_available()
         end,
+        component_separators = "",
+        section_separators = "",
       },
     },
     lualine_x = {
@@ -108,7 +116,7 @@ require("lualine").setup({
     },
   },
   inactive_winbar = {
-    lualine_c = {
+    lualine_b = {
       filename,
     },
     lualine_x = {
