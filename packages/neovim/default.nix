@@ -6,8 +6,8 @@
   # https://github.com/NixOS/nixpkgs/blob/b4d8662c4a479b7641d28fe866b018adf8d8f2e1/pkgs/applications/editors/neovim/utils.nix
   neovimConfig = pkgs.neovimUtils.makeNeovimConfig {
     withPython3 = true;
-    withRuby = true;
     withNodeJs = true;
+    withRuby = false;
     extraPython3Packages = _: [];
     extraLuaPackages = _: [];
 
