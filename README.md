@@ -66,4 +66,4 @@ Or add the overlay to your `nixpkgs` and include `pkgs.aorith.neovim` in `enviro
           ];
 ```
 
-You can override the flake's `nixpkgs` with `neovim-flake.inputs.nixpkgs.follows = "nixpkgs";` to use your pinned version of `nixpkgs` but then the build is not guaranteed to build (as of today, it requires packages from unstable).
+You can override the flake's `nixpkgs` with `neovim-flake.inputs.nixpkgs.follows = "nixpkgs";` to use your pinned version of `nixpkgs` but then the package is not guaranteed to build (as of today, it requires packages from unstable).
