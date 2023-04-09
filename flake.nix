@@ -31,7 +31,7 @@
   in
     {
       # the name 'vimPlugins' here is arbitrary and only matters in the callPackage of nvimCfg
-      overlays.vimPlugins = prev: final: let
+      overlays.vimPlugins = final: prev: let
         # standard plugin builder
         buildVimPlugin = name:
           final.vimUtils.buildVimPluginFrom2Nix {
@@ -47,7 +47,7 @@
         # 'builtins.listToAttrs ...' creates an attrSet with all the plugin derivations
         # for example => { vim-fugitive = «derivation /nix/store/....vim-fugitive-....drv»; vim-varnish = ...; }
         vimPlugins =
-          final.vimPlugins
+          prev.vimPlugins
           // builtins.listToAttrs (map (plugin: {
               name = vimPluginName plugin;
               value = buildVimPlugin plugin;
@@ -55,15 +55,29 @@
             vimPluginInputs);
       };
 
+      # https://nixos.org/manual/nixpkgs/unstable/#sec-overlays-definition
+      # Overlays are Nix functions which accept two arguments, conventionally called self and super , and return a set of packages.
+      #
+      #  The first argument (self) corresponds to the final package set.
+      #  You should use this set for the dependencies of all packages specified in your overlay.
+      #
+      #  The second argument (super) corresponds to the result of the evaluation of the previous stages of Nixpkgs.
+      #  It does not contain any of the packages added by the current overlay, nor any of the following overlays.
+      #  This set should be used either to refer to packages you wish to override, or to access functions defined in Nixpkgs.
+
       overlays.default = final: prev: let
+        pkgs = import inputs.nixpkgs {
+          system = prev.system;
+          overlays = [inputs.self.overlays.vimPlugins];
+        };
         # generate the nvim configuration
         # pkgs is extended with our custom vimPlugins, for extending in the nix repl you can do:
         #   pkgs = (inputs.nixpkgs.legacyPackages.x86_64-linux.extend outputs.overlays.vimPlugins)
         # and you'll see that now pkgs contains 'vim-varnish': 'pkgs.vimPlugins.vim-varnish'
-        nvimCfg = final.callPackage ./config {pkgs = final.extend inputs.self.overlays.vimPlugins;};
+        nvimCfg = final.callPackage ./config {inherit pkgs;};
       in {
         # finally use callPackage to create the neovim derivation
-        aorith.neovim = final.callPackage ./packages/neovim {inherit inputs nvimCfg;};
+        aorith.neovim = final.callPackage ./packages/neovim {inherit pkgs inputs nvimCfg;};
       };
     }
     // # Use flake-utils to automagically create the outputs for various systems: x86_64-linux, aarch64-darwin, ...
