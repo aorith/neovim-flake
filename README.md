@@ -56,3 +56,14 @@ This is an (incomplete) example:
   };
 }
 ```
+
+Or add the overlay to your `nixpkgs` and include `pkgs.aorith.neovim` in `environment.systemPackages`:
+
+```nix
+          modules = [
+            ({pkgs, ...}: {nixpkgs.overlays = [inputs.neovim-flake.overlays.default];})
+            ({pkgs, ...}: {environment.systemPackages = [pkgs.aorith.neovim];})
+          ];
+```
+
+You can override the flake's `nixpkgs` with `neovim-flake.inputs.nixpkgs.follows = "nixpkgs";` to use your pinned version of `nixpkgs` but then the package is not guaranteed to build (as of today, it requires packages from unstable).
