@@ -13,6 +13,7 @@
         src = ./nvim/lua/plugins/lsp/null-ls.lua;
 
         alejandra = pkgs.alejandra;
+        editorconfig_checker = pkgs.editorconfig-checker;
         golangci_lint = pkgs.golangci-lint;
         jq = pkgs.jq;
         prettier = pkgs.nodePackages.prettier;

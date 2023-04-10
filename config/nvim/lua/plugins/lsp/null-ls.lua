@@ -36,6 +36,7 @@ local null_ls_sources = {
     extra_args = { "--config", require("core.utils").get_pyproject_path() },
   }),
 
+  -- mixins
   formatting.prettier.with({ command = "@prettier@/bin/prettier" }),
   formatting.jq.with({ command = "@jq@/bin/jq" }),
   formatting.yamlfmt.with({ command = "@yamlfmt@/bin/yamlfmt" }),
@@ -43,7 +44,6 @@ local null_ls_sources = {
     command = "@stylua@/bin/stylua",
     extra_args = { "--config-path", vim.fn.getenv("XDG_CONFIG_HOME") .. "/nvim/stylua.toml" },
   }),
-
   diagnostics.tidy.with({ command = "@tidy@/bin/tidy" }),
   diagnostics.yamllint.with({ command = "@yamllint@/bin/yamllint" }),
   diagnostics.golangci_lint.with({ command = "@golangci_lint@/bin/golangci-lint" }),
@@ -54,6 +54,9 @@ local null_ls_sources = {
 
   -- nix formatter https://github.com/kamadorueda/alejandra
   formatting.alejandra.with({ command = "@alejandra@/bin/alejandra" }),
+
+  -- editorconfig
+  diagnostics.editorconfig_checker.with({ command = "@editorconfig_checker@/bin/editorconfig-checker" }),
 }
 
 null_ls.setup({

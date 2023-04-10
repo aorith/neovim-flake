@@ -15,8 +15,6 @@ with pkgs.vimPlugins; [
   undotree
   toggleterm-nvim
 
-  editorconfig-nvim
-
   telescope-nvim
   telescope-fzf-native-nvim
   telescope-manix # nix documentation
