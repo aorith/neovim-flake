@@ -27,10 +27,13 @@ local null_ls_sources = {
   }),
 
   -- python
+  formatting.black.with({ command = "@black@/bin/black" }),
+  --[[ TODO: https://github.com/charliermarsh/ruff/issues/1904
   formatting.ruff.with({
     command = "@ruff@/bin/ruff",
     extra_args = { "--config", require("core.utils").get_pyproject_path() },
   }),
+  --]]
   diagnostics.ruff.with({
     command = "@ruff@/bin/ruff",
     extra_args = { "--config", require("core.utils").get_pyproject_path() },
