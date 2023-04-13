@@ -1,18 +1,21 @@
 require("telescope").setup({
   defaults = {
+    layout_strategy = "horizontal",
+
     layout_config = {
-      height = 0.97,
-      width = 0.97,
       vertical = {
+        height = 0.9,
+        width = 0.9,
         preview_width = 0.60,
       },
       horizontal = {
+        height = 0.9,
+        width = 0.9,
         preview_width = 0.60,
       },
     },
+
     file_ignore_patterns = { "venv", "__pycache__", ".git" },
-    prompt_prefix = " ",
-    selection_caret = " ",
     mappings = {
       i = {
         ["<c-t>"] = function(...)

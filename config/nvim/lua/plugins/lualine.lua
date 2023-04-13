@@ -30,16 +30,13 @@ local disabled_filetypes = { "dashboard", "lazy", "alpha", "neo-tree", "Trouble"
 require("lualine").setup({
   options = {
     theme = require("core.theme").theme_name(),
+    component_separators = "|",
+    section_separators = "",
     icons_enabled = true,
     globalstatus = true,
     disabled_filetypes = { statusline = disabled_filetypes, winbar = disabled_filetypes },
-    refresh = {
-      statusline = 800,
-      tabline = 800,
-      winbar = 800,
-    },
   },
-  extensions = { "neo-tree", "quickfix", "toggleterm" }, -- TODO: trouble
+  extensions = { "neo-tree", "quickfix", "toggleterm", "trouble" },
 
   sections = {
     lualine_a = {
@@ -61,19 +58,10 @@ require("lualine").setup({
         end,
       },
     },
-    lualine_x = {
-      {
-        require("noice").api.status.command.get,
-        cond = require("noice").api.status.command.has,
-      },
-      {
-        require("noice").api.status.mode.get,
-        cond = require("noice").api.status.mode.has,
-      },
-    },
+
+    lualine_x = {},
     lualine_y = {
-      { "progress", separator = " ", padding = { left = 1, right = 0 } },
-      { "location", padding = { left = 0, right = 1 } },
+      { "%P %l:%c%V", padding = { left = 1, right = 1 } }, -- cursor location
     },
     lualine_z = {
       function()
@@ -83,6 +71,7 @@ require("lualine").setup({
   },
   inactive_sections = {},
 
+  --[[
   tabline = {
     lualine_a = {
       {
@@ -94,8 +83,12 @@ require("lualine").setup({
       },
     },
   },
+  --]]
 
   winbar = {
+    lualine_a = {
+      { "%n" },
+    },
     lualine_b = {
       filename,
     },
@@ -116,6 +109,9 @@ require("lualine").setup({
     },
   },
   inactive_winbar = {
+    lualine_a = {
+      { "%n" },
+    },
     lualine_b = {
       filename,
     },

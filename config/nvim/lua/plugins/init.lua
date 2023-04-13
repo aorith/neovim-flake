@@ -1,5 +1,5 @@
 require("plugins.tree-sitter")
-require("plugins.ui")
+--require("plugins.ui")
 require("plugins.neo-tree")
 require("plugins.which-key")
 require("plugins.gitsigns")

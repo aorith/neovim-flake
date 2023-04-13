@@ -1,5 +1,5 @@
 local M = {}
--- vim.o.background = "light"
+vim.o.background = "dark"
 
 local theme = "catppuccin"
 
@@ -51,10 +51,10 @@ M.setup = function()
         gitsigns = true,
         neotree = true,
         telescope = true,
-        notify = true,
-        noice = true,
+        --notify = true,
+        --noice = true,
         navic = true,
-        mini = true,
+        --mini = true,
         markdown = true,
         treesitter = true,
         treesitter_context = true,
@@ -68,11 +68,13 @@ M.setup = function()
 
   --- gruvbox
   if theme == "gruvbox" then
-    require("gruvbox").setup({
-      contrast = "", -- can be "hard", "soft" or empty string
-      dim_inactive = true,
-    })
+    require("gruvbox").setup({})
     vim.cmd.colorscheme("gruvbox")
+  end
+
+  --- gruvbox-material
+  if theme == "gruvbox-material" then
+    vim.cmd.colorscheme("gruvbox-material")
   end
 
   --- tokyonight
@@ -85,6 +87,11 @@ M.setup = function()
     })
 
     vim.cmd.colorscheme("tokyonight")
+  end
+
+  -- onedark
+  if theme == "onedark" then
+    require("onedark").load()
   end
 end
 

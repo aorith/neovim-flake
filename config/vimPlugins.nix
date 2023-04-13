@@ -1,11 +1,11 @@
 {pkgs}:
 with pkgs.vimPlugins; [
-  # themes
-  kanagawa-nvim
-  tokyonight-nvim
-  gruvbox-nvim
+  # theme
   catppuccin-nvim
-  nord-nvim
+  #kanagawa-nvim
+  #nord-nvim
+  #onedark-nvim
+  #tokyonight-nvim
 
   lualine-nvim
   neo-tree-nvim
@@ -39,8 +39,8 @@ with pkgs.vimPlugins; [
   nvim-navic
 
   # UI
-  noice-nvim
-  nvim-notify
+  #noice-nvim
+  #nvim-notify
 
   # deps
   dressing-nvim
@@ -49,6 +49,8 @@ with pkgs.vimPlugins; [
   nvim-web-devicons
   plenary-nvim
   refactoring-nvim
+
+  vim-fugitive
 
   # not in nixpkgs
   vim-varnish

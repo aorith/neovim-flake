@@ -6,7 +6,7 @@ with pkgs; [
   fd
   fzf
   git
-  lazygit
+  gitui
   manix # nix documentation
   ripgrep
 ]

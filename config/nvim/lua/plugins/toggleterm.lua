@@ -5,26 +5,26 @@ require("toggleterm").setup({
 
 local Terminal = require("toggleterm.terminal").Terminal
 
-local lazygit = Terminal:new({
-  cmd = "lazygit",
+local gitui = Terminal:new({
+  cmd = "gitui",
   close_on_exit = true,
   direction = "float",
   float_opts = {
     width = function()
-      return math.floor(vim.o.columns * 0.95)
+      return math.floor(vim.o.columns * 0.92)
     end,
     height = function()
-      return math.floor(vim.o.lines * 0.95)
+      return math.floor(vim.o.lines * 0.92)
     end,
   },
-  -- fix XDG_CONFIG_HOME because of the neovim flake
+  -- change XDG_CONFIG_HOME so it doesn't point to the nix store
   env = { XDG_CONFIG_HOME = os.getenv("HOME") .. "/.config" },
 })
 
-vim.api.nvim_create_user_command("LazyGit", function()
-  lazygit:toggle()
+vim.api.nvim_create_user_command("GitUI", function()
+  gitui:toggle()
 end, { bang = true })
 
-vim.keymap.set("n", "<leader>gl", function()
-  vim.cmd.LazyGit()
-end, { desc = "LazyGit" })
+vim.keymap.set("n", "<leader>gu", function()
+  vim.cmd.GitUI()
+end, { desc = "Git UI" })
