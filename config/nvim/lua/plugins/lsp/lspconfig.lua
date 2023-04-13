@@ -1,3 +1,7 @@
+local lspconfig = require("lspconfig")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local navic = require("nvim-navic")
+
 -- Log level
 vim.lsp.set_log_level("ERROR")
 
@@ -6,7 +10,7 @@ local on_attach = function(client, bufnr)
   vim.cmd("command! CheckLspServerCapabilities :lua =require('core.utils').custom_server_capabilities()")
 
   if client.server_capabilities.documentSymbolProvider then
-    require("nvim-navic").attach(client, bufnr)
+    navic.attach(client, bufnr)
   end
 
   -- disable formatting to null-ls takes care
@@ -81,7 +85,7 @@ local handlers = {
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 }
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- actual function that setups the servers
 local function setup(server)
@@ -103,7 +107,7 @@ local function setup(server)
   }, server_config)
 
   if server_enabled then
-    require("lspconfig")[server].setup(server_opts)
+    lspconfig[server].setup(server_opts)
   end
 end
 

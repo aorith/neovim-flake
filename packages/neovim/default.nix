@@ -4,13 +4,13 @@
   inputs,
 }: let
   # Choose a base nvim package to override
-  #neovimPackage = pkgs.neovim-unwrapped;
-  neovimPackage = inputs.neovim.packages.${pkgs.system}.neovim;
+  neovimPackage = pkgs.neovim-unwrapped; # nixpkgs
+  #neovimPackage = inputs.neovim.packages.${pkgs.system}.neovim; # upstream
 
   # https://github.com/NixOS/nixpkgs/blob/b4d8662c4a479b7641d28fe866b018adf8d8f2e1/pkgs/applications/editors/neovim/utils.nix
   neovimConfig = pkgs.neovimUtils.makeNeovimConfig {
-    withPython3 = true;
-    withNodeJs = true;
+    withPython3 = false;
+    withNodeJs = false;
     withRuby = false;
     extraPython3Packages = _: [];
     extraLuaPackages = _: [];

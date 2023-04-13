@@ -6,7 +6,7 @@ function M.set_keymaps(bufnr)
     vim.keymap.set(mode, map, cmd, bufopts)
   end
   local format = function()
-    vim.lsp.buf.format({ timeout_ms = 3000 })
+    vim.lsp.buf.format({ async = false, timeout_ms = 3000 })
   end
 
   map("n", "<leader>lf", format, "Format Document")

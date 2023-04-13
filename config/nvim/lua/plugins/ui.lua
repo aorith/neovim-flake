@@ -25,6 +25,9 @@ require("noice").setup({
     progress = {
       enabled = true,
     },
+    signature = {
+      enabled = false,
+    },
   },
 
   popupmenu = {

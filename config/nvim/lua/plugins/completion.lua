@@ -1,17 +1,18 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local lspkind = require("lspkind")
+
+vim.opt.completeopt = "menu,menuone,noselect"
 
 cmp.setup({
-  completion = {
-    completeopt = "menu,menuone,noselect",
-  },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
+
   snippet = {
     expand = function(args)
-      require("luasnip").lsp_expand(args.body)
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
@@ -41,37 +42,40 @@ cmp.setup({
       end
     end, { "i", "s" }),
   }),
+
   sources = cmp.config.sources({
-    { name = "nvim_lsp", priority = 100 },
-    { name = "luasnip" },
+    { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
     { name = "path" },
-    { name = "treesitter" },
-    { name = "buffer", priority = 1 },
+    --{ name = "luasnip" },
+    --{ name = "treesitter" },
+  }, {
+    { name = "buffer", keyword_length = 3 },
   }),
+
   formatting = {
-    format = require("lspkind").cmp_format({
+    format = lspkind.cmp_format({
       mode = "symbol_text",
       maxwidth = 55,
       ellipsis_char = "…",
     }),
   },
-  experimental = {
-    ghost_text = {
-      hl_group = "LspCodeLens",
-    },
-  },
 })
 
-cmp.setup.cmdline("/", {
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ "/", "?" }, {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = "nvim_lsp_document_symbol" },
     { name = "buffer" },
   },
 })
 
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
-  sources = {
-    { name = "cmdline" },
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
     { name = "path" },
-  },
+  }, {
+    { name = "cmdline" },
+  }),
 })
