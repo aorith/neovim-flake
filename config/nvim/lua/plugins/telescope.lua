@@ -1,27 +1,24 @@
-require("telescope").setup({
-  defaults = {
-    layout_strategy = "horizontal",
+local tc = require("telescope")
+local tcb = require("telescope.builtin")
 
+tc.setup({
+  defaults = {
     layout_config = {
       vertical = {
         height = 0.9,
         width = 0.9,
-        preview_width = 0.60,
       },
       horizontal = {
         height = 0.9,
         width = 0.9,
-        preview_width = 0.60,
+        preview_width = 0.55,
       },
     },
 
     file_ignore_patterns = { "venv", "__pycache__", ".git" },
     mappings = {
       i = {
-        ["<c-t>"] = function(...)
-          return require("trouble.providers.telescope").open_with_trouble(...)
-        end,
-        -- disable if you want to use normal mode
+        -- disable if you want to use normal mode in telescope
         ["<esc>"] = function(...)
           require("telescope.actions").close(...)
         end,
@@ -35,15 +32,19 @@ require("telescope").setup({
   },
 })
 
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("manix")
+tc.load_extension("fzf")
+tc.load_extension("manix")
 
 --- keymaps
-vim.keymap.set("n", "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", { desc = "Switch Buffer" })
+vim.keymap.set("n", "<leader><space>", function()
+  tcb.buffers({
+    layout_strategy = "vertical",
+    layout_config = { prompt_position = "top", mirror = true, preview_height = 10 },
+  })
+end, { desc = "Switch Buffer" })
 
 vim.keymap.set("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
 -- find
-vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Buffers" })
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find Files" })
 vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent" })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Grep ALL" })
@@ -52,10 +53,7 @@ vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "co
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "status" })
 -- search
 vim.keymap.set("n", "<leader>/", function()
-  require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-    winblend = 5,
-    previewer = false,
-  }))
+  tcb.current_buffer_fuzzy_find({ layout_strategy = "vertical", layout_config = { mirror = true } })
 end, {
   desc = "Search current buffer",
 })
@@ -76,7 +74,7 @@ vim.keymap.set("n", "<leader>seo", "<cmd>Telescope vim_options<cr>", { desc = "O
 vim.keymap.set("n", "<leader>sem", "<cmd>Telescope marks<cr>", { desc = "Jump to Mark" })
 vim.keymap.set("n", "<leader>seM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" })
 vim.keymap.set("n", "<leader>ses", function()
-  require("telescope.builtin").lsp_document_symbols({
+  tcb.lsp_document_symbols({
     symbols = {
       "Class",
       "Function",
@@ -95,7 +93,7 @@ end, {
 })
 
 vim.keymap.set("n", "<leader>uC", function()
-  require("telescope.builtin").colorscheme({ enable_preview = true })
+  tcb.colorscheme({ enable_preview = true })
 end, {
   desc = "Colorscheme with preview",
 })

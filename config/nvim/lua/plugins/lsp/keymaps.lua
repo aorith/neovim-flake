@@ -1,3 +1,5 @@
+local utils = require("core.utils")
+
 local M = {}
 
 function M.set_keymaps(bufnr)
@@ -6,7 +8,25 @@ function M.set_keymaps(bufnr)
     vim.keymap.set(mode, map, cmd, bufopts)
   end
   local format = function()
-    vim.lsp.buf.format({ async = false, timeout_ms = 3000 })
+    vim.lsp.buf.format({
+      async = false,
+      timeout_ms = 3000,
+
+      -- excluded clients
+      filter = function(client)
+        if client.name == "sumneko_lua" or client.name == "lua_ls" or client.name == "nil_ls" then
+          return false
+        end
+        if client.name == "bashls" then
+          return false
+        end
+        if client.name == "pyright" then
+          return false
+        end
+
+        return true
+      end,
+    })
   end
 
   map("n", "<leader>lf", format, "Format Document")

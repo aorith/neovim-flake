@@ -13,14 +13,6 @@ local on_attach = function(client, bufnr)
     navic.attach(client, bufnr)
   end
 
-  -- disable formatting to null-ls takes care
-  if client.name == "sumneko_lua" or client.name == "lua_ls" or client.name == "nil_ls" then
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-    client.server_capabilities.formatting = false
-    client.server_capabilities.formatRange = false
-  end
-
   -- disable some more capabilities
   if client.name == "pylsp" then
     client.server_capabilities.renameProvider = false

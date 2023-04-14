@@ -42,12 +42,9 @@ map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- highlights under cursor
-if vim.fn.has("nvim-0.9.0") == 1 then
-  map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
-end
+map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
 -- buffers
-vim.keymap.set("n", "<leader><space>", "<cmd>Telescope buffers<CR>", { desc = "Find buffers" })
 vim.keymap.set("n", "<leader><TAB>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
 vim.keymap.set("n", "<leader>b", function()
   local curbufnr = vim.api.nvim_get_current_buf()

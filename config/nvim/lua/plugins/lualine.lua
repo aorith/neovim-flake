@@ -1,11 +1,26 @@
-local navic = require("nvim-navic")
+local spinner_frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+local function ls_status()
+  local msgs = vim.lsp.util.get_progress_messages()
+  if #msgs > 0 then
+    local msg = msgs[#msgs]
+    local spinner
+    if msg.percentage then
+      spinner = spinner_frames[(msg.percentage % #spinner_frames) + 1]
+    else
+      spinner = ""
+    end
+    return spinner .. " " .. msg.title .. ", " .. msg.message
+  end
+
+  return ""
+end
 
 local filename = {
   "filename",
   file_status = true,
   newfile_status = true,
   path = 1,
-  shorting_target = 35,
+  shorting_target = 40,
 
   symbols = {
     modified = "[+]",
@@ -13,24 +28,20 @@ local filename = {
     unnamed = "[No Name]",
     newfile = "[New]",
   },
-  component_separators = "",
-  section_separators = "",
 }
 
 local filetype = {
   "filetype",
-  colored = false,
-  icon_only = false,
-  component_separators = "",
-  section_separators = "",
+  colored = true,
+  icon_only = true,
+  padding = { left = 1, right = 0 },
 }
 
 local disabled_filetypes = { "dashboard", "lazy", "alpha", "neo-tree", "Trouble", "noice" }
 
 require("lualine").setup({
   options = {
-    theme = require("core.theme").theme_name(),
-    component_separators = "|",
+    component_separators = "",
     section_separators = "",
     icons_enabled = true,
     globalstatus = true,
@@ -42,14 +53,14 @@ require("lualine").setup({
     lualine_a = {
       "mode",
     },
-    lualine_b = { "branch" },
+    lualine_b = {},
     lualine_c = {
-      {
-        "diff",
-        on_click = function()
-          vim.cmd("Gitsigns diffthis")
-        end,
-      },
+      filetype,
+      filename,
+    },
+
+    lualine_x = {
+      { ls_status },
       {
         "diagnostics",
         on_click = function()
@@ -58,65 +69,10 @@ require("lualine").setup({
         end,
       },
     },
-
-    lualine_x = {},
     lualine_y = {
-      { "%P %l:%c%V", padding = { left = 1, right = 1 } }, -- cursor location
+      { "%l:%c%V %P 0x%B", padding = { left = 1, right = 1 } }, -- cursor location
     },
-    lualine_z = {
-      function()
-        return "0x%B"
-      end,
-    },
+    lualine_z = {},
   },
   inactive_sections = {},
-
-  --[[
-  tabline = {
-    lualine_a = {
-      {
-        "buffers",
-        mode = 2,
-        separator = "",
-        icons_enabled = false,
-        symbols = { alternate_file = "" },
-      },
-    },
-  },
-  --]]
-
-  winbar = {
-    lualine_a = {
-      { "%n" },
-    },
-    lualine_b = {
-      filename,
-    },
-    lualine_c = {
-      {
-        function()
-          return navic.get_location()
-        end,
-        cond = function()
-          return navic.is_available()
-        end,
-        component_separators = "",
-        section_separators = "",
-      },
-    },
-    lualine_x = {
-      filetype,
-    },
-  },
-  inactive_winbar = {
-    lualine_a = {
-      { "%n" },
-    },
-    lualine_b = {
-      filename,
-    },
-    lualine_x = {
-      filetype,
-    },
-  },
 })

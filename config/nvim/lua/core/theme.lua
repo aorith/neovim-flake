@@ -37,7 +37,7 @@ M.setup = function()
     require("catppuccin").setup({
       background = {
         light = "latte",
-        dark = "macchiato", -- frappe, macchiato, mocha
+        dark = "mocha", -- frappe, macchiato, mocha
       },
       show_end_of_buffer = true, -- show the '~' characters after the end of buffers
       term_colors = true,

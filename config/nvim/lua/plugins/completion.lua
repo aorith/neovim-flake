@@ -3,11 +3,12 @@ local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
 vim.opt.completeopt = "menu,menuone,noselect"
+local cmp_borders = cmp.config.window.bordered()
 
 cmp.setup({
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    completion = cmp_borders,
+    documentation = cmp_borders,
   },
 
   snippet = {
