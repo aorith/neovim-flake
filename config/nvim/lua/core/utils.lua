@@ -1,5 +1,21 @@
 local M = {}
 
+M.get_active_lsp_clients = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local active_servers = vim.lsp.get_active_clients({ bufnr = bufnr })
+  if #active_servers <= 0 then
+    return "No LSP servers running."
+  end
+
+  local header = "# Active LSP servers\n  "
+  local servers = ""
+  for _, c in pairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+    local state = c.initialized and " (running)" or " (starting)"
+    servers = servers .. "\n      " .. c.name .. state
+  end
+  return header .. servers
+end
+
 M.show_in_popup = function(text, ft)
   local Popup = require("nui.popup")
   local event = require("nui.utils.autocmd").event

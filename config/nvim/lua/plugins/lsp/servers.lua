@@ -36,8 +36,8 @@ return {
             globals = { "vim" },
           },
           workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
+            -- Make the server aware of Neovim runtime files and plugins
+            library = vim.api.nvim_get_runtime_file("lua", true),
             checkThirdParty = false,
           },
           telemetry = {

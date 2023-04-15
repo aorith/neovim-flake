@@ -1,16 +1,9 @@
-local get_active_lsp_clients = function()
-  local servers = "Active LSP servers\n---\n\n"
-  for _, c in pairs(vim.lsp.get_active_clients()) do
-    servers = servers .. "\n*   " .. c.name
-  end
-  return servers
-end
-
+local utils = require("core.utils")
 local map = vim.keymap.set
 
 -- Show active LSP clients
 map("n", "<leader>la", function()
-  require("core.utils").show_in_popup(get_active_lsp_clients(), "markdown")
+  utils.show_in_popup(utils.get_active_lsp_clients(), "markdown")
 end, { desc = "Get active LSP clients" })
 
 -- Misc
@@ -76,17 +69,13 @@ vim.keymap.set("n", "<leader>ub", function()
   end
 end, { remap = true, desc = "Toggle dark/light mode" })
 
--- TODO: vim.diagnostic.is_disabled is available in 0.9
-local diag_enabled = true
 vim.keymap.set("n", "<leader>ud", function()
-  if diag_enabled then
-    vim.diagnostic.disable()
-    diag_enabled = not diag_enabled
-  else
+  if vim.diagnostic.is_disabled() then
     vim.diagnostic.enable()
-    diag_enabled = not diag_enabled
+  else
+    vim.diagnostic.disable()
   end
-  vim.notify("Diagnostics: " .. (diag_enabled and "ENABLED" or "DISABLED"))
+  vim.notify("Diagnostics " .. (vim.diagnostic.is_disabled() and "OFF" or "ON"))
 end, { remap = true, desc = "Toggle diagnostics" })
 
 vim.keymap.set("n", "<leader>ul", function()
