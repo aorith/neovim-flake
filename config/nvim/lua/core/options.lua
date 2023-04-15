@@ -63,9 +63,6 @@ vim.opt.ignorecase = true -- Ignore case
 vim.opt.incsearch = true
 vim.opt.smartcase = true -- Disable ignorecase when the search term contains upper case characters
 
--- cmdline completion
---vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
-
 -- tabs and indent
 vim.opt.autoindent = true
 vim.opt.expandtab = true
@@ -92,6 +89,7 @@ vim.opt.titlestring = "nvim(%n)"
 -- splits
 vim.opt.splitkeep = "screen"
 vim.opt.splitright = true
+vim.opt.splitbelow = true
 -- characters used in the splits
 vim.opt.fillchars:append({
   horiz = "━",
