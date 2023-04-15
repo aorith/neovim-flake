@@ -7,11 +7,6 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    neovim = {
-      url = "github:neovim/neovim?dir=contrib";
-      #inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # declare external plugins here, name must start with 'plugin_' so they are builded and overlayed automatically
     # then include them in plugins.nix
     "plugin_vim-varnish" = {
