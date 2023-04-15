@@ -80,12 +80,6 @@ vim.opt.updatetime = 300 -- For CursorHold and swapfile
 vim.opt.wrap = false
 vim.opt.showbreak = "↳ "
 
--- title
-vim.opt.title = true
--- set titlestring to current path, avoid using current buffer options available
--- in statusline since it will cause tmux title to flicker on noice messages
-vim.opt.titlestring = "nvim(%n)"
-
 -- splits
 vim.opt.splitkeep = "screen"
 vim.opt.splitright = true
