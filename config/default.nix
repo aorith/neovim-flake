@@ -16,6 +16,7 @@
         black = pkgs.black;
         editorconfig_checker = pkgs.editorconfig-checker;
         golangci_lint = pkgs.golangci-lint;
+        isort = pkgs.isort;
         jq = pkgs.jq;
         prettier = pkgs.nodePackages.prettier;
         ruff = pkgs.ruff;
