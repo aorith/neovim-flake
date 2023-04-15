@@ -24,8 +24,6 @@ local on_attach = function(client, bufnr)
     client.server_capabilities.hoverProvider = false
     client.server_capabilities.hover = false
   end
-
-  require("plugins.lsp.keymaps").set_keymaps(bufnr)
 end
 
 -- Diagnostics

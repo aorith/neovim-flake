@@ -60,7 +60,6 @@ local null_ls_sources = {
 }
 
 null_ls.setup({
-  root_dir = null_ls_utils.root_pattern(".null-ls-root", "Makefile", ".git"),
-  debug = false,
   sources = null_ls_sources,
+  diagnostics_format = "#{m} (#{s})",
 })

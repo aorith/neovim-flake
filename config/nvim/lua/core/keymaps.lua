@@ -95,3 +95,50 @@ vim.keymap.set("", "<F1>", "<nop>") -- "" == map
 vim.keymap.set("!", "<F1>", "<nop>") -- "!" == map!
 vim.api.nvim_create_user_command("W", "w", { bang = true })
 vim.api.nvim_create_user_command("Q", "q", { bang = true })
+
+--- LSP
+-- having the keymaps outside of the 'on_attach' lsp allows to use them even if
+-- no lsp server is attached, useful for null-ls and I prefer the keymap to fail than to not exist
+
+-- format
+local format = function()
+  vim.lsp.buf.format({
+    async = false,
+    timeout_ms = 3000,
+
+    -- excluded clients
+    filter = function(client)
+      if client.name == "sumneko_lua" or client.name == "lua_ls" or client.name == "nil_ls" then
+        return false
+      end
+      if client.name == "bashls" then
+        return false
+      end
+      if client.name == "pyright" then
+        return false
+      end
+
+      return true
+    end,
+  })
+end
+vim.keymap.set("n", "<leader>lf", format, { desc = "Format Document" })
+vim.keymap.set("v", "<leader>lf", format, { desc = "Format Range" })
+
+-- diagnostics
+vim.keymap.set("n", "<leader>ll", vim.diagnostic.open_float, { desc = "[L]ine diagnostics" })
+vim.keymap.set("n", "<leader>lq", vim.diagnostic.setloclist, { desc = "Set Loc List" })
+vim.keymap.set("n", "<leader>lj", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+vim.keymap.set("n", "<leader>lk", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
+
+vim.keymap.set("n", "<leader>lc", vim.lsp.buf.code_action, { desc = "Code actions" })
+vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, { desc = "[H]over" })
+vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "[R]ename" })
+vim.keymap.set("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "[S]ignature" })
+
+-- without leader key
+vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "[G]oto [D]efinition" })
+vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "[G]oto [R]eferences" })
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
+vim.keymap.set("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "[G]oto [I]mplementation" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
