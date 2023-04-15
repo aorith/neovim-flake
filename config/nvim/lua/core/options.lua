@@ -15,7 +15,7 @@ vim.opt.autoindent = true
 vim.opt.confirm = true -- confirm to save changes before exiting a modified buffer
 vim.opt.cursorline = true -- Highlight cursor line
 vim.opt.cursorlineopt = "number"
-vim.opt.diffopt:append({ "linematch:50" }) -- https://github.com/neovim/neovim/pull/14537
+vim.opt.diffopt:append({ "linematch:50" }) -- better diff: https://github.com/neovim/neovim/pull/14537
 vim.opt.encoding = "utf-8"
 vim.opt.expandtab = true
 vim.opt.formatoptions = "jnlq"
