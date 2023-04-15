@@ -89,3 +89,9 @@ end, { remap = true, desc = "Toggle list chars" })
 
 -- undotree
 vim.keymap.set("n", "<leader>U", "<cmd>UndotreeToggle<cr>", { desc = "Undotree" })
+
+-- others
+vim.keymap.set("", "<F1>", "<nop>") -- "" == map
+vim.keymap.set("!", "<F1>", "<nop>") -- "!" == map!
+vim.api.nvim_create_user_command("W", "w", { bang = true })
+vim.api.nvim_create_user_command("Q", "q", { bang = true })

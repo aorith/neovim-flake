@@ -1,3 +1,6 @@
+local nvim_appname = require("core.utils").nvim_appname
+
+-- leader
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -11,21 +14,36 @@ vim.g.loaded_netrwPlugin = 1
 -- Disable perl provider
 vim.g.loaded_perl_provider = 0
 
-vim.opt.autoindent = true
+-- backup, swap and directory configuration
+vim.opt.viminfo:append("n" .. vim.fn.getenv("HOME") .. "/.local/share/" .. nvim_appname .. "/viminfo")
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.getenv("HOME") .. "/.local/share/" .. nvim_appname .. "/undodir//"
+vim.opt.backup = true
+vim.opt.backupdir = vim.fn.getenv("HOME") .. "/.local/share/" .. nvim_appname .. "/backup//"
+vim.opt.swapfile = true
+vim.opt.directory = vim.fn.getenv("HOME") .. "/.local/share/" .. nvim_appname .. "/swap//"
+
+-- encoding and ff
+vim.opt.encoding = "utf8"
+vim.opt.fileformats = "unix,dos,mac"
+
+-- misc
 vim.opt.confirm = true -- confirm to save changes before exiting a modified buffer
-vim.opt.cursorline = true -- Highlight cursor line
-vim.opt.cursorlineopt = "number"
 vim.opt.diffopt:append({ "linematch:50" }) -- better diff: https://github.com/neovim/neovim/pull/14537
-vim.opt.encoding = "utf-8"
-vim.opt.expandtab = true
 vim.opt.formatoptions = "jnlq"
-vim.opt.grepformat = "%f:%l:%c:%m"
-vim.opt.grepprg = "rg --vimgrep"
-vim.opt.hlsearch = true
-vim.opt.ignorecase = true -- Ignore case
-vim.opt.incsearch = true
-vim.opt.laststatus = 3
-vim.opt.linebreak = true
+vim.opt.mouse = "a"
+vim.opt.number = true
+vim.opt.report = 0 -- Always report the number of lines changed after :command
+vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
+vim.opt.showmode = false -- don't show mode - it's shown in the statusline
+vim.opt.winminwidth = 5 -- Minimum window width
+vim.wo.signcolumn = "yes" -- Show sign column, "yes:3" max 3 signs
+
+-- context
+vim.opt.scrolloff = 4 -- Lines of context
+vim.opt.sidescrolloff = 8 -- Columns of context
+
+-- list chars
 vim.opt.list = false
 vim.opt.listchars = {
   tab = ">-",
@@ -34,42 +52,46 @@ vim.opt.listchars = {
   extends = "…",
   precedes = "…",
 }
-vim.opt.backup = true
-vim.opt.mouse = "a"
-vim.opt.number = true
-vim.opt.pumblend = 0 -- Popup blend
-vim.opt.pumheight = 10 -- Maximum number of entries in a popup
-vim.opt.relativenumber = false
-vim.opt.report = 0 -- Always report the number of lines changed after :command
-vim.opt.scrolloff = 4 -- Lines of context
+
+-- cursorline
+vim.opt.cursorline = true -- Highlight cursor line
+vim.opt.cursorlineopt = "number" --only highlight the number
+
+-- search
+vim.opt.hlsearch = true
+vim.opt.ignorecase = true -- Ignore case
+vim.opt.incsearch = true
+vim.opt.smartcase = true -- Disable ignorecase when the search term contains upper case characters
+
+-- cmdline completion
+--vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
+
+-- tabs and indent
+vim.opt.autoindent = true
+vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
-vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
-vim.opt.showbreak = "↳ "
-vim.opt.showmode = false -- don't show mode - it's shown in the statusline
-vim.opt.sidescrolloff = 8 -- Columns of context
-vim.opt.signcolumn = "yes" -- Show sign column, "yes:3" max 3 signs
-vim.opt.smartcase = true -- Do not ignore case with capitals
 vim.opt.smartindent = true
 vim.opt.smarttab = true
 vim.opt.softtabstop = -1
-vim.opt.splitkeep = "screen"
-vim.opt.splitright = true
-vim.opt.swapfile = true
 vim.opt.tabstop = 4
-vim.opt.termguicolors = true
-vim.opt.timeoutlen = 350
-vim.opt.undofile = true
-vim.opt.updatetime = 250 -- For CursorHold and swapfile
-vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
-vim.opt.winminwidth = 5 -- Minimum window width
-vim.opt.wrap = false
-vim.opt.wrapscan = true
 
-vim.opt.title = false
+-- timers
+vim.opt.timeoutlen = 400
+vim.opt.updatetime = 300 -- For CursorHold and swapfile
+
+-- wrap
+vim.opt.wrap = false
+vim.opt.showbreak = "↳ "
+
+-- title
+vim.opt.title = true
 -- set titlestring to current path, avoid using current buffer options available
 -- in statusline since it will cause tmux title to flicker on noice messages
-vim.opt.titlestring = "nvim(" .. string.gsub(vim.fn.getenv("PWD"), vim.fn.getenv("HOME"), "~") .. ")"
+vim.opt.titlestring = "nvim(%n)"
 
+-- splits
+vim.opt.splitkeep = "screen"
+vim.opt.splitright = true
 -- characters used in the splits
 vim.opt.fillchars:append({
   horiz = "━",
@@ -81,20 +103,6 @@ vim.opt.fillchars:append({
   verthoriz = "╋",
 })
 
--- directory configuration
-vim.opt.viminfo:append("n" .. vim.fn.getenv("HOME") .. "/.local/share/nvim/viminfo")
-vim.opt.undodir = vim.fn.getenv("HOME") .. "/.local/share/nvim/undodir//"
-vim.opt.backupdir = vim.fn.getenv("HOME") .. "/.local/share/nvim/backup//"
-vim.opt.directory = vim.fn.getenv("HOME") .. "/.local/share/nvim/swap//"
-
--- others
-vim.keymap.set("", "<F1>", "<nop>") -- "" == map
-vim.keymap.set("!", "<F1>", "<nop>") -- "!" == map!
-vim.api.nvim_create_user_command("W", "w", { bang = true })
-vim.api.nvim_create_user_command("Q", "q", { bang = true })
-
--- Use signs for diagnostics in the gutter. By default, neovim uses EWHI.
-vim.cmd("sign define DiagnosticSignError text= texthl=DiagnosticSignError")
-vim.cmd("sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn")
-vim.cmd("sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo")
-vim.cmd("sign define DiagnosticSignHint text= texthl=DiagnosticSignHint")
+-- grep
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"

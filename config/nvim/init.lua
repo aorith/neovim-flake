@@ -1,4 +1,4 @@
-require("core.theme").setup()
+require("core.theme")
 require("core.utils")
 
 require("core.options")

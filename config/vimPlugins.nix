@@ -50,6 +50,7 @@ with pkgs.vimPlugins; [
   plenary-nvim
   refactoring-nvim
 
+  vim-commentary
   vim-fugitive
 
   # not in nixpkgs

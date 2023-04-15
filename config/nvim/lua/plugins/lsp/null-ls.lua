@@ -1,3 +1,4 @@
+local utils = require("core.utils")
 local null_ls = require("null-ls")
 local null_ls_utils = require("null-ls.utils")
 
@@ -31,12 +32,12 @@ local null_ls_sources = {
   --[[ TODO: https://github.com/charliermarsh/ruff/issues/1904
   formatting.ruff.with({
     command = "@ruff@/bin/ruff",
-    extra_args = { "--config", require("core.utils").get_pyproject_path() },
+    extra_args = { "--config", utils.get_pyproject_path() },
   }),
   --]]
   diagnostics.ruff.with({
     command = "@ruff@/bin/ruff",
-    extra_args = { "--config", require("core.utils").get_pyproject_path() },
+    extra_args = { "--config", utils.get_pyproject_path() },
   }),
 
   -- mixins
@@ -45,7 +46,7 @@ local null_ls_sources = {
   formatting.yamlfmt.with({ command = "@yamlfmt@/bin/yamlfmt" }),
   formatting.stylua.with({
     command = "@stylua@/bin/stylua",
-    extra_args = { "--config-path", vim.fn.getenv("XDG_CONFIG_HOME") .. "/nvim/stylua.toml" },
+    extra_args = { "--config-path", vim.fn.getenv("XDG_CONFIG_HOME") .. "/" .. utils.nvim_appname .. "/stylua.toml" },
   }),
   diagnostics.tidy.with({ command = "@tidy@/bin/tidy" }),
   diagnostics.yamllint.with({ command = "@yamllint@/bin/yamllint" }),
