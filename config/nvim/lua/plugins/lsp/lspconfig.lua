@@ -32,29 +32,15 @@ end
 vim.diagnostic.config({
   signs = true,
   underline = true,
-  update_in_insert = false,
+  update_in_insert = false, -- false so diags are update on InsertLeave
   --virtual_text = { spacing = 4, prefix = "●" },
   virtual_text = false,
-  severity_sort = true,
   float = {
     focusable = false,
-    format = function(diagnostic)
-      -- custom format message
-      if diagnostic == nil then
-        return "No diagnostics."
-      end
-      local code = ""
-      if diagnostic.code ~= nil then
-        code = diagnostic.code
-      elseif diagnostic.user_data ~= nil then
-        code = (diagnostic.user_data.lsp or { code = "" }).code or ""
-      end
-      return string.format("%s [%s]", diagnostic.message, code)
-    end,
+    style = "minimal",
     border = "rounded",
     source = "always",
-    header = "Diagnostics:",
-    prefix = " ",
+    header = "",
   },
 })
 
