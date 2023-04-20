@@ -2,6 +2,7 @@
 with pkgs.vimPlugins; [
   # theme
   catppuccin-nvim
+  gruvbox-nvim
   #kanagawa-nvim
   #nord-nvim
   #onedark-nvim
