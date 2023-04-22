@@ -11,6 +11,9 @@ tc.setup({
         ["<esc>"] = function(...)
           require("telescope.actions").close(...)
         end,
+        ["<c-d>"] = function(...)
+          require("telescope.actions").delete_buffer(...)
+        end,
       },
       n = {
         ["q"] = function(...)
@@ -26,7 +29,9 @@ tc.load_extension("manix")
 
 --- keymaps
 vim.keymap.set("n", "<leader><space>", function()
-  tcb.buffers(tct.get_dropdown({ layout_config = { width = 0.8 } }))
+  tcb.buffers(tct.get_dropdown({
+    layout_config = { width = 0.8 },
+  }))
 end, { desc = "Switch Buffer" })
 
 vim.keymap.set("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
