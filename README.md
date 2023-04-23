@@ -38,9 +38,20 @@ nix profile list | grep neovim
 nix profile upgrade 2
 ```
 
+### Home Manager
+
+Override the package in `programs.neovim.package`.
+
+```nix
+  programs.neovim = {
+    enable = true;
+    package = inputs.neovim-flake.packages.${pkgs.system}.default;
+  };
+```
+
 ### NixOS
 
-Add the default package `environment.systemPackages` (or use home-manager).
+Add the default package `environment.systemPackages`.
 This is an (incomplete) example:
 
 ```nix
