@@ -40,6 +40,7 @@ nix profile upgrade 2
 
 ### Home Manager
 
+This was **not** tested.  
 Override the package in `programs.neovim.package`.
 
 ```nix
