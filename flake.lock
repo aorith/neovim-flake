@@ -34,6 +34,23 @@
         "type": "github"
       }
     },
+    "plugin_neo-tree-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682256597,
+        "narHash": "sha256-Wf+/dJBn7g9ywOwP1BzXOeajo4bECngK82wSr80nWKQ=",
+        "owner": "nvim-neo-tree",
+        "repo": "neo-tree.nvim",
+        "rev": "8d485aab32da9b8841d4af977f992b82b14af469",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-neo-tree",
+        "ref": "2.59",
+        "repo": "neo-tree.nvim",
+        "type": "github"
+      }
+    },
     "plugin_vim-fugitive": {
       "flake": false,
       "locked": {
@@ -70,6 +87,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
+        "plugin_neo-tree-nvim": "plugin_neo-tree-nvim",
         "plugin_vim-fugitive": "plugin_vim-fugitive",
         "plugin_vim-varnish": "plugin_vim-varnish"
       }
