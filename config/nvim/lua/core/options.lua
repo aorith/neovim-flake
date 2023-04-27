@@ -28,9 +28,10 @@ vim.opt.encoding = "utf8"
 vim.opt.fileformats = "unix,dos,mac"
 
 -- misc
+vim.opt.cinkeys:remove("0#") -- don't reindent on # char
 vim.opt.confirm = true -- confirm to save changes before exiting a modified buffer
 vim.opt.diffopt:append({ "linematch:50" }) -- better diff: https://github.com/neovim/neovim/pull/14537
-vim.opt.formatoptions = "jnlq"
+vim.opt.formatoptions = "qjl"
 vim.opt.mouse = "a"
 vim.opt.number = true
 vim.opt.report = 0 -- Always report the number of lines changed after :command

@@ -25,6 +25,9 @@ map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
+-- Don't reset indent on '#', see :h smartindent
+map("i", "#", "X#")
+
 -- Get highlight group under cursor
 map("n", "<C-e>", function()
   local result = vim.treesitter.get_captures_at_cursor(0)
