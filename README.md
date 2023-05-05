@@ -38,18 +38,6 @@ nix profile list | grep neovim
 nix profile upgrade 2
 ```
 
-### Home Manager
-
-This was **not** tested.  
-Override the package in `programs.neovim.package`.
-
-```nix
-  programs.neovim = {
-    enable = true;
-    package = inputs.neovim-flake.packages.${pkgs.system}.default;
-  };
-```
-
 ### NixOS
 
 Add the default package `environment.systemPackages`.
@@ -87,4 +75,12 @@ Or add the overlay to your `nixpkgs` and include `pkgs.aorith.neovim` in `enviro
     ];
 ```
 
-You can override the flake's `nixpkgs` with `neovim-flake.inputs.nixpkgs.follows = "nixpkgs";` to use your pinned version of `nixpkgs` but then the package is not guaranteed to build (as of today, it requires packages from unstable).
+You can override this flake `nixpkgs` input with `neovim-flake.inputs.nixpkgs.follows = "nixpkgs";` to use your pinned version of `nixpkgs`.
+
+### Home Manager
+
+Add it to `home.packages`.
+
+```nix
+home.packages = [ inputs.neovim-flake.packages.${pkgs.system}.default ];
+```
