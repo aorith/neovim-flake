@@ -20,11 +20,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1683194677,
-        "narHash": "sha256-Am7aCGNy/h6RMnvg7Pn4PHQXZZq9FyIUA9klYxBwyDI=",
+        "lastModified": 1683408522,
+        "narHash": "sha256-9kcPh6Uxo17a3kK3XCHhcWiV1Yu1kYj22RHiymUhMkU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0d8145a5d81ebf6698077b21042380a3a66a11c7",
+        "rev": "897876e4c484f1e8f92009fd11b7d988a121a4e7",
         "type": "github"
       },
       "original": {
@@ -37,16 +37,16 @@
     "plugin_neo-tree-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1682256597,
-        "narHash": "sha256-Wf+/dJBn7g9ywOwP1BzXOeajo4bECngK82wSr80nWKQ=",
+        "lastModified": 1683639547,
+        "narHash": "sha256-hg7o4VyDDUS8feQU1N+h8yjZSyQblOrYIaKZr/9OGLc=",
         "owner": "nvim-neo-tree",
         "repo": "neo-tree.nvim",
-        "rev": "8d485aab32da9b8841d4af977f992b82b14af469",
+        "rev": "541f5c92d2492041afb354e2df6e74809094b051",
         "type": "github"
       },
       "original": {
         "owner": "nvim-neo-tree",
-        "ref": "2.59",
+        "ref": "2.61",
         "repo": "neo-tree.nvim",
         "type": "github"
       }
