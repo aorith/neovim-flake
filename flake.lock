@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1681202837,
-        "narHash": "sha256-H+Rh19JDwRtpVPAWp64F+rlEtxUWBAQW28eAi3SRSzg=",
+        "lastModified": 1685518550,
+        "narHash": "sha256-o2d0KcvaXzTrPRIo0kOLV0/QXHhDQ5DTi+OxcjO8xqY=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "cfacdce06f30d2b68473a46042957675eebb3401",
+        "rev": "a1720a10a6cfe8234c0e93907ffe81be440f4cef",
         "type": "github"
       },
       "original": {
@@ -20,11 +20,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1683408522,
-        "narHash": "sha256-9kcPh6Uxo17a3kK3XCHhcWiV1Yu1kYj22RHiymUhMkU=",
+        "lastModified": 1686412476,
+        "narHash": "sha256-inl9SVk6o5h75XKC79qrDCAobTD1Jxh6kVYTZKHzewA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "897876e4c484f1e8f92009fd11b7d988a121a4e7",
+        "rev": "21951114383770f96ae528d0ae68824557768e81",
         "type": "github"
       },
       "original": {
@@ -37,16 +37,16 @@
     "plugin_neo-tree-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1683639547,
-        "narHash": "sha256-hg7o4VyDDUS8feQU1N+h8yjZSyQblOrYIaKZr/9OGLc=",
+        "lastModified": 1686087449,
+        "narHash": "sha256-xr6wl0qZ8/9ogQDEJcWVilyooVXrAZmlNPAFI5dUrsI=",
         "owner": "nvim-neo-tree",
         "repo": "neo-tree.nvim",
-        "rev": "541f5c92d2492041afb354e2df6e74809094b051",
+        "rev": "d883632bf8f92f1d5abea4a9c28fb2f90aa795aa",
         "type": "github"
       },
       "original": {
         "owner": "nvim-neo-tree",
-        "ref": "2.61",
+        "ref": "2.64",
         "repo": "neo-tree.nvim",
         "type": "github"
       }
@@ -70,11 +70,11 @@
     "plugin_vim-varnish": {
       "flake": false,
       "locked": {
-        "lastModified": 1671145615,
-        "narHash": "sha256-RVAj/igIcJidED+7IMDXcx9FA6OpGGg6BPcG2jUO0Kg=",
+        "lastModified": 1685267619,
+        "narHash": "sha256-nW0dLP2JlbVfIW4WPU8qPVnOdZlc1QoYhyQYFhMPVGQ=",
         "owner": "varnishcache-friends",
         "repo": "vim-varnish",
-        "rev": "a75937613a34118475a311d379025eb57ea101fb",
+        "rev": "5f6050c3c215968ac84dc4a48a4968a054390fd1",
         "type": "github"
       },
       "original": {
