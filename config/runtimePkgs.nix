@@ -8,5 +8,6 @@ with pkgs; [
   git
   gitui
   manix # nix documentation
+  nix
   ripgrep
 ]
