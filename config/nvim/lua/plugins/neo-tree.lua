@@ -5,7 +5,9 @@ require("neo-tree").setup({
   enable_diagnostics = false,
   filesystem = {
     bind_to_cwd = false,
-    follow_current_file = true,
+    follow_current_file = {
+      enabled = true,
+    },
   },
   default_component_configs = {
     name = {
@@ -26,7 +28,7 @@ require("neo-tree").setup({
       event = "file_opened",
       handler = function(file_path)
         --auto close
-        require("neo-tree").close_all()
+        require("neo-tree.command").execute({ action = "close" })
       end,
     },
   },
