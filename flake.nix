@@ -18,7 +18,7 @@
       flake = false;
     };
     "plugin_neo-tree-nvim" = {
-      url = "github:nvim-neo-tree/neo-tree.nvim?ref=3.0";
+      url = "github:nvim-neo-tree/neo-tree.nvim?ref=3.1";
       flake = false;
     };
   };
