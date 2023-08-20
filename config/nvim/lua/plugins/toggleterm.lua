@@ -1,6 +1,6 @@
 require("toggleterm").setup({
   open_mapping = [[<c-t>]],
-  size = 25,
+  -- size = 25,
 })
 
 local Terminal = require("toggleterm.terminal").Terminal

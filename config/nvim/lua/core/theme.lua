@@ -1,7 +1,7 @@
 vim.opt.termguicolors = true
 vim.o.background = "dark"
 
-local theme = "gruvbox"
+local theme = "kanagawa"
 
 --- kanagawa
 if theme == "kanagawa" then

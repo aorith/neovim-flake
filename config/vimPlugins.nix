@@ -3,10 +3,10 @@ with pkgs.vimPlugins; [
   # theme
   catppuccin-nvim
   gruvbox-nvim
-  #kanagawa-nvim
-  #nord-nvim
-  #onedark-nvim
-  #tokyonight-nvim
+  kanagawa-nvim
+  nord-nvim
+  onedark-nvim
+  tokyonight-nvim
 
   lualine-nvim
   neo-tree-nvim
