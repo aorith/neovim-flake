@@ -73,11 +73,11 @@ require("lualine").setup({
     icons_enabled = true,
     globalstatus = false,
   },
-  extensions = { "neo-tree", "quickfix", "toggleterm", "trouble" },
+  extensions = { "neo-tree", "nvim-tree", "quickfix", "toggleterm", "trouble" },
 
   sections = {
     lualine_a = { components.mode },
-    lualine_b = {},
+    lualine_b = { "branch" },
     lualine_c = { components.filetype, components.filename, components.diagnostics },
 
     lualine_x = { components.ls_status },

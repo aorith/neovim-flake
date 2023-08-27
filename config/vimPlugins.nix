@@ -6,15 +6,18 @@ with pkgs.vimPlugins; [
   kanagawa-nvim
   nord-nvim
   onedark-nvim
+  onenord-nvim
   tokyonight-nvim
 
-  lualine-nvim
-  neo-tree-nvim
-  which-key-nvim
   #indent-blankline-nvim
+  neo-tree-nvim
+  bufferline-nvim
   gitsigns-nvim
-  undotree
+  lualine-nvim
+  nvim-tree-lua
   toggleterm-nvim
+  undotree
+  which-key-nvim
 
   telescope-nvim
   telescope-fzf-native-nvim

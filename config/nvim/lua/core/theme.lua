@@ -15,6 +15,10 @@ if theme == "kanagawa" then
   })
   vim.cmd.colorscheme("kanagawa")
 
+--- onenord
+elseif theme == "onenord" then
+  require("onenord").setup()
+
 --- nord
 elseif theme == "nord" then
   vim.g.nord_borders = true
