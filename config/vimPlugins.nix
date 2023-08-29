@@ -11,7 +11,8 @@ with pkgs.vimPlugins; [
 
   #indent-blankline-nvim
   neo-tree-nvim
-  bufferline-nvim
+  #bufferline-nvim
+  barbar-nvim
   gitsigns-nvim
   lualine-nvim
   nvim-tree-lua

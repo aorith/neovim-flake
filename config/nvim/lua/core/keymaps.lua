@@ -41,8 +41,9 @@ map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 
 -- buffers
-vim.keymap.set("n", "<leader><TAB>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
-vim.keymap.set("n", "<leader>b", function()
+-- (handled by barbar) vim.keymap.set("n", "<leader><TAB>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
+
+vim.keymap.set("n", "<leader>bb", function()
   local curbufnr = vim.api.nvim_get_current_buf()
   local bufinfo
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do

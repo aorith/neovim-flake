@@ -3,10 +3,7 @@ wk.setup({ plugins = { spelling = true } })
 
 local keymaps = {
   mode = { "n", "v" },
-  ["g"] = { name = "+goto" },
-  ["gz"] = { name = "+surround" },
-  ["]"] = { name = "+next" },
-  ["["] = { name = "+prev" },
+  ["<leader>b"] = { name = "+buffers" },
   ["<leader>c"] = { name = "+code" },
   ["<leader>f"] = { name = "+file/find" },
   ["<leader>g"] = { name = "+git" },
@@ -18,5 +15,9 @@ local keymaps = {
   ["<leader>u"] = { name = "+ui" },
   ["<leader>w"] = { name = "+windows" },
   ["<leader>x"] = { name = "+diagnostics/quickfix" },
+  ["["] = { name = "+prev" },
+  ["]"] = { name = "+next" },
+  ["g"] = { name = "+goto" },
+  ["gz"] = { name = "+surround" },
 }
 wk.register(keymaps)
