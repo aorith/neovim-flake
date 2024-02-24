@@ -1,52 +1,63 @@
-# My neovim flake
+# Aorith's neovim flake
 
-A flake that bundles neovim together with my configuration and required tools, linters, LSP's binaries, etc.
+A flake that bundles Neovim together with my configuration, including required tools, linters, and LSP binaries.
 
-## Run this configuration
+## Run This Configuration
 
-You can run this configuration without installing it in your system, everything is bundled
-in the nix store except for the files that neovim creates under `~/.local/...`
+You can run this configuration without installing it on your system. Everything is bundled in the Nix store, except for the files that Neovim creates under `~/.local/...`.
 
-```nix
-nix run github:aorith/neovim-flake
+```sh
+nix run github:aorith/neovim-flake#nvim
 ```
 
 ## Development
 
-Run the flake directly from the local folder.
+Run the flake directly from the local folder:
 
-```nix
-nix run ~/githome/neovim-flake
+```sh
+nix run /path/to/your/local/neovim-flake#nvim
 ```
+
+Replace `/path/to/your/local/` with the actual path to your local flake directory.
+
+To provide a clear explanation of the folder structure in your Neovim flake configuration, you can include the following section in your README. This explanation will help users understand the purpose of each directory and file in your flake:
+
+## Folder Structure
+
+- `nvim/`: Contains the standard Neovim configuration files, similar to what you would find in `~/.config/nvim`. The contents of this directory are copied to the Nix store at build time (ensure all the files are tracked by git).
+
+- `nix/neovim-overlay.nix`: Overlay of the Neovim package provided by `nixpkgs` with additional configuration, plugins, and dependencies specified in this flake. The overlaid package is called `nvim-aorith`.
+
+- `nix/plugins.nix`: This file specifies the Neovim plugins to be included in the configuration. Plugins can be defined directly from `nixpkgs` or included from the flake inputs.
+
+- `nix/packages.nix`: This file lists extra packages that will be made available in Neovim's `$PATH`. These packages might include tools, linters, formatters, language servers, or any other binaries that Neovim plugins or configurations might invoke.
 
 ## Installation
 
 ### Nix Profile
 
-Imperative installation using `nix profile`.
+For an imperative installation using `nix profile`, use the following command:
 
-```nix
-nix profile install github:aorith/neovim-flake
+```sh
+nix profile install github:aorith/neovim-flake#nvim
 ```
 
-Update using `nix profile upgrade <NUMBER>`.
+To update, first find the profile number associated with your Neovim flake installation using `nix profile list`, and then use `nix profile upgrade` with the profile number:
 
-```nix
+```sh
 nix profile list | grep neovim
-# 2 github:aorith/neovim-flake#packages.aarch64-darwin.default github:aorith/neovim-flake/3454e487b2a428694c84d6617cf1f1ea95aa8270#packages.aarch64-darwin.default /nix/store/p4rlazrss7691pxr1hfgd9qfhs0wdv6d-nvim
-
+# Assume the profile number is 2 for the next command
 nix profile upgrade 2
 ```
 
 ### NixOS
 
-Add the default package `environment.systemPackages`.
-This is an (incomplete) example:
+To declaratively install this flake in a NixOS configuration, add the package to `environment.systemPackages`. Here's an example configuration snippet:
 
 ```nix
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim-flake.url = "github:aorith/neovim-flake";
     # ...
   };
@@ -66,20 +77,18 @@ This is an (incomplete) example:
 }
 ```
 
-Or add the overlay to your `nixpkgs` and include `pkgs.aorith.neovim` in `environment.systemPackages`:
+Or, add the flake's overlay to your `nixpkgs` and include the Neovim package in `environment.systemPackages`:
 
 ```nix
-    modules = [
-      ({pkgs, ...}: {nixpkgs.overlays = [inputs.neovim-flake.overlays.default];})
-      ({pkgs, ...}: {environment.systemPackages = [pkgs.aorith.neovim];})
-    ];
+modules = [
+  ({pkgs, ...}: {nixpkgs.overlays = [inputs.neovim-flake.overlays.default];})
+  ({pkgs, ...}: {environment.systemPackages = [pkgs.nvim-aorith];})
+];
 ```
-
-You can override this flake `nixpkgs` input with `neovim-flake.inputs.nixpkgs.follows = "nixpkgs";` to use your pinned version of `nixpkgs`.
 
 ### Home Manager
 
-Add it to `home.packages`.
+To include it in your Home Manager configuration, add the package to `home.packages`:
 
 ```nix
 home.packages = [ inputs.neovim-flake.packages.${pkgs.system}.default ];
