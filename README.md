@@ -39,13 +39,17 @@ To provide a clear explanation of the folder structure in your Neovim flake conf
 For an imperative installation using `nix profile`, use the following command:
 
 ```sh
+# Remote install
 nix profile install github:aorith/neovim-flake#nvim
+
+# Or install it using a local clone of this repository
+nix profile install /path/to/neovim-flake/#nvim
 ```
 
 To update, first find the profile number associated with your Neovim flake installation using `nix profile list`, and then use `nix profile upgrade` with the profile number:
 
 ```sh
-nix profile list | grep neovim
+nix profile list # Find the index number for this flake
 # Assume the profile number is 2 for the next command
 nix profile upgrade 2
 ```
