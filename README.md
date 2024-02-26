@@ -85,7 +85,7 @@ Or, add the flake's overlay to your `nixpkgs` and include the Neovim package in 
 
 ```nix
 modules = [
-  ({pkgs, ...}: {nixpkgs.overlays = [inputs.neovim-flake.overlays.default];})
+  ({inputs, ...}: {nixpkgs.overlays = [inputs.neovim-flake.overlays.${system}.default];})
   ({pkgs, ...}: {environment.systemPackages = [pkgs.nvim-aorith];})
 ];
 ```

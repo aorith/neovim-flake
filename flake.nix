@@ -21,9 +21,10 @@
   } @ inputs:
     flake-utils.lib.eachDefaultSystem (system: let
       # Import Neovim overlay
+      neovim-overlay = import ./nix/neovim-overlay.nix {inherit inputs;};
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [(import ./nix/neovim-overlay.nix {inherit inputs;})];
+        overlays = [neovim-overlay];
       };
 
       # Neovim package
@@ -38,6 +39,6 @@
       formatter = pkgs.alejandra;
 
       # Overlay for NixOS configuration
-      overlays.default = self.overlays.neovim-overlay;
+      overlays.default = neovim-overlay;
     });
 }
