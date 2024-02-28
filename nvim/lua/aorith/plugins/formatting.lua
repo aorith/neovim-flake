@@ -30,7 +30,7 @@ local opts = {
     typescript = { "prettierd" },
     typescriptreact = { "prettierd" },
 
-    yaml = { "yamlfix" }, -- or prettierd
+    yaml = { "yamlfmt" }, -- yamlfmt/yamlfix/prettierd
     go = { "goimports", "gofmt" },
     lua = { "stylua" },
     nix = { "alejandra" },

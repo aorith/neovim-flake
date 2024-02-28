@@ -33,6 +33,18 @@ local on_attach = function(client, bufnr)
   -- disable hover in favor of pyright
   if client.name == "ruff_lsp" then client.server_capabilities.hoverProvider = false end
 
+  -- When you move your cursor, the highlights will be cleared (the second autocommand).
+  if client and client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
+
   -- notify attachment
   ---@diagnostic disable-next-line: param-type-mismatch
   vim.notify(client.name .. " started", vim.log.levels.INFO, {
@@ -41,8 +53,12 @@ local on_attach = function(client, bufnr)
   })
 end
 
---local capabilities = vim.lsp.protocol.make_client_capabilities()
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- LSP servers and clients are able to communicate to each other what features they support.
+--  By default, Neovim doesn't support everything that is in the LSP Specification.
+--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 -- Load LSP
 require("neodev").setup() -- make sure to setup neodev BEFORE lspconfig

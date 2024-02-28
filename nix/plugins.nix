@@ -47,6 +47,7 @@ in
     vim-fugitive
     trouble-nvim
     neo-tree-nvim
+    vim-sleuth
 
     telescope-nvim
     telescope-zf-native-nvim

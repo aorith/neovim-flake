@@ -15,7 +15,8 @@ with pkgs; [
   shfmt
   stylua
   xmlformat
-  yamlfix
+  #yamlfix
+  yamlfmt
 
   # Linters
   typos
