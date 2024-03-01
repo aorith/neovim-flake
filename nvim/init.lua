@@ -7,7 +7,6 @@ require("aorith.core.keymaps")
 
 require("aorith.plugins.mini")
 require("aorith.plugins.neotree")
-require("aorith.plugins.statuscol")
 require("aorith.plugins.trouble")
 require("aorith.plugins.telescope")
 require("aorith.plugins.treesitter")

@@ -52,8 +52,6 @@ in
     telescope-nvim
     telescope-zf-native-nvim
 
-    statuscol-nvim
-
     # Dependencies
     sqlite-lua
     plenary-nvim
