@@ -128,19 +128,17 @@ end
 -- Download spellang files
 local function ensure_spell_file(lang)
   local spell_dir = vim.fn.stdpath("data") .. "/site/spell"
+  vim.fn.mkdir(spell_dir, "p")
   local spell_file = spell_dir .. "/" .. lang .. ".spl"
 
   local url = "http://ftp.vim.org/pub/vim/runtime/spell/" .. lang .. ".spl"
-  local command = "curl -o " .. spell_file .. " " .. url
+  local command = "curl --fail -L -s -o " .. spell_file .. " " .. url
   os.execute(command)
   vim.notify("Downloaded " .. lang .. " spell file")
 end
-
--- Call this function with the desired language code when needed
 M.download_spell_files = function()
-  ensure_spell_file("en")
-  ensure_spell_file("en_us")
-  ensure_spell_file("es")
+  ensure_spell_file("en.utf-8")
+  ensure_spell_file("es.utf-8")
 end
 
 return M
