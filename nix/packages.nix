@@ -1,8 +1,9 @@
 {pkgs}:
 with pkgs; [
   # Dependencies
-  ripgrep
+  fd
   git
+  ripgrep
   sqlite
 
   # Formatters
