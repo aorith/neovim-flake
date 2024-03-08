@@ -15,17 +15,6 @@ map("n", "<LocalLeader>c", utils.markdown_insert_codeblock, { buffer = 0, desc =
 map("n", "tt", utils.markdown_todo_toggle, { buffer = 0, desc = "Toggle To-Do" })
 map("n", "<CR>", vim.lsp.buf.definition, { buffer = 0, desc = "Follow link (go to definition)" })
 
--- Switch to the current directory of the file if it's a note
--- local A = vim.api
--- local my_au = A.nvim_create_augroup("AORITH_MD", { clear = true })
--- A.nvim_create_autocmd("BufWinEnter", {
---   group = my_au,
---   pattern = "*.md",
---   callback = function()
---     if string.find(vim.api.nvim_buf_get_name(0), "/SYNC_STUFF/") then vim.cmd("cd %:p:h") end
---   end,
--- })
-
 -- Highlight markdown 'tags'
 ---@diagnostic disable-next-line: inject-field
 vim.b.minihipatterns_config = {

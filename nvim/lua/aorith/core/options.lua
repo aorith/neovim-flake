@@ -23,7 +23,8 @@ g.loaded_netrwSettings = 1
 g.loaded_netrwFileHandlers = 1
 
 -- General options
-opt.modelineexpr, opt.undofile = false, true -- Disable modeline expressions for security, enable persistent undo
+opt.modelineexpr = false -- Disable modeline expressions for security
+opt.undofile = true
 opt.backup, opt.writebackup = false, false -- Disable file backups
 opt.path:append("**") -- Search down into subfolders
 
@@ -43,7 +44,10 @@ opt.termguicolors = true
 
 -- Indentation and formatting
 opt.autoindent, opt.smartindent = true, true -- Auto indenting and smart indenting
-opt.expandtab, opt.shiftwidth, opt.tabstop, opt.softtabstop = true, 4, 4, -1 -- Use spaces instead of tabs, set tab width
+opt.expandtab = true -- Spaces instead of tabs
+opt.shiftwidth = 4 -- TAB equals 4 spaces
+opt.tabstop = 8 -- Default tab size
+opt.softtabstop = -1 -- Copy shiftwidth value
 opt.breakindent = true -- Indent wrapped lines
 opt.wrap = false -- Disable line wrap
 opt.linebreak = true -- Enable line break on words
