@@ -20,13 +20,11 @@ with pkgs; [
   yamlfmt
 
   # Linters
-  typos
-  vale
-  proselint
   djlint
   golangci-lint
-  yamllint
   shellcheck
+  typos
+  yamllint
 
   # LSP
   lua-language-server
