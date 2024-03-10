@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
 
     # External plugins
     vim-varnish.url = "github:varnishcache-friends/vim-varnish";
@@ -13,32 +12,31 @@
     mini-nvim.flake = false;
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-    ...
-  } @ inputs:
-    flake-utils.lib.eachDefaultSystem (system: let
-      # Import Neovim overlay
-      neovim-overlay = import ./nix/neovim-overlay.nix {inherit inputs;};
-      pkgs = import nixpkgs {
+  outputs = {nixpkgs, ...} @ inputs: let
+    eachSystem = nixpkgs.lib.genAttrs ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
+
+    # Import Neovim overlay
+    neovim-overlay = import ./nix/neovim-overlay.nix {inherit inputs;};
+
+    # Pkgs with the neovim overlay
+    # it will contain each system: 'pkgs.x86_64-linux, pkgs.aarch64-linux, ...'
+    pkgs = eachSystem (system:
+      import nixpkgs {
         inherit system;
         overlays = [neovim-overlay];
-      };
+      });
+  in {
+    # Overlay for NixOS configuration
+    overlays.default = neovim-overlay;
 
-      # Neovim package
-      nvim = pkgs.nvim-aorith;
-    in {
-      packages = {
-        default = nvim;
-        nvim = nvim;
-      };
-
-      # Formatter for 'nix fmt'
-      formatter = pkgs.alejandra;
-
-      # Overlay for NixOS configuration
-      overlays.default = neovim-overlay;
+    # Default package for 'nix run .'
+    packages = eachSystem (system: {
+      default = pkgs.${system}.nvim-aorith;
+      nvim = pkgs.${system}.nvim-aorith;
     });
+
+    # Formatter for 'nix fmt'
+    # I don't need to use the overlaid pkgs, so just regular one from legacyPackages
+    formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
+  };
 }
