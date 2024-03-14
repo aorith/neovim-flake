@@ -26,7 +26,7 @@ To provide a clear explanation of the folder structure in your Neovim flake conf
 
 - `nvim/`: Contains the standard Neovim configuration files, similar to what you would find in `~/.config/nvim`. The contents of this directory are copied to the Nix store at build time (ensure all the files are tracked by git).
 
-- `nix/neovim-overlay.nix`: Overlay of the Neovim package provided by `nixpkgs` with additional configuration, plugins, and dependencies specified in this flake. The overlaid package is called `nvim-aorith`.
+- `nix/neovim.nix`: Neovim package provided by `nixpkgs` with additional configuration, plugins, and dependencies specified in this flake. Two packages are available `nvim-with-config` with the neovim configuration embedded in the nix store and `nvim-without-config` which uses the configuration from `~/.config/nvim-nix`.
 
 - `nix/plugins.nix`: This file specifies the Neovim plugins to be included in the configuration. Plugins can be defined directly from `nixpkgs` or included from the flake inputs.
 
@@ -79,15 +79,6 @@ To declaratively install this flake in a NixOS configuration, add the package to
     };
   };
 }
-```
-
-Or, add the flake's overlay to your `nixpkgs` and include the Neovim package in `environment.systemPackages`:
-
-```nix
-modules = [
-  ({inputs, ...}: {nixpkgs.overlays = [inputs.neovim-flake.overlays.${system}.default];})
-  ({pkgs, ...}: {environment.systemPackages = [pkgs.nvim-aorith];})
-];
 ```
 
 ### Home Manager

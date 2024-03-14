@@ -14,29 +14,16 @@
 
   outputs = {nixpkgs, ...} @ inputs: let
     eachSystem = nixpkgs.lib.genAttrs ["aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux"];
-
-    # Import Neovim overlay
-    neovim-overlay = import ./nix/neovim-overlay.nix {inherit inputs;};
-
-    # Pkgs with the neovim overlay
-    # it will contain each system: 'pkgs.x86_64-linux, pkgs.aarch64-linux, ...'
-    pkgs = eachSystem (system:
-      import nixpkgs {
-        inherit system;
-        overlays = [neovim-overlay];
-      });
+    nvim = eachSystem (system: import ./nix/neovim.nix {inherit inputs system;});
   in {
-    # Overlay for NixOS configuration
-    overlays.default = neovim-overlay;
-
-    # Default package for 'nix run .'
     packages = eachSystem (system: {
-      default = pkgs.${system}.nvim-aorith;
-      nvim = pkgs.${system}.nvim-aorith;
+      # Default package, neovim with the config embedded in the store
+      default = nvim.${system}.nvim-with-config;
+      # Alternative, uses the config at ~/.config/nvim-nix
+      nvim-without-config = nvim.${system}.nvim-without-config;
     });
 
     # Formatter for 'nix fmt'
-    # I don't need to use the overlaid pkgs, so just regular one from legacyPackages
     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 }
