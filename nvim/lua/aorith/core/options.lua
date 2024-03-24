@@ -51,6 +51,7 @@ opt.softtabstop = -1 -- Copy shiftwidth value
 opt.breakindent = true -- Indent wrapped lines
 opt.wrap = false -- Disable line wrap
 opt.linebreak = true -- Enable line break on words
+opt.cindent = true -- Or else comments do not indent in visualmode + > or <
 
 -- Timers and performance
 opt.timeoutlen, opt.updatetime = 400, 300 -- Command timeout lengths and cursor hold update time
