@@ -20,8 +20,6 @@ nix run /path/to/your/local/neovim-flake#default
 
 Replace `/path/to/your/local/` with the actual path to your local flake directory.
 
-To provide a clear explanation of the folder structure in your Neovim flake configuration, you can include the following section in your README. This explanation will help users understand the purpose of each directory and file in your flake:
-
 ## Folder Structure
 
 - `nvim/`: Contains the standard Neovim configuration files, similar to what you would find in `~/.config/nvim`. The contents of this directory are copied to the Nix store at build time (ensure all the files are tracked by git).
