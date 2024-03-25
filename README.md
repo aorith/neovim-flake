@@ -7,7 +7,7 @@ A flake that bundles Neovim together with my configuration, including required t
 You can run this configuration without installing it on your system. Everything is bundled in the Nix store, except for the files that Neovim creates under `~/.local/...`.
 
 ```sh
-nix run github:aorith/neovim-flake#nvim
+nix run github:aorith/neovim-flake#default
 ```
 
 ## Development
@@ -15,7 +15,7 @@ nix run github:aorith/neovim-flake#nvim
 Run the flake directly from the local folder:
 
 ```sh
-nix run /path/to/your/local/neovim-flake#nvim
+nix run /path/to/your/local/neovim-flake#default
 ```
 
 Replace `/path/to/your/local/` with the actual path to your local flake directory.
@@ -40,10 +40,10 @@ For an imperative installation using `nix profile`, use the following command:
 
 ```sh
 # Remote install
-nix profile install github:aorith/neovim-flake#nvim
+nix profile install github:aorith/neovim-flake#default
 
 # Or install it using a local clone of this repository
-nix profile install /path/to/neovim-flake/#nvim
+nix profile install /path/to/neovim-flake/#default
 ```
 
 To update, first find the profile number associated with your Neovim flake installation using `nix profile list`, and then use `nix profile upgrade` with the profile number:
