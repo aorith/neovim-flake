@@ -30,7 +30,7 @@ local opts = {
     typescript = { "prettierd" },
     typescriptreact = { "prettierd" },
 
-    yaml = { "yamlfmt" }, -- yamlfmt/yamlfix/prettierd
+    yaml = { "yamlfmt", "trim_newlines" }, -- yamlfmt/yamlfix/prettierd
     go = { "goimports", "gofmt" },
     lua = { "stylua" },
     nix = { "alejandra" },
@@ -44,12 +44,13 @@ local opts = {
   notify_on_error = true,
 }
 
----@diagnostic disable: param-type-mismatch
-vim.list_extend(require("conform.formatters.shfmt").args, { "--indent", "4" })
-vim.list_extend(require("conform.formatters.ruff").args, { "--ignore", "F841" }) -- avoid ruff deleting unused variables
-vim.list_extend(
-  require("conform.formatters.stylua").args,
-  { "--config-path", vim.fn.getenv("XDG_CONFIG_HOME") .. "/" .. utils.nvim_appname .. "/stylua.toml" }
-)
+require("conform").formatters.yamlfmt = {
+  prepend_args = { "-conf", vim.fn.getenv("XDG_CONFIG_HOME") .. "/" .. utils.nvim_appname .. "/extra/yamlfmt" },
+}
+require("conform").formatters.shfmt = { prepend_args = { "--indent", "4" } }
+require("conform").formatters.ruff = { prepend_args = { "--ignore", "F841" } }
+require("conform").formatters.stylua = {
+  prepend_args = { "--config-path", vim.fn.getenv("XDG_CONFIG_HOME") .. "/" .. utils.nvim_appname .. "/stylua.toml" },
+}
 
 require("conform").setup(opts)

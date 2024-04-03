@@ -1,0 +1,8 @@
+# vim: ft=yaml
+formatter:
+  retain_line_breaks: true
+  # render - array items (block sequence items) without an increased indent.
+  # same as k8s output
+  indentless_arrays: true
+  # dont transform string literals to a single line
+  scan_folded_as_literal: true
