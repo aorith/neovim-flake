@@ -5,7 +5,6 @@
       fd
       git
       ripgrep
-      sqlite
 
       # Formatters
       alejandra
@@ -17,7 +16,6 @@
       shfmt
       stylua
       xmlformat
-      #yamlfix
       yamlfmt
 
       # Linters

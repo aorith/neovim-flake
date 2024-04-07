@@ -77,7 +77,7 @@ opt.laststatus = 2
 opt.spelllang, opt.spelloptions = "en,es", "camel" -- Spell check configuration
 opt.listchars = { tab = ">-", trail = "·", nbsp = "␣", extends = "…", precedes = "…" } -- Visual representation of certain characters
 
--- let sqlite.lua (which some plugins depend on) know where to find sqlite
+-- let sqlite.lua know where to find sqlite
 g.sqlite_clib_path = require("luv").os_getenv("LIBSQLITE")
 
 -- Enable filetype plugins

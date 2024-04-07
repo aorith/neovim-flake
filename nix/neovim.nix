@@ -7,8 +7,13 @@
   lib = pkgs.lib;
   appName = "nvim-nix";
 
+  # Optionals
+  opts = {
+    withSQLite = false; # I dont use any plugin that requires sqlite.lua atm
+  };
+
   # List of Neovim plugins
-  allPlugins = import ./plugins.nix {inherit inputs pkgs;};
+  allPlugins = import ./plugins.nix {inherit inputs pkgs opts;};
 
   # Packages
   packages = import ./packages.nix {inherit pkgs;};
@@ -45,12 +50,17 @@
   };
 
   # Additional arguments for the Neovim wrapper
-  extraMakeWrapperArgs = builtins.concatStringsSep " " [
-    ''--prefix PATH : "${lib.makeBinPath [externalPackages]}"''
-    ''--set NVIM_APPNAME "${appName}"''
-    ''--set LIBSQLITE_CLIB_PATH "${pkgs.sqlite.out}/lib/libsqlite3.so"''
-    ''--set LIBSQLITE "${pkgs.sqlite.out}/lib/libsqlite3.so"''
-  ];
+  extraMakeWrapperArgs = builtins.concatStringsSep " " (
+    [
+      ''--prefix PATH : "${lib.makeBinPath [externalPackages]}"''
+      ''--set NVIM_APPNAME "${appName}"''
+    ]
+    ++ (lib.optionals opts.withSQLite [''--set LIBSQLITE "${pkgs.sqlite.out}/lib/libsqlite3.${
+        if pkgs.stdenv.isDarwin
+        then "dylib"
+        else "so"
+      }"''])
+  );
 in {
   nvim-with-config = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (neovimConfig
     // {
