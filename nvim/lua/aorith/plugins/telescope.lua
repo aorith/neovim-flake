@@ -12,10 +12,6 @@ tc.setup({
       height = 0.94,
     },
     file_ignore_patterns = { "venv", "__pycache__", ".git" },
-    history = {
-      path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
-      limit = 1000,
-    },
     mappings = {
       i = {
         -- disable if you want to use normal mode in telescope
