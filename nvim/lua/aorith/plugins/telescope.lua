@@ -1,21 +1,39 @@
 local tc = require("telescope")
 local builtin = require("telescope.builtin")
+local actions = require("telescope.actions")
 
 tc.setup({
   defaults = {
+    path_display = {
+      "truncate",
+    },
     layout_config = {
       width = 0.94,
       height = 0.94,
     },
     file_ignore_patterns = { "venv", "__pycache__", ".git" },
+    history = {
+      path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
+      limit = 1000,
+    },
     mappings = {
       i = {
         -- disable if you want to use normal mode in telescope
-        ["<esc>"] = function(...) require("telescope.actions").close(...) end,
-        ["<c-d>"] = function(...) require("telescope.actions").delete_buffer(...) end,
+        --["<esc>"] = function(...) actions.close(...) end,
+
+        ["<C-q>"] = function(...)
+          actions.smart_send_to_qflist(...)
+          actions.open_qflist(0)
+        end,
+        ["<C-d>"] = actions.delete_buffer,
       },
       n = {
-        ["q"] = function(...) return require("telescope.actions").close(...) end,
+        ["<C-q>"] = function(...)
+          actions.smart_send_to_qflist(...)
+          actions.open_qflist(0)
+        end,
+        ["<C-d>"] = actions.delete_buffer,
+        q = actions.close,
       },
     },
   },
