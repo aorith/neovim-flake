@@ -125,6 +125,10 @@ map(
   { desc = "Get active LSP clients" }
 )
 
+-- quick fix
+map("n", "<leader>j", "<cmd>cnext<CR>", { desc = "Next item in QuickFix" })
+map("n", "<leader>k", "<cmd>cprevious<CR>", { desc = "Previous item in QuickFix" })
+
 -- diagnostics
 map("n", "<leader>ll", vim.diagnostic.open_float, { desc = "[L]ine diagnostics" })
 map("n", "<leader>lq", vim.diagnostic.setloclist, { desc = "Set Loc List" })
@@ -137,7 +141,7 @@ map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "[R]ename" })
 map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "[S]ignature" })
 
 -- without leader key
-map("n", "gr", "<cmd>Trouble lsp_references<cr>", { desc = "[G]oto [R]eferences" })
+map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "[G]oto [R]eferences" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
