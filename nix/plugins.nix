@@ -46,9 +46,10 @@ in
       cmp-cmdline-history
 
       gitsigns-nvim
-      vim-fugitive
-      trouble-nvim
       neo-tree-nvim
+      trouble-nvim
+      undotree
+      vim-fugitive
       vim-sleuth
 
       telescope-nvim

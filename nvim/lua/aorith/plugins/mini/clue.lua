@@ -4,7 +4,7 @@ M.setup = function()
   local miniclue = require("mini.clue")
   miniclue.setup({
     window = {
-      delay = 250,
+      delay = 350,
 
       config = {
         anchor = "SW",
@@ -20,8 +20,8 @@ M.setup = function()
       { mode = "n", keys = "<Leader>" },
       { mode = "x", keys = "<Leader>" },
       -- Local leader
-      { mode = "n", keys = "<LocalLeader>" },
-      { mode = "x", keys = "<LocalLeader>" },
+      -- { mode = "n", keys = "<LocalLeader>" },
+      -- { mode = "x", keys = "<LocalLeader>" },
 
       -- Built-in completionmini
       { mode = "i", keys = "<C-x>" },

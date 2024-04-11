@@ -2,7 +2,8 @@ local g = vim.g
 local opt = vim.opt
 
 -- Leader keys configuration
-g.mapleader, g.maplocalleader = " ", ","
+g.mapleader = " "
+g.maplocalleader = " " -- using ',' as localleader breaks this workflow: f<letter> ;,;,
 
 -- Disable builtin plugins to improve loading time
 g.loaded_gzip = 1
@@ -54,7 +55,7 @@ opt.linebreak = true -- Enable line break on words
 opt.cindent = true -- Or else comments do not indent in visualmode + > or <
 
 -- Timers and performance
-opt.timeoutlen, opt.updatetime = 400, 300 -- Command timeout lengths and cursor hold update time
+opt.timeoutlen, opt.updatetime = 300, 250 -- Command timeout lengths and cursor hold update time
 opt.lazyredraw = true
 
 -- Window and buffer management
