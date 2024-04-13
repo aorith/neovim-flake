@@ -15,10 +15,22 @@ map("n", "<LocalLeader>c", utils.markdown_insert_codeblock, { buffer = 0, desc =
 map("n", "tt", utils.markdown_todo_toggle, { buffer = 0, desc = "Toggle To-Do" })
 map("n", "<CR>", vim.lsp.buf.definition, { buffer = 0, desc = "Follow link (go to definition)" })
 
--- Highlight markdown 'tags'
+local mark_markdown_codeblock = function(_, match, _)
+  local mask = string.rep("─", (85 - vim.fn.strchars(match)))
+  return {
+    virt_text = { { mask, "Comment" } },
+    virt_text_pos = "eol",
+    priority = 200,
+    right_gravity = false,
+  }
+end
+
 ---@diagnostic disable-next-line: inject-field
 vim.b.minihipatterns_config = {
   highlighters = {
-    mdtags = { pattern = "()#%w+()", group = "Special" },
+    -- Highlight markdown 'tags'
+    mdtags = { pattern = "%f[#]()#%w+", group = "Special" },
+    -- Highlight markdown code blocks
+    codeblock = { pattern = "%f[%w`]()```%w*", group = "", extmark_opts = mark_markdown_codeblock },
   },
 }

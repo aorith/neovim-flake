@@ -95,14 +95,3 @@ require("nvim-treesitter.configs").setup({
 -- Folds
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-
--- Headlines
-require("headlines").setup({
-  markdown = {
-    headline_highlights = false,
-    fat_headlines = false,
-  },
-  norg = {
-    headline_highlights = false,
-  },
-})

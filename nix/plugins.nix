@@ -22,7 +22,6 @@ in
 
       nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects
-      headlines-nvim
 
       # format & linting
       conform-nvim
