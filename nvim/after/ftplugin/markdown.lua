@@ -3,8 +3,8 @@ vim.opt_local.conceallevel = 1
 vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt_local.foldmethod = "expr"
 vim.opt_local.foldlevel = 99
+vim.opt_local.textwidth = 0
 vim.opt_local.wrap = true
-vim.opt_local.textwidth = 80
 vim.opt_local.linebreak = true
 
 -- Mappings
