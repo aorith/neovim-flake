@@ -16,7 +16,9 @@ map("n", "tt", utils.markdown_todo_toggle, { buffer = 0, desc = "Toggle To-Do" }
 map("n", "<CR>", vim.lsp.buf.definition, { buffer = 0, desc = "Follow link (go to definition)" })
 
 local mark_markdown_codeblock = function(_, match, _)
-  local mask = string.rep("─", (85 - vim.fn.strchars(match)))
+  local length = 85
+  if vim.api.nvim_win_get_option(0, "conceallevel") == 0 then length = length - vim.fn.strchars(match) end
+  local mask = string.rep("─", length)
   return {
     virt_text = { { mask, "Comment" } },
     virt_text_pos = "eol",
