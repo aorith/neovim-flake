@@ -7,7 +7,7 @@ map(
 
 require("neo-tree").setup({
   enable_diagnostics = false,
-  sources = { "filesystem", "document_symbols" },
+  --sources = { "filesystem", "document_symbols" },
   filesystem = {
     bind_to_cwd = false,
     follow_current_file = { enabled = true },
