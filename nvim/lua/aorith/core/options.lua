@@ -54,6 +54,7 @@ opt.breakindent = true -- Indent wrapped lines
 opt.wrap = false -- Disable line wrap
 opt.linebreak = true -- Enable line break on words
 opt.cindent = true -- Or else comments do not indent in visualmode + > or <
+opt.cinkeys:remove("0#") -- Prevent reindent of comments
 
 -- Timers and performance
 opt.timeoutlen, opt.updatetime = 300, 250 -- Command timeout lengths and cursor hold update time
