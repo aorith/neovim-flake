@@ -12,6 +12,12 @@
       inherit pname src;
       version = src.lastModifiedDate;
     };
+
+  # Merge nvim-treesitter parsers together to reduce vim.api.nvim_list_runtime_paths()
+  nvim-treesitter-grammars = pkgs.symlinkJoin {
+    name = "nvim-treesitter-grammars";
+    paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+  };
 in
   with pkgs.vimPlugins;
     [
@@ -20,7 +26,9 @@ in
       # Plugins can also be lazy loaded with ':packadd! plugin-name' when optional is true:
       #{ plugin = luasnip; optional = true; }
 
-      nvim-treesitter.withAllGrammars
+      #nvim-treesitter.withAllGrammars
+      nvim-treesitter
+      nvim-treesitter-grammars
       nvim-treesitter-textobjects
 
       # format & linting
