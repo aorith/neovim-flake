@@ -77,9 +77,9 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 -- ui
 map("n", "<leader>ub", function()
   if vim.o.background == "light" then
-    vim.o.background = "dark"
+    vim.opt.background = "dark"
   else
-    vim.o.background = "light"
+    vim.opt.background = "light"
   end
 end, { remap = true, desc = "Toggle dark/light mode" })
 

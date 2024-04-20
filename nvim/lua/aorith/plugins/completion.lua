@@ -88,8 +88,10 @@ cmp.setup({
 
 cmp.setup.filetype("lua", {
   sources = cmp.config.sources({
+    { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help", keyword_length = 3 },
     { name = "nvim_lua" },
-    { name = "nvim_lsp", keyword_length = 3 },
+    { name = "buffer", keyword_length = 3 },
     { name = "path" },
   }),
 })

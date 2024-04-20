@@ -29,6 +29,7 @@ opt.modelineexpr = false -- Disable modeline expressions for security
 opt.undofile = true
 opt.backup, opt.writebackup = false, false -- Disable file backups
 opt.path:append("**") -- Search down into subfolders
+opt.shell = "bash"
 
 -- UI and editor behavior
 opt.completeopt = "menuone,noinsert,noselect,preview"
@@ -57,7 +58,9 @@ opt.cindent = true -- Or else comments do not indent in visualmode + > or <
 opt.cinkeys:remove("0#") -- Prevent reindent of comments
 
 -- Timers and performance
-opt.timeoutlen, opt.updatetime = 300, 250 -- Command timeout lengths and cursor hold update time
+opt.ttimeoutlen = 5
+opt.timeoutlen = 700
+opt.updatetime = 250 -- Affects cursor hold update time
 opt.lazyredraw = true
 
 -- Window and buffer management
