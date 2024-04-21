@@ -49,8 +49,6 @@ require("conform").formatters.yamlfmt = {
 }
 require("conform").formatters.shfmt = { prepend_args = { "--indent", "4" } }
 require("conform").formatters.ruff = { prepend_args = { "--ignore", "F841" } }
-require("conform").formatters.stylua = {
-  prepend_args = { "--config-path", vim.fn.getenv("XDG_CONFIG_HOME") .. "/" .. utils.nvim_appname .. "/stylua.toml" },
-}
+require("conform").formatters.stylua = { prepend_args = utils.find_stylua_conf }
 
 require("conform").setup(opts)

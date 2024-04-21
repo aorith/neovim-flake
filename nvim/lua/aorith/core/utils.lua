@@ -7,6 +7,19 @@ local M = {}
 -- directory configuration
 M.nvim_appname = vim.fn.getenv("NVIM_APPNAME") ~= vim.NIL and vim.fn.getenv("NVIM_APPNAME") or "nvim"
 
+M.find_stylua_conf = function()
+  local conf_paths = {
+    vim.fn.getcwd() .. "/stylua.toml",
+    vim.fn.getcwd() .. "/.stylua.toml",
+    vim.fn.getenv("XDG_CONFIG_HOME") .. "/" .. M.nvim_appname .. "/stylua.toml",
+  }
+
+  for _, v in ipairs(conf_paths) do
+    if vim.fn.filereadable(v) == 1 then return { "--config-path", v } end
+  end
+  return {}
+end
+
 M.get_active_lsp_clients = function()
   local bufnr = vim.api.nvim_get_current_buf()
   local active_servers = vim.lsp.get_active_clients({ bufnr = bufnr })
