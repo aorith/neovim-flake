@@ -54,6 +54,7 @@
     [
       ''--prefix PATH : "${lib.makeBinPath [externalPackages]}"''
       ''--set NVIM_APPNAME "${appName}"''
+      ''--set VALE_DIR "${packages.vale_setup}"''
     ]
     ++ (lib.optionals opts.withSQLite [''--set LIBSQLITE "${pkgs.sqlite.out}/lib/libsqlite3.${
         if pkgs.stdenv.isDarwin
