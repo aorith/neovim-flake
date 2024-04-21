@@ -1,6 +1,7 @@
 {
   inputs,
   system,
+  with-config ? true,
   ...
 }: let
   pkgs = import inputs.nixpkgs {inherit system;};
@@ -56,19 +57,15 @@
       ''--set NVIM_APPNAME "${appName}"''
       ''--set VALE_DIR "${packages.vale_setup}"''
     ]
+    ++ (lib.optionals with-config [''--set XDG_CONFIG_HOME "${nvimHome.outPath}"''])
     ++ (lib.optionals opts.withSQLite [''--set LIBSQLITE "${pkgs.sqlite.out}/lib/libsqlite3.${
         if pkgs.stdenv.isDarwin
         then "dylib"
         else "so"
       }"''])
   );
-in {
-  nvim-with-config = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (neovimConfig
-    // {
-      wrapperArgs = lib.escapeShellArgs neovimConfig.wrapperArgs + " " + extraMakeWrapperArgs + " " + ''--set XDG_CONFIG_HOME "${nvimHome.outPath}"'';
-    });
-  nvim-without-config = pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (neovimConfig
+in
+  pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (neovimConfig
     // {
       wrapperArgs = lib.escapeShellArgs neovimConfig.wrapperArgs + " " + extraMakeWrapperArgs;
-    });
-}
+    })
