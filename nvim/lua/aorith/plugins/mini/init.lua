@@ -12,7 +12,7 @@ require("mini.surround").setup()
 
 require("aorith.plugins.mini.hipatterns").setup()
 require("aorith.plugins.mini.files").setup()
---require("aorith.plugins.mini.pick").setup()
+require("aorith.plugins.mini.pick").setup()
 require("aorith.plugins.mini.clue").setup()
 
 map("n", "<leader>q", function() MiniBufremove.delete() end, { desc = "Delete current buffer" })

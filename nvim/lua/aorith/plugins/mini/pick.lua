@@ -2,18 +2,19 @@ local M = {}
 
 M.setup = function()
   local win_config = function()
-    local height = math.floor(0.8 * vim.o.lines)
-    local width = math.floor(0.92 * vim.o.columns)
+    local width = vim.o.columns - 8
+    local has_tabline = vim.o.showtabline == 2 or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
+    local has_statusline = vim.o.laststatus > 0
+    local max_height = vim.o.lines - vim.o.cmdheight - (has_tabline and 1 or 0) - (has_statusline and 1 or 0)
     return {
-      border = "double",
-      anchor = "NW",
-      height = height,
+      height = math.floor(0.8 * max_height),
       width = width,
-      row = math.floor(0.5 * (vim.o.lines - height)),
-      col = math.floor(0.5 * (vim.o.columns - width)),
+      row = max_height + (has_tabline and 1 or 0),
+      col = 4,
     }
   end
 
+  ---@diagnostic disable-next-line: redundant-parameter
   require("mini.pick").setup({
     mappings = {
       choose = "<CR>",
@@ -23,23 +24,11 @@ M.setup = function()
       choose_marked = "<C-q>",
     },
     window = {
-      prompt_prefix = "❯ ",
       config = win_config,
     },
   })
   vim.ui.select = MiniPick.ui_select
 
-  MiniPick.registry.notes = function(local_opts)
-    local opts = { source = { cwd = notes_dir } }
-    return MiniPick.builtin.files(local_opts, opts)
-  end
-  MiniPick.registry.notes_grep = function(local_opts)
-    local opts = { source = { cwd = notes_dir } }
-    return MiniPick.builtin.grep_live(local_opts, opts)
-  end
-
-  map("n", "<leader>f/", [[<Cmd>Pick history scope='/'<CR>]], { desc = '"/" history' })
-  map("n", "<leader>f:", [[<Cmd>Pick history scope=':'<CR>]], { desc = '":" history' })
   map("n", "<leader>fa", [[<Cmd>Pick git_hunks scope='staged'<CR>]], { desc = "Added hunks (all)" })
   map("n", "<leader>fA", [[<Cmd>Pick git_hunks path='%' scope='staged'<CR>]], { desc = "Added hunks (current)" })
   map("n", "<leader><leader>", [[<Cmd>Pick buffers include_current=false<CR>]], { desc = "Buffers" })

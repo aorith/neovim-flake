@@ -59,8 +59,8 @@ in
       vim-fugitive
       vim-sleuth
 
-      telescope-nvim
-      telescope-zf-native-nvim
+      # telescope-nvim
+      # telescope-zf-native-nvim
 
       # Dependencies
       plenary-nvim

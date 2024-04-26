@@ -144,7 +144,7 @@ map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "[S]ignature" })
 map("n", "<leader>t", vim.cmd.UndotreeToggle, { desc = "UndoTree" })
 
 -- without leader key
-map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "[G]oto [R]eferences" })
+map("n", "gr", "<cmd>Pick lsp scope='references'<cr>", { desc = "[G]oto [R]eferences" })
 map("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
