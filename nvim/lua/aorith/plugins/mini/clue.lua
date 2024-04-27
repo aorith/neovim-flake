@@ -56,7 +56,7 @@ M.setup = function()
       { mode = "n", keys = "<leader>g", desc = "+git" },
       { mode = "n", keys = "<leader>gh", desc = "+hunks" },
       { mode = "n", keys = "<leader>l", desc = "+lsp" },
-      { mode = "n", keys = "<leader>u", desc = "+ui" },
+      { mode = "n", keys = "<leader>t", desc = "+toggles" },
       { mode = "n", keys = "<leader>w", desc = "+windows" },
       { mode = "n", keys = "<leader>x", desc = "+diagnostics/quickfix" },
 

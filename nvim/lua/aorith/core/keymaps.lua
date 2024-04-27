@@ -47,7 +47,7 @@ map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- highlights under cursor
-map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>ti", vim.show_pos, { desc = "Inspect Pos" })
 
 -- buffers
 map("n", "<leader><TAB>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
@@ -75,7 +75,7 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 -- ui
-map("n", "<leader>ub", function()
+map("n", "<leader>tb", function()
   if vim.o.background == "light" then
     vim.opt.background = "dark"
   else
@@ -84,14 +84,14 @@ map("n", "<leader>ub", function()
 end, { remap = true, desc = "Toggle dark/light mode" })
 
 -- Spelling
-map("n", "<leader>us", function()
+map("n", "<leader>ts", function()
   vim.opt_local.spell = not (vim.opt_local.spell:get())
   vim.opt_local.spelllang = "en_us,es"
   vim.notify("Spell " .. (vim.opt_local.spell:get() and "ON" or "OFF"))
 end, { desc = "toggle spelling" })
 
 -- toggle diagnostics
-map("n", "<leader>ud", function()
+map("n", "<leader>td", function()
   if vim.diagnostic.is_disabled() then
     vim.diagnostic.enable()
   else
@@ -101,7 +101,7 @@ map("n", "<leader>ud", function()
 end, { remap = true, desc = "Toggle diagnostics" })
 
 -- toggle listchars
-map("n", "<leader>ul", function() vim.cmd("set list! list?") end, { remap = true, desc = "Toggle list chars" })
+map("n", "<leader>tl", function() vim.cmd("set list! list?") end, { remap = true, desc = "Toggle list chars" })
 
 -- others
 map("", "<F1>", "<nop>") -- "" == map
@@ -141,7 +141,7 @@ map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "[R]ename" })
 map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "[S]ignature" })
 
 -- UndoTree
-map("n", "<leader>t", vim.cmd.UndotreeToggle, { desc = "UndoTree" })
+map("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "UndoTree" })
 
 -- without leader key
 map("n", "gr", "<cmd>Pick lsp scope='references'<cr>", { desc = "[G]oto [R]eferences" })
