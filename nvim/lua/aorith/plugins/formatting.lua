@@ -30,12 +30,13 @@ local opts = {
     typescript = { "prettierd" },
     typescriptreact = { "prettierd" },
 
-    yaml = { "yamlfmt", "trim_newlines" }, -- yamlfmt/yamlfix/prettierd
     go = { "goimports", "gofmt" },
     lua = { "stylua" },
     nix = { "alejandra" },
     python = { "black", "isort" },
+    toml = { "taplo" },
     xml = { "xmlformat" },
+    yaml = { "yamlfmt", "trim_newlines" }, -- yamlfmt/yamlfix/prettierd
 
     sh = { "shfmt" },
     bash = { "shfmt" },

@@ -15,6 +15,7 @@
       ruff
       shfmt
       stylua
+      taplo
       xmlformat
       yamlfmt
 
