@@ -1,98 +1,111 @@
-local g = vim.g
-local opt = vim.opt
+--stylua: ignore start
 
--- Leader keys configuration
-g.mapleader = " "
-g.maplocalleader = " " -- using ',' as localleader breaks this workflow: f<letter> ;,;,
+-- Leader keys configuration ---------------------------------------------------
+vim.g.mapleader = " "      -- Leader key must set before plugins
+vim.g.maplocalleader = " " -- Using ',' breaks: f<letter> + ;,
 
--- Disable builtin plugins to improve loading time
-g.loaded_gzip = 1
-g.loaded_zip = 1
-g.loaded_zipPlugin = 1
-g.loaded_tar = 1
-g.loaded_tarPlugin = 1
-g.loaded_getscript = 1
-g.loaded_getscriptPlugin = 1
-g.loaded_vimball = 1
-g.loaded_vimballPlugin = 1
-g.loaded_2html_plugin = 1
-g.loaded_logiPat = 1
-g.loaded_rrhelper = 1
+-- Disable builtin plugins to improve loading time -----------------------------
+vim.g.loaded_gzip = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_vimball = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_logiPat = 1
+vim.g.loaded_rrhelper = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrwSettings = 1
+-- vim.g.loaded_netrwFileHandlers = 1
 
--- g.loaded_netrw = 1
--- g.loaded_netrwPlugin = 1
--- g.loaded_netrwSettings = 1
--- g.loaded_netrwFileHandlers = 1
-
--- General options
-opt.modelineexpr = false -- Disable modeline expressions for security
-opt.undofile = true
-opt.backup, opt.writebackup = false, false -- Disable file backups
-opt.path:append("**") -- Search down into subfolders
-opt.shell = "bash"
-
--- UI and editor behavior
-opt.completeopt = "menuone,noinsert,noselect,preview"
-opt.confirm = true -- Confirm on exit unsaved changes
-opt.mouse = "a"
-opt.number = true
-opt.showmatch = true -- Highlight matching parentheses
-opt.showmode = false
-opt.cursorline, opt.cursorlineopt = true, "number" -- Highlight cursor line and only the line number
-opt.hlsearch, opt.ignorecase, opt.incsearch, opt.infercase, opt.smartcase = true, true, true, true, true -- Search options
-opt.signcolumn = "yes:1"
-opt.colorcolumn = "+1" -- Highlight column beyond 'textwidth'
-opt.pumblend, opt.pumheight, opt.winblend = 0, 12, 0 -- Popup menu appearance
-opt.termguicolors = true
-
--- Indentation and formatting
-opt.autoindent, opt.smartindent = true, true -- Auto indenting and smart indenting
-opt.expandtab = true -- Spaces instead of tabs
-opt.shiftwidth = 4 -- TAB equals 4 spaces
-opt.tabstop = 8 -- Default tab size
-opt.softtabstop = -1 -- Copy shiftwidth value
-opt.breakindent = true -- Indent wrapped lines
-opt.wrap = false -- Disable line wrap
-opt.linebreak = true -- Enable line break on words
-opt.cindent = true -- Or else comments do not indent in visualmode + > or <
-opt.cinkeys:remove("0#") -- Prevent reindent of comments
-
--- Timers and performance
-opt.ttimeoutlen = 5
-opt.timeoutlen = 700
-opt.updatetime = 250 -- Affects cursor hold update time
-opt.lazyredraw = true
-
--- Window and buffer management
-opt.splitkeep, opt.splitright, opt.splitbelow = "screen", true, true -- Split window preferences
-opt.foldlevel, opt.foldnestmax, opt.foldlevelstart = 1, 5, 99 -- Fold configuration
-
--- Searching and pattern matching
-opt.grepformat, opt.grepprg = "%f:%l:%c:%m", "rg --vimgrep" -- Configure grep to use ripgrep and its format
-
--- Miscellaneous options
-opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- Configure short message options to reduce clutter
-opt.sidescrolloff = 8 -- Context around cursor
-opt.winminwidth = 5
-opt.diffopt:append({ "linematch:50", "vertical", "foldcolumn:0", "indent-heuristic" }) -- Diff options for better comparison view
-opt.history = 100
-opt.report = 0
-opt.ruler = false
-opt.formatoptions = "qjl1"
-opt.laststatus = 2
-opt.spelllang, opt.spelloptions = "en,es", "camel" -- Spell check configuration
-opt.listchars = { tab = ">-", trail = "·", nbsp = "␣", extends = "…", precedes = "…" } -- Visual representation of certain characters
-
--- let sqlite.lua know where to find sqlite
-g.sqlite_clib_path = require("luv").os_getenv("LIBSQLITE")
+-- General --------------------------------------------------------------------
+vim.o.shell        = "bash"   -- Force bash as the shell for '!' commands
+vim.o.modelineexpr = false    -- Disable modeline expressions for security
+vim.o.backup       = false    -- Don't store backup
+vim.o.writebackup  = false    -- Don't store backup
+vim.o.mouse        = 'a'      -- Enable mouse
+vim.o.undofile     = true     -- Enable persistent undo
+vim.opt.path:append("**")     -- Search down into subfolders
 
 -- Enable filetype plugins
 vim.cmd.filetype("plugin", "indent", "on")
--- Enable syntax highlighting
-vim.cmd("syntax enable")
 
--- Use signs for diagnostics in the gutter
-vim.fn.sign_define("DiagnosticSignError", { text = "󰅚", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "󰀪", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "󰋽", texthl = "DiagnosticSignInfo" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "󰌶", texthl = "DiagnosticSignHint" })
+-- UI -------------------------------------------------------------------------
+vim.o.breakindent   = true       -- Indent wrapped lines to match line start
+vim.o.colorcolumn   = '+1'       -- Colored column according to 'textwidth' if it's > 0
+vim.o.cursorline    = true       -- Enable highlighting of the current line
+vim.o.cursorlineopt = "number"   -- Cursorline highlights only the number column
+vim.o.laststatus    = 2          -- Always show statusline
+vim.o.linebreak     = true       -- Wrap long lines at 'breakat' (if 'wrap' is set)
+vim.o.list          = true       -- Show helpful character indicators
+vim.o.number        = true       -- Show line numbers
+vim.o.pumblend      = 0          -- Builtin completion menus transparency
+vim.o.winblend      = 0          -- Floating windows transparency
+vim.o.pumheight     = 12         -- Popup menu size
+vim.o.ruler         = false      -- Don't show cursor position
+vim.o.shortmess     = 'aoOWFCcS' -- Disable certain messages from |ins-completion-menu|
+vim.o.showmode      = false      -- Don't show mode in command line
+vim.o.showtabline   = 2          -- Always show tabline
+vim.o.signcolumn    = 'yes'      -- Always show signcolumn or it would frequently shift
+vim.o.splitbelow    = true       -- Horizontal splits will be below
+vim.o.splitright    = true       -- Vertical splits will be to the right
+vim.o.splitkeep     = 'screen'   -- Reduce scroll during a window split
+vim.o.termguicolors = true       -- Enable gui colors
+vim.o.wrap          = false      -- Display long lines as just one line
+vim.o.showmatch     = true       -- Highlight matching parentheses
+
+vim.o.fillchars = table.concat(
+  { 'eob: ', 'fold:╌', 'horiz:═', 'horizdown:╦', 'horizup:╩', 'vert:║', 'verthoriz:╬', 'vertleft:╣', 'vertright:╠' },
+  ','
+)
+vim.o.listchars = table.concat({ 'extends:…', 'trail:·', 'nbsp:␣', 'precedes:…', 'tab:>-' }, ',')
+
+-- Enable syntax highlighting
+if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
+
+-- Editing --------------------------------------------------------------------
+vim.o.autoindent    = true     -- Use auto indent
+vim.o.expandtab     = true     -- Convert tabs to spaces
+vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
+vim.o.ignorecase    = true     -- Ignore case when searching (use `\C` to force not doing that)
+vim.o.hlsearch      = true     -- Highlight searchs
+vim.o.incsearch     = true     -- Show search results while typing
+vim.o.infercase     = true     -- Infer letter cases for a richer built-in keyword completion
+vim.o.shiftwidth    = 4        -- Use this number of spaces for indentation
+vim.o.smartcase     = true     -- Don't ignore case when searching if pattern has upper case
+vim.o.smartindent   = true     -- Make indenting smart
+vim.o.tabstop       = 8        -- Default tab size
+vim.o.softtabstop   = -1       -- Copy shiftwidth value
+vim.o.virtualedit   = 'block'  -- Allow going past the end of line in visual block mode
+vim.o.confirm       = true     -- Confirm on exit unsaved changes
+vim.o.cindent       = true     -- Or else comments do not indent in visualmode + > or <
+vim.opt.cinkeys:remove("0#")   -- Prevent reindent of comments
+vim.o.grepprg = "rg --vimgrep"   -- Configure grep to use ripgrep
+vim.o.grepformat = "%f:%l:%c:%m" -- Grep format
+
+-- Spelling -------------------------------------------------------------------
+vim.o.spelllang    = 'en,es'      -- Define spelling dictionaries
+vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as seprate words
+vim.opt.complete:append('kspell') -- Add spellcheck options for autocomplete
+vim.opt.complete:remove('t')      -- Don't use tags for completion
+
+-- Folds ----------------------------------------------------------------------
+vim.o.foldmethod       = 'indent' -- Set 'indent' folding method
+vim.o.foldlevel        = 1        -- Display all folds except top ones
+vim.o.foldlevelstart   = 99       -- Start with all folds open
+vim.o.foldnestmax      = 10       -- Create folds only for some number of nested levels
+
+-- Timers and performance -----------------------------------------------------
+vim.o.ttimeoutlen   = 5     -- Milliseconds to wait for a key code sequence to complete
+vim.o.timeoutlen    = 700   -- Milliseconds to wait for a mapped sequence to complete
+vim.o.updatetime    = 250   -- Affects cursor hold update time
+vim.o.lazyredraw    = true  -- Do not redraw when executing macros, registers and other commands
+
+-- let sqlite.lua know where to find sqlite
+vim.g.sqlite_clib_path = vim.fn.getenv("LIBSQLITE")
+
+--stylua: ignore end
