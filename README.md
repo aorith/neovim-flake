@@ -24,7 +24,7 @@ Replace `/path/to/your/local/` with the actual path to your local flake director
 
 - `nvim/`: Contains the standard Neovim configuration files, similar to what you would find in `~/.config/nvim`. The contents of this directory are copied to the Nix store at build time (ensure all the files are tracked by git).
 
-- `nix/neovim.nix`: Neovim package provided by `nixpkgs` with additional configuration, plugins, and dependencies specified in this flake. Two packages are available `nvim-with-config` with the neovim configuration embedded in the nix store and `nvim-without-config` which uses the configuration from `~/.config/nvim-nix` the `nvim` folder of this repository can be symlinked to that path by running the script [link.sh](link.sh).
+- `nix/neovim.nix`: Neovim package provided by `nixpkgs` with additional configuration, plugins, and dependencies specified in this flake. Two packages are available `default` with the neovim configuration embedded in the nix store and `nvim-without-config` which uses the configuration from `~/.config/nvim-nix` the `nvim` folder of this repository can be symlinked to that path by running the script [link.sh](link.sh).
 
 - `nix/plugins.nix`: This file specifies the Neovim plugins to be included in the configuration. Plugins can be defined directly from `nixpkgs` or included from the flake inputs.
 
