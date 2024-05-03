@@ -62,7 +62,7 @@ vim.o.fillchars = table.concat(
   { 'eob: ', 'fold:╌', 'horiz:═', 'horizdown:╦', 'horizup:╩', 'vert:║', 'verthoriz:╬', 'vertleft:╣', 'vertright:╠' },
   ','
 )
-vim.o.listchars = table.concat({ 'extends:…', 'trail:·', 'nbsp:␣', 'precedes:…', 'tab:>-' }, ',')
+vim.o.listchars = table.concat({ 'extends:…', 'trail:·', 'nbsp:␣', 'precedes:…', 'tab:> ' }, ',')
 
 -- Enable syntax highlighting
 if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
