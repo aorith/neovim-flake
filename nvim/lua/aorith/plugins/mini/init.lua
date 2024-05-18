@@ -4,7 +4,7 @@ require("aorith.plugins.mini.notify").setup()
 require("mini.extra").setup()
 require("mini.bufremove").setup()
 require("mini.misc").setup()
-require("mini.comment").setup()
+--require("mini.comment").setup() -- built-in on neovim>=0.10
 -- sa => surround around
 -- sd => surround delete
 -- sr => surround replace

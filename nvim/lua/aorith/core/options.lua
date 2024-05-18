@@ -72,7 +72,7 @@ vim.o.autoindent    = true     -- Use auto indent
 vim.o.expandtab     = true     -- Convert tabs to spaces
 vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
 vim.o.ignorecase    = true     -- Ignore case when searching (use `\C` to force not doing that)
-vim.o.hlsearch      = true     -- Highlight searchs
+vim.o.hlsearch      = true     -- Highlight searches
 vim.o.incsearch     = true     -- Show search results while typing
 vim.o.infercase     = true     -- Infer letter cases for a richer built-in keyword completion
 vim.o.shiftwidth    = 4        -- Use this number of spaces for indentation
@@ -87,9 +87,11 @@ vim.opt.cinkeys:remove("0#")   -- Prevent reindent of comments
 vim.o.grepprg = "rg --vimgrep"   -- Configure grep to use ripgrep
 vim.o.grepformat = "%f:%l:%c:%m" -- Grep format
 
+vim.opt.completeopt = { "menu", "menuone", "noselect", "preview" }
+
 -- Spelling -------------------------------------------------------------------
 vim.o.spelllang    = 'en,es'      -- Define spelling dictionaries
-vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as seprate words
+vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as separate words
 vim.opt.complete:append('kspell') -- Add spellcheck options for autocomplete
 vim.opt.complete:remove('t')      -- Don't use tags for completion
 
