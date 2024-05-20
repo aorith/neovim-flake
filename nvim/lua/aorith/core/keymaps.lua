@@ -136,7 +136,12 @@ map("n", "<leader>lj", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
 map("n", "<leader>lk", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
 
 map("n", "<leader>lc", vim.lsp.buf.code_action, { desc = "Code actions" })
-map("n", "<leader>lh", vim.lsp.buf.hover, { desc = "[H]over" })
+map(
+  "n",
+  "<leader>lh",
+  function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end,
+  { desc = "Toggle inlay [h]ints" }
+)
 map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "[R]ename" })
 map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "[S]ignature" })
 
