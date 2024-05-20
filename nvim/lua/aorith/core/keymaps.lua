@@ -85,19 +85,19 @@ end, { remap = true, desc = "Toggle dark/light mode" })
 
 -- Spelling
 map("n", "<leader>ts", function()
-  vim.opt_local.spell = not (vim.opt_local.spell:get())
+  vim.opt_local.spell = not (vim.opt.spell:get())
   vim.opt_local.spelllang = "en_us,es"
-  vim.notify("Spell " .. (vim.opt_local.spell:get() and "ON" or "OFF"))
+  vim.notify("Spell " .. (vim.opt.spell:get() and "ON" or "OFF"))
 end, { desc = "toggle spelling" })
 
 -- toggle diagnostics
 map("n", "<leader>td", function()
-  if vim.diagnostic.is_disabled() then
-    vim.diagnostic.enable()
+  if vim.diagnostic.is_enabled() then
+    vim.diagnostic.enable(false)
   else
-    vim.diagnostic.disable()
+    vim.diagnostic.enable(true)
   end
-  vim.notify("Diagnostics " .. (vim.diagnostic.is_disabled() and "OFF" or "ON"))
+  vim.notify("Diagnostics " .. (vim.diagnostic.is_enabled() and "OFF" or "ON"))
 end, { remap = true, desc = "Toggle diagnostics" })
 
 -- toggle listchars
@@ -139,7 +139,7 @@ map("n", "<leader>lc", vim.lsp.buf.code_action, { desc = "Code actions" })
 map(
   "n",
   "<leader>lh",
-  function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end,
+  function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 })) end,
   { desc = "Toggle inlay [h]ints" }
 )
 map("n", "<leader>lr", vim.lsp.buf.rename, { desc = "[R]ename" })

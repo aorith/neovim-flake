@@ -1,6 +1,7 @@
 -- Commands
 vim.cmd("command! CheckLspServerCapabilities :lua =require('aorith.core.utils').custom_server_capabilities()")
 vim.cmd("command! DownloadSpellFiles :lua =require('aorith.core.utils').download_spell_files()")
+vim.cmd("command! GetActiveLSPClients :lua =require('aorith.core.utils').get_active_lsp_clients()")
 
 local M = {}
 
@@ -22,12 +23,12 @@ end
 
 M.get_active_lsp_clients = function()
   local bufnr = vim.api.nvim_get_current_buf()
-  local active_servers = vim.lsp.get_active_clients({ bufnr = bufnr })
+  local active_servers = vim.lsp.get_clients({ bufnr = bufnr })
   if #active_servers <= 0 then return "No LSP servers running." end
 
   local header = "# Active LSP servers\n"
   local servers = ""
-  for _, c in pairs(vim.lsp.get_active_clients({ bufnr = bufnr })) do
+  for _, c in pairs(active_servers) do
     local state = c.initialized and " (running)" or " (starting)"
     servers = servers .. "\n      " .. c.name .. state
   end
@@ -70,7 +71,7 @@ M.show_in_popup = function(text, ft)
 end
 
 M.custom_server_capabilities = function()
-  local active_clients = vim.lsp.get_active_clients()
+  local active_clients = vim.lsp.get_clients()
   local active_client_map = {}
 
   for index, value in ipairs(active_clients) do
@@ -84,7 +85,7 @@ M.custom_server_capabilities = function()
     if choice == nil then return end
 
     -- set content
-    local raw_string = vim.inspect(vim.lsp.get_active_clients()[active_client_map[choice]].server_capabilities)
+    local raw_string = vim.inspect(vim.lsp.get_clients()[active_client_map[choice]].server_capabilities)
     M.show_in_popup(raw_string, "lua")
   end)
 end
