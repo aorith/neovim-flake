@@ -52,11 +52,9 @@ in
       cmp-cmdline
       cmp-cmdline-history
 
-      gitsigns-nvim
       neo-tree-nvim
       trouble-nvim
       undotree
-      vim-fugitive
       vim-sleuth
 
       # telescope-nvim

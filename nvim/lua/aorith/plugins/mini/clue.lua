@@ -53,8 +53,6 @@ M.setup = function()
     clues = {
       { mode = "n", keys = "<leader>b", desc = "+buffers" },
       { mode = "n", keys = "<leader>f", desc = "+file/find" },
-      { mode = "n", keys = "<leader>g", desc = "+git" },
-      { mode = "n", keys = "<leader>gh", desc = "+hunks" },
       { mode = "n", keys = "<leader>l", desc = "+lsp" },
       { mode = "n", keys = "<leader>t", desc = "+toggles" },
       { mode = "n", keys = "<leader>w", desc = "+windows" },
