@@ -56,6 +56,7 @@ in
       trouble-nvim
       undotree
       vim-sleuth
+      aerial-nvim
 
       # telescope-nvim
       # telescope-zf-native-nvim
