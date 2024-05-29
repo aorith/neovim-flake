@@ -8,7 +8,7 @@
     src,
     pname,
   }:
-    pkgs.vimUtils.buildVimPlugin {
+    pkgs.vimUtils.buildNeovimPlugin {
       inherit pname src;
       version = src.lastModifiedDate;
     };
