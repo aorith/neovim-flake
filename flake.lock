@@ -3,11 +3,11 @@
     "mini-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1717148815,
-        "narHash": "sha256-0sM0WPS+CxkEXXlQQ4AprKmbpZ72XZm/mJA2n25i5kg=",
+        "lastModified": 1717230315,
+        "narHash": "sha256-ycLOkgGMg+5yzqLCW0udoCn0YPt7xPgt2kmMk5NouKE=",
         "owner": "echasnovski",
         "repo": "mini.nvim",
-        "rev": "6260c7d3d96efdaaf5dece53457584ece5cf7212",
+        "rev": "d0494506d2e554bd3fecdc92ef8d57ea92d138cc",
         "type": "github"
       },
       "original": {

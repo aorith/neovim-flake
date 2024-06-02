@@ -2,12 +2,11 @@
   inputs,
   pkgs,
   opts,
-}: let
+}:
+let
   # Function to create a vim plugin from a flake input
-  mkVimPlugin = {
-    src,
-    pname,
-  }:
+  mkVimPlugin =
+    { src, pname }:
     pkgs.vimUtils.buildVimPlugin {
       inherit pname src;
       version = src.lastModifiedDate;
@@ -22,61 +21,61 @@
     paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
   };
 in
-  with pkgs.vimPlugins;
-    [
-      # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins
+with pkgs.vimPlugins;
+[
+  # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins
 
-      # Plugins can also be lazy loaded with ':packadd! plugin-name' when optional is true:
-      #{ plugin = luasnip; optional = true; }
+  # Plugins can also be lazy loaded with ':packadd! plugin-name' when optional is true:
+  #{ plugin = luasnip; optional = true; }
 
-      #nvim-treesitter.withAllGrammars
-      nvim-treesitter
-      nvim-treesitter-grammars
-      nvim-treesitter-textobjects
+  #nvim-treesitter.withAllGrammars
+  nvim-treesitter
+  nvim-treesitter-grammars
+  nvim-treesitter-textobjects
 
-      # format & linting
-      conform-nvim
-      nvim-lint
+  # format & linting
+  conform-nvim
+  nvim-lint
 
-      # lsp
-      nvim-lspconfig
-      neodev-nvim
+  # lsp
+  nvim-lspconfig
+  neodev-nvim
 
-      # completion & snippets
-      luasnip
-      nvim-cmp
-      cmp_luasnip
-      lspkind-nvim
-      cmp-nvim-lsp
-      cmp-nvim-lsp-signature-help
-      cmp-buffer
-      cmp-path
-      cmp-nvim-lua
-      cmp-cmdline
-      cmp-cmdline-history
+  # completion & snippets
+  luasnip
+  nvim-cmp
+  cmp_luasnip
+  lspkind-nvim
+  cmp-nvim-lsp
+  cmp-nvim-lsp-signature-help
+  cmp-buffer
+  cmp-path
+  cmp-nvim-lua
+  cmp-cmdline
+  cmp-cmdline-history
 
-      neo-tree-nvim
-      trouble-nvim
-      undotree
-      vim-sleuth
-      aerial-nvim
+  neo-tree-nvim
+  trouble-nvim
+  undotree
+  vim-sleuth
+  aerial-nvim
 
-      # telescope-nvim
-      # telescope-zf-native-nvim
+  # telescope-nvim
+  # telescope-zf-native-nvim
 
-      # Dependencies
-      plenary-nvim
-      nvim-web-devicons
-      vim-repeat
+  # Dependencies
+  plenary-nvim
+  nvim-web-devicons
+  vim-repeat
 
-      # Plugins outside of nixpkgs
-      (mkVimPlugin {
-        src = inputs.vim-varnish;
-        pname = "vim-varnish";
-      })
-      (mkVimPlugin {
-        src = inputs.mini-nvim;
-        pname = "mini-nvim";
-      })
-    ]
-    ++ (pkgs.lib.optionals opts.withSQLite [sqlite-lua])
+  # Plugins outside of nixpkgs
+  (mkVimPlugin {
+    src = inputs.vim-varnish;
+    pname = "vim-varnish";
+  })
+  (mkVimPlugin {
+    src = inputs.mini-nvim;
+    pname = "mini-nvim";
+  })
+]
+++ (pkgs.lib.optionals opts.withSQLite [ sqlite-lua ])

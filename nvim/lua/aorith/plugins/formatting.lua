@@ -32,7 +32,7 @@ local opts = {
 
     go = { "goimports", "gofmt" },
     lua = { "stylua" },
-    nix = { "alejandra" },
+    nix = { "nixfmt" },
     python = { "black", "isort" },
     toml = { "taplo" },
     xml = { "xmlformat" },

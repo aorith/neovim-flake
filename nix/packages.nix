@@ -1,5 +1,7 @@
-{pkgs}: {
-  packages = with pkgs;
+{ pkgs }:
+{
+  packages =
+    with pkgs;
     [
       # Dependencies
       fd
@@ -7,10 +9,10 @@
       ripgrep
 
       # Formatters
-      alejandra
       black
       gotools # goimports
       isort
+      nixfmt-rfc-style
       prettierd
       ruff
       shfmt
@@ -46,13 +48,13 @@
     ];
 
   # Extra lua packages to install, where package is 'xxx' in lua51Packages.xxx
-  extraLuaPackages = ps:
-    with ps; [
+  extraLuaPackages =
+    ps: with ps; [
       jsregexp # required by luasnip
     ];
 
   # Extra python packages
-  extraPython3Packages = _: [];
+  extraPython3Packages = _: [ ];
 
-  vale_setup = pkgs.callPackage ./vale.nix {inherit pkgs;};
+  vale_setup = pkgs.callPackage ./vale.nix { inherit pkgs; };
 }
