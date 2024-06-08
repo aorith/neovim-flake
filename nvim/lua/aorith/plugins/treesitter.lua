@@ -6,9 +6,10 @@ local disabled_files = {
 }
 
 local disabled_filetypes = {
-  "sh",
   "bash",
   "dockerfile",
+  "sh",
+  "tmux",
 }
 
 local function disable_treesitter_features(bufnr)
