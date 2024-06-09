@@ -30,18 +30,18 @@
       yamllint
 
       # LSP
+      gopls
       lua-language-server
+      marksman
       nil
       nodePackages.bash-language-server
-      gopls
-      sqls
-      yaml-language-server
-      terraform-ls
-      marksman
-      ruff-lsp
-      nodePackages.pyright
       nodePackages.typescript-language-server
+      pyright
+      ruff-lsp
+      sqls
+      terraform-ls
       vscode-langservers-extracted # html, css, ...
+      yaml-language-server
     ]
     ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
       pkgs.fswatch # https://github.com/neovim/neovim/pull/27347
