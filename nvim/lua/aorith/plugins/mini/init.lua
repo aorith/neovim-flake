@@ -11,6 +11,8 @@ require("mini.git").setup()
 -- sd => surround delete
 -- sr => surround replace
 require("mini.surround").setup()
+require("mini.icons").setup()
+MiniIcons.mock_nvim_web_devicons()
 
 require("aorith.plugins.mini.hipatterns").setup()
 require("aorith.plugins.mini.files").setup()

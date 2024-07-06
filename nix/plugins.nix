@@ -65,7 +65,6 @@ with pkgs.vimPlugins;
 
   # Dependencies
   plenary-nvim
-  nvim-web-devicons
   vim-repeat
 
   # Plugins outside of nixpkgs
