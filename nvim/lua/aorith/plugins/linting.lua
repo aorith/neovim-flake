@@ -13,7 +13,7 @@ lint.linters_by_ft = {
   nix = { "nix" },
   --python = { "ruff" }, -- ruff already lints with ruff_lsp
   yaml = { "yamllint" },
-  markdown = { "vale" },
+  -- markdown = { "vale" },
 }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "BufWritePost", "TextChanged", "InsertLeave" }, {

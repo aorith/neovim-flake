@@ -90,8 +90,8 @@ vim.o.grepformat = "%f:%l:%c:%m" -- Grep format
 vim.opt.completeopt = { "menu", "menuone", "noselect", "preview" }
 
 -- Spelling -------------------------------------------------------------------
-vim.o.spelllang    = 'en,es'      -- Define spelling dictionaries
-vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as separate words
+vim.opt.spelllang    = 'en_us,es' -- Define spelling dictionaries
+vim.opt.spelloptions = 'camel'    -- Treat parts of camelCase words as separate words
 vim.opt.complete:append('kspell') -- Add spellcheck options for autocomplete
 vim.opt.complete:remove('t')      -- Don't use tags for completion
 
