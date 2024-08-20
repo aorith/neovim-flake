@@ -1,7 +1,7 @@
 map(
   "n",
   "<leader>e",
-  function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), position = "left" }) end,
+  function() require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), position = "left" }) end,
   { desc = "Neo-Tree" }
 )
 

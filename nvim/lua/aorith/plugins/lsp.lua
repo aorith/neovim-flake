@@ -34,7 +34,7 @@ local on_attach = function(client, bufnr)
   if client.name == "ruff_lsp" then client.server_capabilities.hoverProvider = false end
 
   -- When you move your cursor, the highlights will be cleared (the second autocommand).
-  if client and client.server_capabilities.documentHighlightProvider then
+  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       buffer = bufnr,
       callback = vim.lsp.buf.document_highlight,
