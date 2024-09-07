@@ -1,9 +1,10 @@
 local lint = require("lint")
+local vale = lint.linters.vale
 
-if nvim_nix then
-  local vale = lint.linters.vale
+if vim.fn.filereadable(vim.fn.getcwd() .. "/.vale.ini") == 0 then
   local args = vale.args or {}
-  table.insert(args, 1, vim.env.VALE_DIR .. "/vale.ini")
+  local vale_dir = vim.env.VALE_DIR ~= vim.NIL and vim.env.VALE_DIR or "/home/aorith/.config/vale"
+  table.insert(args, 1, vale_dir .. "/vale.ini")
   table.insert(args, 1, "--config")
   vale.args = args
 end
@@ -15,7 +16,7 @@ lint.linters_by_ft = {
   nix = { "nix" },
   --python = { "ruff" }, -- ruff already lints with ruff_lsp
   yaml = { "yamllint" },
-  -- markdown = { "vale" },
+  markdown = { "vale" },
 }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "BufWritePost", "TextChanged", "InsertLeave" }, {
