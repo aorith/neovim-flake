@@ -1,8 +1,18 @@
-# Aorith's neovim flake
+# Aorith's Neovim Flake
 
-A flake that bundles Neovim together with my configuration, including required tools, linters, and LSP binaries.
+This flake packages Neovim with my custom configuration, including essential tools, linters, and LSP binaries using [Nix/nixpkgs](https://nixos.org/).
 
-## Run This Configuration
+## Don't have Nix?
+
+No worries! You can just clone or link the [nvim](./nvim) folder to `~/.config/nvim` to use a standard configuration.
+
+### How does it work?
+
+The Nix wrapper sets an environment variable (`NVIM_NIX=1`). If this variable is present, the Nix-specific Lua configuration is loaded. If not, a standard configuration using [mini.deps](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-deps.md) is loaded instead. This default setup doesn't include the bundled tools, linters, or other extras.
+
+## With Nix
+
+### Run This Configuration
 
 You can run this configuration without installing it on your system. Everything is bundled in the Nix store, except for the files that Neovim creates under `~/.local/...`.
 
@@ -10,7 +20,7 @@ You can run this configuration without installing it on your system. Everything 
 nix run github:aorith/neovim-flake#default
 ```
 
-## Development
+### Development
 
 Run the flake directly from the local folder:
 
@@ -20,7 +30,7 @@ nix run /path/to/your/local/neovim-flake#default
 
 Replace `/path/to/your/local/` with the actual path to your local flake directory.
 
-## Folder Structure
+### Folder Structure
 
 - `nvim/`: Contains the standard Neovim configuration files, similar to what you would find in `~/.config/nvim`. The contents of this directory are copied to the Nix store at build time (ensure all the files are tracked by git).
 
@@ -30,9 +40,9 @@ Replace `/path/to/your/local/` with the actual path to your local flake director
 
 - `nix/packages.nix`: This file lists extra packages that will be made available in Neovim's `$PATH`. These packages might include tools, linters, formatters, language servers, or any other binaries that Neovim plugins or configurations might invoke.
 
-## Installation
+### Installation
 
-### Nix Profile
+#### Nix Profile
 
 For an imperative installation using `nix profile`, use the following command:
 
@@ -52,7 +62,7 @@ nix profile list # Find the index number for this flake
 nix profile upgrade 2
 ```
 
-### NixOS
+#### NixOS
 
 To declaratively install this flake in a NixOS configuration, add the package to `environment.systemPackages`. Here's an example configuration snippet:
 
@@ -79,7 +89,7 @@ To declaratively install this flake in a NixOS configuration, add the package to
 }
 ```
 
-### Home Manager
+#### Home Manager
 
 To include it in your Home Manager configuration, add the package to `home.packages`:
 

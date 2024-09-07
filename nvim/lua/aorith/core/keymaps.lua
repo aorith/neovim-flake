@@ -59,7 +59,7 @@ map("n", "<leader>bb", function()
   local curbufnr = vim.api.nvim_get_current_buf()
   local bufinfo
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if bufnr ~= curbufnr and vim.api.nvim_buf_get_option(bufnr, "modified") == false then
+    if bufnr ~= curbufnr and vim.api.nvim_get_option_value("modified", { buf = bufnr }) == false then
       bufinfo = vim.fn.getbufinfo(bufnr)[1]
       if bufinfo.loaded == 1 and bufinfo.listed == 1 then vim.cmd("bd! " .. tostring(bufnr)) end
     end

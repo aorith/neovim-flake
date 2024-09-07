@@ -6,7 +6,7 @@ local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 local cmp_borders = cmp.config.window.bordered()
 
----@diagnostic disable-next-line: missing-fields
+---@diagnostic disable-next-line: missing-fields, redundant-parameter
 cmp.setup({
   window = {
     completion = cmp_borders,

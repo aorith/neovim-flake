@@ -39,7 +39,7 @@ with pkgs.vimPlugins;
 
   # lsp
   nvim-lspconfig
-  neodev-nvim
+  lazydev-nvim
 
   # completion & snippets
   luasnip
@@ -65,7 +65,6 @@ with pkgs.vimPlugins;
 
   # Dependencies
   plenary-nvim
-  vim-repeat
 
   # Plugins outside of nixpkgs
   (mkVimPlugin {

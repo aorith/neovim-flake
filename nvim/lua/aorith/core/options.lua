@@ -54,7 +54,6 @@ vim.o.signcolumn    = 'yes'      -- Always show signcolumn or it would frequentl
 vim.o.splitbelow    = true       -- Horizontal splits will be below
 vim.o.splitright    = true       -- Vertical splits will be to the right
 vim.o.splitkeep     = 'screen'   -- Reduce scroll during a window split
-vim.o.termguicolors = true       -- Enable gui colors
 vim.o.wrap          = false      -- Display long lines as just one line
 vim.o.showmatch     = true       -- Highlight matching parentheses
 

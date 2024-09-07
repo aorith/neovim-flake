@@ -1,5 +1,5 @@
 vim.opt_local.colorcolumn = "0"
-vim.opt_local.conceallevel = 1
+vim.opt_local.conceallevel = 0
 vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt_local.foldmethod = "expr"
 vim.opt_local.foldlevel = 99

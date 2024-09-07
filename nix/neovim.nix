@@ -55,6 +55,7 @@ let
   extraMakeWrapperArgs = builtins.concatStringsSep " " (
     [
       ''--prefix PATH : "${lib.makeBinPath [ externalPackages ]}"''
+      ''--set NVIM_NIX "1"''
       ''--set NVIM_APPNAME "${appName}"''
       ''--set VALE_DIR "${packages.vale_setup}"''
     ]

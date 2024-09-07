@@ -1,19 +1,22 @@
 #!/usr/bin/env bash
 cd "$(dirname -- "$0")" || exit 1
 
-link_name="${HOME}/.config/nvim-nix"
 target="${PWD}/nvim"
 
-if [[ -L "$link_name" ]]; then
-    if [[ "$(realpath -- "$link_name")" == "$(realpath -- "$target")" ]]; then
-        echo "Already symlinked."
-        exit 0
+for link_name in "${HOME}/.config/nvim" "${HOME}/.config/nvim-nix"; do
+    echo "Creating link: '$link_name' -> '$target' ..."
+
+    if [[ -L "$link_name" ]]; then
+        if [[ "$(realpath -- "$link_name")" == "$(realpath -- "$target")" ]]; then
+            echo "Already symlinked."
+            continue
+        fi
     fi
-fi
 
-if [[ -e "$link_name" ]]; then
-    echo "A directory or link already exists at '$link_name' delete it first."
-    exit 1
-fi
+    if [[ -e "$link_name" ]]; then
+        echo "A directory or link already exists at '$link_name' delete it first."
+        continue
+    fi
 
-ln -svf "$target" "$link_name"
+    ln -svf "$target" "$link_name"
+done

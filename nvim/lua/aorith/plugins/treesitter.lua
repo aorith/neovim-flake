@@ -13,15 +13,33 @@ local disabled_filetypes = {
 }
 
 local function disable_treesitter_features(bufnr)
-  local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+  local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
   local fname = vim.api.nvim_buf_get_name(bufnr)
   local short_name = vim.fn.fnamemodify(fname, ":t")
   return vim.tbl_contains(disabled_files, short_name) or vim.tbl_contains(disabled_filetypes, filetype)
 end
 
+local ensure_installed = nvim_nix and {}
+  or {
+    "bash",
+    "c",
+    "diff",
+    "go",
+    "html",
+    "lua",
+    "luadoc",
+    "markdown",
+    "markdown_inline",
+    "python",
+    "query",
+    "vim",
+    "vimdoc",
+  }
+
 ---@diagnostic disable-next-line: missing-fields
 require("nvim-treesitter.configs").setup({
-  auto_install = false,
+  auto_install = not nvim_nix,
+  ensure_installed = ensure_installed,
 
   highlight = {
     enable = true,

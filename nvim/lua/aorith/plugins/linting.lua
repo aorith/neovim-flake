@@ -1,10 +1,12 @@
 local lint = require("lint")
 
-local vale = lint.linters.vale
-local args = vale.args or {}
-table.insert(args, 1, vim.env.VALE_DIR .. "/vale.ini")
-table.insert(args, 1, "--config")
-vale.args = args
+if nvim_nix then
+  local vale = lint.linters.vale
+  local args = vale.args or {}
+  table.insert(args, 1, vim.env.VALE_DIR .. "/vale.ini")
+  table.insert(args, 1, "--config")
+  vale.args = args
+end
 
 lint.linters_by_ft = {
   go = { "golangcilint" },
