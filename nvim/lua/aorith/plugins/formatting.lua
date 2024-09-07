@@ -1,13 +1,13 @@
 map(
   "n",
   "<leader>lf",
-  function() require("conform").format({ async = false, lsp_fallback = true, timeout_ms = 5000 }) end,
+  function() require("conform").format({ async = false, lsp_format = "fallback", timeout_ms = 5000 }) end,
   { desc = "Format buffer" }
 )
 map(
   "v",
   "<leader>lf",
-  function() require("conform").format({ async = false, lsp_fallback = true, timeout_ms = 5000 }) end,
+  function() require("conform").format({ async = false, lsp_format = "fallback", timeout_ms = 5000 }) end,
   { desc = "Format buffer" }
 )
 
