@@ -6,7 +6,7 @@ local tools = {
   "black",
   "goimports",
   "isort",
-  "prettier",
+  "prettierd",
   "ruff",
   "shfmt",
   "stylua",

@@ -32,9 +32,8 @@ local opts = {
 
     go = { "goimports", "gofmt" },
     lua = { "stylua" },
-    nix = { "nixfmt" },
-    -- python = { "black", "isort" },
-    python = { "ruff_format", "ruff_organize_imports" },
+    nix = { "nixpkgs_fmt" },
+    python = { "ruff_format", "ruff_organize_imports" }, -- ruff_format & ruff_organize_imports  ||  black & isort
     toml = { "taplo" },
     xml = { "xmlformat" },
     yaml = { "yamlfmt", "trim_newlines" }, -- yamlfmt/yamlfix/prettierd
