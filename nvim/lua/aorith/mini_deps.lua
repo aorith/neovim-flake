@@ -11,7 +11,7 @@ return function()
       mini_path,
     }
     vim.fn.system(clone_cmd)
-    vim.cmd("packadd mini.nvim | helptags ALL")
+    vim.cmd("packadd mini.nvim") -- adding ' | helptags ALL' breaks it
     vim.cmd('echo "Installed `mini.nvim`" | redraw')
   end
 
