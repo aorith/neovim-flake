@@ -1,7 +1,7 @@
-{
-  inputs,
-  pkgs,
-  opts,
+{ inputs
+, pkgs
+, opts
+,
 }:
 let
   # Function to create a vim plugin from a flake input
@@ -59,6 +59,7 @@ with pkgs.vimPlugins;
   undotree
   vim-sleuth
   aerial-nvim
+  diffview-nvim
 
   # telescope-nvim
   # telescope-zf-native-nvim

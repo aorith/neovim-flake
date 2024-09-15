@@ -57,6 +57,7 @@ M.setup = function()
       { mode = "n", keys = "<leader>t", desc = "+toggles" },
       { mode = "n", keys = "<leader>w", desc = "+windows" },
       { mode = "n", keys = "<leader>x", desc = "+diagnostics/quickfix" },
+      { mode = "n", keys = "<leader>g", desc = "+git" },
 
       miniclue.gen_clues.builtin_completion(),
       miniclue.gen_clues.g(),

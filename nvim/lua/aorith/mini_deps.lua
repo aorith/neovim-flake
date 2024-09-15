@@ -88,6 +88,7 @@ return function()
     add({ source = "varnishcache-friends/vim-varnish", checkout = "main" })
     add({ source = "tpope/vim-sleuth" })
     add({ source = "mbbill/undotree" })
+    add({ source = "sindrets/diffview.nvim" })
   end)
 
   -- Load the configuration

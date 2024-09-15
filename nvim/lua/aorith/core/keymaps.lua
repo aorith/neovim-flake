@@ -151,3 +151,7 @@ map("n", "gr", "<cmd>Pick lsp scope='references'<cr>", { desc = "[G]oto [R]efere
 map("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]definition" })
 map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+
+-- Diffview
+map("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "DiffviewOpen" })
+map("n", "<leader>gh", "<cmd>DiffviewFileHistory<cr>", { desc = "DiffviewFileHistory" })
