@@ -41,19 +41,6 @@ with pkgs.vimPlugins;
   nvim-lspconfig
   lazydev-nvim
 
-  # completion & snippets
-  luasnip
-  nvim-cmp
-  cmp_luasnip
-  lspkind-nvim
-  cmp-nvim-lsp
-  cmp-nvim-lsp-signature-help
-  cmp-buffer
-  cmp-path
-  cmp-nvim-lua
-  cmp-cmdline
-  cmp-cmdline-history
-
   neo-tree-nvim
   trouble-nvim
   undotree

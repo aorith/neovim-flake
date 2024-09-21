@@ -21,7 +21,6 @@ return function()
     require("aorith.plugins.lsp")
     require("aorith.plugins.linting")
     require("aorith.plugins.formatting")
-    require("aorith.plugins.completion")
   else
     --
     -- nvim without nix

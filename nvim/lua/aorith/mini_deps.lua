@@ -65,21 +65,6 @@ return function()
       },
     })
 
-    add({
-      source = "hrsh7th/nvim-cmp",
-      depends = {
-        "neovim/nvim-lspconfig",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-path",
-        "onsails/lspkind.nvim",
-        "hrsh7th/cmp-nvim-lsp-signature-help",
-        "saadparwaiz1/cmp_luasnip",
-      },
-    })
-
     add({ source = "stevearc/conform.nvim", checkout = "v8.0.0", monitor = "master" })
     add({ source = "mfussenegger/nvim-lint", checkout = "master" })
     add({ source = "nvim-neo-tree/neo-tree.nvim", checkout = "3.26", monitor = "main" })
@@ -111,7 +96,5 @@ return function()
     require("aorith.plugins.neotree")
     require("aorith.plugins.trouble")
     require("aorith.plugins.aerial")
-
-    require("aorith.plugins.completion")
   end)
 end

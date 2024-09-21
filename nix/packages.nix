@@ -13,6 +13,7 @@
       gotools # goimports
       isort
       nixfmt-rfc-style
+      nixpkgs-fmt
       prettierd
       ruff
       shfmt

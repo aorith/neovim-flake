@@ -53,56 +53,41 @@ local on_attach = function(client, bufnr)
   })
 end
 
--- LSP servers and clients are able to communicate to each other what features they support.
---  By default, Neovim doesn't support everything that is in the LSP Specification.
---  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
---  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
 -- Load LSP
 local lspconfig = require("lspconfig")
 
 lspconfig.nil_ls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
   -- settings = { ["nil"] = { formatting = { command = { "nixpkgs-fmt" } } } },
 })
 
 lspconfig.bashls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.gopls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.sqlls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.yamlls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
   settings = { yaml = { keyOrdering = false } },
 })
 
 lspconfig.terraformls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.marksman.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.lua_ls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -124,7 +109,6 @@ lspconfig.lua_ls.setup({
 
 lspconfig.pyright.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
   settings = {
     {
       python = {
@@ -140,20 +124,16 @@ lspconfig.pyright.setup({
 
 lspconfig.ruff_lsp.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.ts_ls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.html.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
 
 lspconfig.cssls.setup({
   on_attach = on_attach,
-  capabilities = capabilities,
 })
