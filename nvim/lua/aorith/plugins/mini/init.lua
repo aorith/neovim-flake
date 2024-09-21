@@ -22,4 +22,4 @@ require("aorith.plugins.mini.completion").setup()
 
 map("n", "<leader>q", function() MiniBufremove.delete() end, { desc = "Delete current buffer" })
 map("n", "<leader>z", function() MiniMisc.zoom() end, { desc = "Zoom window" })
-map("n", "<leader>go", function() MiniDiff.toggle_overlay() end, { desc = "Toggle diff overlay" })
+map("n", "<leader>go", function() MiniDiff.toggle_overlay(0) end, { desc = "Toggle diff overlay" })
