@@ -137,3 +137,7 @@ lspconfig.html.setup({
 lspconfig.cssls.setup({
   on_attach = on_attach,
 })
+
+lspconfig.templ.setup({
+  on_attach = on_attach,
+})
