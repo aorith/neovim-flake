@@ -1,6 +1,7 @@
 local M = {}
 
 M.setup = function()
+  ---@diagnostic disable-next-line: redundant-parameter
   require("mini.notify").setup({
     content = {
       -- do not append time to the notification
