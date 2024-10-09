@@ -40,6 +40,8 @@ local opts = {
 
     sh = { "shfmt" },
     bash = { "shfmt" },
+
+    templ = { "templ" },
   },
   log_level = vim.log.levels.ERROR,
   notify_on_error = true,
