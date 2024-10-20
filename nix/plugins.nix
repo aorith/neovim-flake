@@ -42,7 +42,6 @@ with pkgs.vimPlugins;
   lazydev-nvim
 
   neo-tree-nvim
-  trouble-nvim
   undotree
   vim-sleuth
   aerial-nvim

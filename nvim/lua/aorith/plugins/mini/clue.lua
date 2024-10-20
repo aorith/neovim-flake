@@ -2,6 +2,7 @@ local M = {}
 
 M.setup = function()
   local miniclue = require("mini.clue")
+  ---@diagnostic disable-next-line: redundant-parameter
   miniclue.setup({
     window = {
       delay = 350,

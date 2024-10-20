@@ -13,7 +13,6 @@ return function()
 
     require("aorith.plugins.mini")
     require("aorith.plugins.neotree")
-    require("aorith.plugins.trouble")
     require("aorith.plugins.aerial")
 
     require("aorith.plugins.treesitter")
