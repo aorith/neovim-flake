@@ -52,8 +52,6 @@ M.setup = function()
   map("n", "<leader>fR", [[<Cmd>Pick lsp scope='references'<CR>]], { desc = "References (LSP)" })
   map("n", "<leader>fs", [[<Cmd>Pick lsp scope='workspace_symbol'<CR>]], { desc = "Symbols workspace (LSP)" })
   map("n", "<leader>fS", [[<Cmd>Pick lsp scope='document_symbol'<CR>]], { desc = "Symbols buffer (LSP)" })
-  map("n", "<leader>fv", [[<Cmd>Pick visit_paths cwd=''<CR>]], { desc = "Visit paths (all)" })
-  map("n", "<leader>fV", [[<Cmd>Pick visit_paths<CR>]], { desc = "Visit paths (cwd)" })
   map("n", "<leader>fp", [[<Cmd>Pick spellsuggest<CR>]], { desc = "Spell suggest" })
   map("n", "<leader>fk", [[<Cmd>Pick keymaps<CR>]], { desc = "Keymaps" })
 end
