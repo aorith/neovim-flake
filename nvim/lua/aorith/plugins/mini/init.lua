@@ -20,6 +20,9 @@ require("aorith.plugins.mini.pick").setup()
 require("aorith.plugins.mini.clue").setup()
 require("aorith.plugins.mini.completion").setup()
 
+require("mini.indentscope").setup()
+vim.g.miniindentscope_disable = true -- enable with <leader>ti
+
 map("n", "<leader>q", function() MiniBufremove.delete() end, { desc = "Delete current buffer" })
 map("n", "<leader>z", function() MiniMisc.zoom() end, { desc = "Zoom window" })
 map("n", "<leader>go", function() MiniDiff.toggle_overlay(0) end, { desc = "Toggle diff overlay" })

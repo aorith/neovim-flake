@@ -47,7 +47,7 @@ map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- highlights under cursor
-map("n", "<leader>ti", vim.show_pos, { desc = "Inspect Pos" })
+map("n", "<leader>tI", vim.show_pos, { desc = "Inspect Pos" })
 
 -- buffers
 map("n", "<leader><TAB>", "<cmd>bnext<CR>", { silent = true, desc = "Next buffer" })
@@ -89,6 +89,12 @@ map("n", "<leader>ts", function()
   vim.opt_local.spelllang = "en_us,es"
   vim.notify("Spell " .. (vim.opt.spell:get() and "ON" or "OFF"))
 end, { desc = "toggle spelling" })
+
+-- toggle mini.indentscope
+map("n", "<leader>ti", function()
+  vim.g.miniindentscope_disable = not vim.g.miniindentscope_disable
+  vim.notify("Indentscope " .. (vim.g.miniindentscope_disable and "OFF" or "ON"))
+end, { desc = "toggle indentscope" })
 
 -- toggle diagnostics
 map("n", "<leader>td", function()
