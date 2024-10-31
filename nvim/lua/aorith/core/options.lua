@@ -35,27 +35,27 @@ vim.opt.path:append("**")     -- Search down into subfolders
 vim.cmd.filetype("plugin", "indent", "on")
 
 -- UI -------------------------------------------------------------------------
-vim.o.breakindent   = true       -- Indent wrapped lines to match line start
-vim.o.colorcolumn   = '+1'       -- Colored column according to 'textwidth' if it's > 0
-vim.o.cursorline    = true       -- Enable highlighting of the current line
-vim.o.cursorlineopt = "number"   -- Cursorline highlights only the number column
-vim.o.laststatus    = 2          -- Always show statusline
-vim.o.linebreak     = true       -- Wrap long lines at 'breakat' (if 'wrap' is set)
-vim.o.list          = true       -- Show helpful character indicators
-vim.o.number        = true       -- Show line numbers
-vim.o.pumblend      = 0          -- Builtin completion menus transparency
-vim.o.winblend      = 0          -- Floating windows transparency
-vim.o.pumheight     = 12         -- Popup menu size
-vim.o.ruler         = false      -- Don't show cursor position
-vim.o.shortmess     = 'aoOWFCcS' -- Disable certain messages from |ins-completion-menu|
-vim.o.showmode      = false      -- Don't show mode in command line
-vim.o.showtabline   = 2          -- Always show tabline
-vim.o.signcolumn    = 'yes'      -- Always show signcolumn or it would frequently shift
-vim.o.splitbelow    = true       -- Horizontal splits will be below
-vim.o.splitright    = true       -- Vertical splits will be to the right
-vim.o.splitkeep     = 'screen'   -- Reduce scroll during a window split
-vim.o.wrap          = false      -- Display long lines as just one line
-vim.o.showmatch     = true       -- Highlight matching parentheses
+vim.o.breakindent   = true         -- Indent wrapped lines to match line start
+vim.o.colorcolumn   = '+1'         -- Colored column according to 'textwidth' if it's > 0
+vim.o.cursorline    = true         -- Enable highlighting of the current line
+vim.o.cursorlineopt = "number"     -- Cursorline highlights only the number column
+vim.o.laststatus    = 2            -- Always show statusline
+vim.o.linebreak     = true         -- Wrap long lines at 'breakat' (if 'wrap' is set)
+vim.o.list          = true         -- Show helpful character indicators
+vim.o.number        = true         -- Show line numbers
+vim.o.pumblend      = 0            -- Builtin completion menus transparency
+vim.o.winblend      = 0            -- Floating windows transparency
+vim.o.pumheight     = 12           -- Popup menu size
+vim.o.ruler         = false        -- Don't show cursor position
+vim.o.shortmess     = 'aoOTtWFCcS' -- Disable certain messages from |ins-completion-menu|
+vim.o.showmode      = false        -- Don't show mode in command line
+vim.o.showtabline   = 2            -- Always show tabline
+vim.o.signcolumn    = 'yes'        -- Always show signcolumn or it would frequently shift
+vim.o.splitbelow    = true         -- Horizontal splits will be below
+vim.o.splitright    = true         -- Vertical splits will be to the right
+vim.o.splitkeep     = 'screen'     -- Reduce scroll during a window split
+vim.o.wrap          = false        -- Display long lines as just one line
+vim.o.showmatch     = true         -- Highlight matching parentheses
 
 vim.o.fillchars = table.concat(
   { 'eob: ', 'fold:╌', 'horiz:═', 'horizdown:╦', 'horizup:╩', 'vert:║', 'verthoriz:╬', 'vertleft:╣', 'vertright:╠' },
