@@ -10,6 +10,7 @@ if vim.fn.filereadable(vim.fn.getcwd() .. "/.vale.ini") == 0 then
 end
 
 lint.linters_by_ft = {
+  ansible = { "ansible_lint" },
   go = { "golangcilint" },
   htmldjango = { "djlint" },
   jinja = { "djlint" },

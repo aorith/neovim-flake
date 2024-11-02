@@ -23,6 +23,7 @@
       yamlfmt
 
       # Linters
+      ansible-lint
       djlint
       golangci-lint
       shellcheck

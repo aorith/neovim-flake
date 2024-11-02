@@ -16,6 +16,7 @@ local tools = {
   "yamlfmt",
 
   -- Linters
+  "ansible-lint",
   "djlint",
   "golangci-lint",
   "nixpkgs-fmt",
