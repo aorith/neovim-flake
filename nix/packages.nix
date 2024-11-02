@@ -37,7 +37,7 @@
       nil
       nodePackages.bash-language-server
       nodePackages.typescript-language-server
-      pyright
+      basedpyright
       ruff-lsp
       sqls
       terraform-ls

@@ -35,7 +35,7 @@ local tools = {
   "terraform-ls",
   "marksman",
   "ruff-lsp",
-  "pyright",
+  "basedpyright",
   "typescript-language-server",
   "html-lsp",
   "css-lsp",

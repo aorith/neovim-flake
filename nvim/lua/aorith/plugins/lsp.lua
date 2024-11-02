@@ -107,7 +107,7 @@ lspconfig.lua_ls.setup({
   },
 })
 
-lspconfig.pyright.setup({
+lspconfig.basedpyright.setup({
   on_attach = on_attach,
   settings = {
     {
