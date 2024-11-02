@@ -3,11 +3,11 @@
     "mini-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1729606118,
-        "narHash": "sha256-ZApxvdB0/xLfBv672kk2rXq+kww1Hy3QFIKA4gY4c/A=",
+        "lastModified": 1730193638,
+        "narHash": "sha256-mfWlv5BVC8FpDVfY5CxMMlXIDcKyL8jSi0QmxdCKNiY=",
         "owner": "echasnovski",
         "repo": "mini.nvim",
-        "rev": "77533e69cc4fadb7f4c25f23255ae0890a058818",
+        "rev": "0a8a1072137d916406507c941698a4bfa9dbbe7a",
         "type": "github"
       },
       "original": {
@@ -18,11 +18,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1729665710,
-        "narHash": "sha256-AlcmCXJZPIlO5dmFzV3V2XF6x/OpNWUV8Y/FMPGd8Z4=",
+        "lastModified": 1730200266,
+        "narHash": "sha256-l253w0XMT8nWHGXuXqyiIC/bMvh1VRszGXgdpQlfhvU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2768c7d042a37de65bb1b5b3268fc987e534c49d",
+        "rev": "807e9154dcb16384b1b765ebe9cd2bba2ac287fd",
         "type": "github"
       },
       "original": {
