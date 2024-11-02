@@ -20,6 +20,7 @@ M.setup = function()
         local filename = MiniStatusline.section_filename({ trunc_width = 140 })
         local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
         local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+        local location = MiniStatusline.section_location({ trunc_width = 75 })
 
         return MiniStatusline.combine_groups({
           { hl = mode_hl, strings = { mode } },
@@ -29,7 +30,8 @@ M.setup = function()
           "%=", -- End left alignment
           { hl = "MiniStatuslineModeReplace", strings = { search } },
           { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-          { hl = mode_hl, strings = { "%l:%c%V %P 0x%B" } },
+          { hl = mode_hl, strings = { location } },
+          -- { hl = mode_hl, strings = { "%l:%c%V %P 0x%B" } }, -- remove '0x%B', use :ascii
         })
       end,
 
