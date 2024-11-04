@@ -48,13 +48,6 @@ require("nvim-treesitter.configs").setup({
         vim.notify("Treesitter disabled by file/filetype.")
         return true
       end
-      local fname = vim.api.nvim_buf_get_name(buf)
-      local max_filesize = 100 * 1024 -- 100 KiB
-      local ok, stats = pcall(vim.uv.fs_stat, fname)
-      if ok and stats and stats.size > max_filesize then
-        vim.notify("Treesitter disabled by filesize.")
-        return true
-      end
     end,
     additional_vim_regex_highlighting = { "sh", "bash", "dockerfile", "org" },
   },

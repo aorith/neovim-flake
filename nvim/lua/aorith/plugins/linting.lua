@@ -22,8 +22,10 @@ lint.linters_by_ft = {
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "BufWritePost", "TextChanged", "InsertLeave" }, {
   group = vim.api.nvim_create_augroup("Nvim-Lint", { clear = true }),
-  callback = function(args)
+  callback = function()
     lint.try_lint()
-    lint.try_lint("typos") -- run on all files
+    if vim.bo.filetype ~= "bigfile" then
+      lint.try_lint("typos") -- run on all files
+    end
   end,
 })
