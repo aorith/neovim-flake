@@ -47,8 +47,8 @@ local opts = {
   notify_on_error = true,
 }
 
-local xdg_config = vim.fn.getenv("XDG_CONFIG_HOME") and vim.fn.getenv("XDG_CONFIG_HOME")
-  or vim.fn.getenv("HOME") + "/.config"
+local xdg_config = vim.fn.getenv("XDG_CONFIG_HOME") ~= vim.NIL and vim.fn.getenv("XDG_CONFIG_HOME")
+  or (vim.fn.getenv("HOME") .. "/.config")
 require("conform").formatters.yamlfmt = {
   prepend_args = { "-conf", xdg_config .. "/" .. utils.nvim_appname .. "/extra/yamlfmt" },
 }
