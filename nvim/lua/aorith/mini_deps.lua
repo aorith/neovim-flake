@@ -46,7 +46,6 @@ return function()
 
     add({
       source = "neovim/nvim-lspconfig",
-      version = "9b2509f17c284486497358ccea1019cc17c28af6",
       depends = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",

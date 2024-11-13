@@ -15,7 +15,7 @@ lint.linters_by_ft = {
   htmldjango = { "djlint" },
   jinja = { "djlint" },
   nix = { "nix" },
-  --python = { "ruff" }, -- ruff already lints with ruff_lsp
+  --python = { "ruff" }, -- ruff already lints with ruff lsp
   yaml = { "yamllint" },
   markdown = { "vale" },
 }
