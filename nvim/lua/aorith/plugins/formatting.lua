@@ -19,6 +19,7 @@ local opts = {
     htmldjango = { "djlint" },
 
     css = { "prettierd" },
+    scss = { "prettierd" },
     graphql = { "prettierd" },
     html = { "prettierd" },
     javascript = { "prettierd" },
