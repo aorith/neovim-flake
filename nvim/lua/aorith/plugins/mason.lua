@@ -27,19 +27,20 @@ local tools = {
   "yamllint",
 
   -- LSP
-  "lua-language-server",
-  "nil",
-  "bash-language-server",
-  "gopls",
-  "sqlls",
-  "yaml-language-server",
-  "terraform-ls",
-  "marksman",
-  "ruff-lsp",
   "basedpyright",
-  "typescript-language-server",
-  "html-lsp",
+  "bash-language-server",
   "css-lsp",
+  "gopls",
+  "html-lsp",
+  "lua-language-server",
+  "marksman",
+  "nil",
+  "ruff-lsp",
+  "sqlls",
+  "templ",
+  "terraform-ls",
+  "typescript-language-server",
+  "yaml-language-server",
 }
 
 vim.schedule(function()
