@@ -1,5 +1,11 @@
 local blocked_filetypes = { ["neo-tree"] = true }
 
+local function get_schema()
+  local schema = require("yaml-companion").get_buf_schema(0)
+  if schema.result[1].name == "none" then return "" end
+  return schema.result[1].name
+end
+
 local M = {}
 
 M.setup = function()
@@ -22,6 +28,8 @@ M.setup = function()
         local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
         local location = MiniStatusline.section_location({ trunc_width = 75 })
 
+        local yaml_schema = get_schema()
+
         return MiniStatusline.combine_groups({
           { hl = mode_hl, strings = { mode } },
           { hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
@@ -29,7 +37,7 @@ M.setup = function()
           { hl = "MiniStatuslineFilename", strings = { filename } },
           "%=", -- End left alignment
           { hl = "MiniStatuslineModeReplace", strings = { search } },
-          { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
+          { hl = "MiniStatuslineFileinfo", strings = { yaml_schema, fileinfo } },
           { hl = mode_hl, strings = { location } },
           -- { hl = mode_hl, strings = { "%l:%c%V %P 0x%B" } }, -- remove '0x%B', use :ascii
         })

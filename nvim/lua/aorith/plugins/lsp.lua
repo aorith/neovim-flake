@@ -70,10 +70,39 @@ lspconfig.sqlls.setup({
   on_attach = on_attach,
 })
 
-lspconfig.yamlls.setup({
-  on_attach = on_attach,
-  settings = { yaml = { keyOrdering = false } },
-})
+lspconfig.yamlls.setup(require("yaml-companion").setup({
+  -- Extra schemas
+  schemas = {
+    {
+      name = "Kubernetes 1.22.4",
+      uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json",
+    },
+  },
+
+  -- Additional options that will be merged in the final LSP config
+  lspconfig = {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    },
+    settings = {
+      redhat = { telemetry = { enabled = false } },
+      yaml = {
+        validate = true,
+        format = { enable = true },
+        keyOrdering = false,
+        hover = true,
+        schemaStore = {
+          enable = true,
+          url = "https://www.schemastore.org/api/json/catalog.json",
+        },
+        schemaDownload = { enable = true },
+        schemas = {},
+        trace = { server = "debug" },
+      },
+    },
+  },
+}))
 
 lspconfig.terraformls.setup({
   on_attach = on_attach,

@@ -10,6 +10,9 @@
 
     mini-nvim.url = "github:echasnovski/mini.nvim";
     mini-nvim.flake = false;
+
+    yaml-companion-nvim.url = "github:someone-stole-my-name/yaml-companion.nvim";
+    yaml-companion-nvim.flake = false;
   };
 
   outputs =
