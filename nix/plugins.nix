@@ -1,7 +1,7 @@
-{ inputs
-, pkgs
-, opts
-,
+{
+  inputs,
+  pkgs,
+  opts,
 }:
 let
   # Function to create a vim plugin from a flake input

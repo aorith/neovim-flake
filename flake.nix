@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     # External plugins
     vim-varnish.url = "github:varnishcache-friends/vim-varnish";
     vim-varnish.flake = false;
@@ -16,14 +19,18 @@
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      systems,
+      treefmt-nix,
+      ...
+    }@inputs:
     let
-      eachSystem = nixpkgs.lib.genAttrs [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "x86_64-linux"
-      ];
+      eachSystem = nixpkgs.lib.genAttrs (import systems);
+      treefmtEval = eachSystem (
+        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
+      );
     in
     {
       packages = eachSystem (system: {
@@ -36,7 +43,11 @@
         };
       });
 
-      # Formatter for 'nix fmt'
-      formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      # for `nix fmt`
+      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
+      # for `nix flake check`
+      checks = eachSystem (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
+      });
     };
 }
