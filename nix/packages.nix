@@ -27,6 +27,7 @@
       djlint
       golangci-lint
       shellcheck
+      tflint
       typos
       vale
       yamllint

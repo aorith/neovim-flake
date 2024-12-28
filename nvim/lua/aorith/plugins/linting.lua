@@ -10,14 +10,15 @@ if vim.fn.filereadable(vim.fn.getcwd() .. "/.vale.ini") == 0 then
 end
 
 lint.linters_by_ft = {
+  --python = { "ruff" }, -- ruff already lints with ruff lsp
   ansible = { "ansible_lint" },
   go = { "golangcilint" },
   htmldjango = { "djlint" },
   jinja = { "djlint" },
-  nix = { "nix" },
-  --python = { "ruff" }, -- ruff already lints with ruff lsp
-  yaml = { "yamllint" },
   markdown = { "vale" },
+  nix = { "nix" },
+  terraform = { "tflint" },
+  yaml = { "yamllint" },
 }
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "BufWritePost", "TextChanged", "InsertLeave" }, {

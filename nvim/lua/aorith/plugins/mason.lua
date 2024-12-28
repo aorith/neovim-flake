@@ -22,6 +22,7 @@ local tools = {
   "nixpkgs-fmt",
   "proselint",
   "shellcheck",
+  "tflint",
   "typos",
   "vale",
   "yamllint",
