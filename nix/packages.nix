@@ -29,7 +29,6 @@
       shellcheck
       tflint
       typos
-      vale
       yamllint
 
       # LSP
@@ -58,6 +57,4 @@
 
   # Extra python packages
   extraPython3Packages = _: [ ];
-
-  vale_setup = pkgs.callPackage ./vale.nix { inherit pkgs; };
 }

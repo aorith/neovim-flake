@@ -1,13 +1,4 @@
 local lint = require("lint")
-local vale = lint.linters.vale
-
-if vim.fn.filereadable(vim.fn.getcwd() .. "/.vale.ini") == 0 then
-  local args = vale.args or {}
-  local vale_dir = vim.env.VALE_DIR ~= vim.NIL and vim.env.VALE_DIR or "/home/aorith/.config/vale"
-  table.insert(args, 1, vale_dir .. "/vale.ini")
-  table.insert(args, 1, "--config")
-  vale.args = args
-end
 
 lint.linters_by_ft = {
   --python = { "ruff" }, -- ruff already lints with ruff lsp
@@ -15,7 +6,6 @@ lint.linters_by_ft = {
   go = { "golangcilint" },
   htmldjango = { "djlint" },
   jinja = { "djlint" },
-  markdown = { "vale" },
   nix = { "nix" },
   terraform = { "tflint" },
   yaml = { "yamllint" },

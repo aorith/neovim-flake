@@ -57,7 +57,6 @@ let
       ''--prefix PATH : "${lib.makeBinPath [ externalPackages ]}"''
       ''--set NVIM_NIX "1"''
       ''--set NVIM_APPNAME "${appName}"''
-      ''--set VALE_DIR "${packages.vale_setup}"''
     ]
     ++ (lib.optionals with-config [ ''--set XDG_CONFIG_HOME "${nvimHome.outPath}"'' ])
     ++ (lib.optionals opts.withSQLite [

@@ -24,7 +24,6 @@ local tools = {
   "shellcheck",
   "tflint",
   "typos",
-  "vale",
   "yamllint",
 
   -- LSP
