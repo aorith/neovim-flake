@@ -70,39 +70,42 @@ lspconfig.sqlls.setup({
   on_attach = on_attach,
 })
 
-lspconfig.yamlls.setup(require("yaml-companion").setup({
-  -- Extra schemas
-  schemas = {
-    {
-      name = "Kubernetes 1.22.4",
-      uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json",
-    },
-  },
+lspconfig.yamlls.setup({
+  on_attach = on_attach,
+  on_init = function() require("aorith.core.yaml_schema").get_client() end,
 
-  -- Additional options that will be merged in the final LSP config
-  lspconfig = {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    settings = {
-      redhat = { telemetry = { enabled = false } },
-      yaml = {
-        validate = true,
-        format = { enable = true },
-        keyOrdering = false,
-        hover = true,
-        schemaStore = {
-          enable = true,
-          url = "https://www.schemastore.org/api/json/catalog.json",
-        },
-        schemaDownload = { enable = true },
-        schemas = {},
-        trace = { server = "debug" },
+  settings = {
+    redhat = { telemetry = { enabled = false } },
+
+    yaml = {
+      validate = true,
+      format = { enable = true },
+      keyOrdering = false,
+      hover = true,
+      completion = true,
+
+      schemaStore = {
+        enable = false,
+        url = "https://www.schemastore.org/api/json/catalog.json",
+      },
+
+      -- schemas detected by filename
+      schemas = {
+        ["https://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
+        ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "{docker-,}compose*.{yml,yaml}",
+        ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-application.{yml,yaml}",
+        ["https://json.schemastore.org/github-workflow.json"] = ".github/workflows/*.{yml,yaml}",
+      },
+
+      -- custom option to select schemas by name with 'YAMLSchemaSelect' (aorith.core.yaml_schema)
+      -- [<uri>] = <name>
+      custom_schemas = {
+        ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json"] = "k8s-1.22.4",
+        ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.31.4-standalone-strict/all.json"] = "k8s-1.31.4",
       },
     },
   },
-}))
+})
 
 lspconfig.terraformls.setup({
   on_attach = on_attach,

@@ -54,6 +54,11 @@ M.setup = function()
   map("n", "<leader>fS", [[<Cmd>Pick lsp scope='document_symbol'<CR>]], { desc = "Symbols buffer (LSP)" })
   map("n", "<leader>fp", [[<Cmd>Pick spellsuggest<CR>]], { desc = "Spell suggest" })
   map("n", "<leader>fk", [[<Cmd>Pick keymaps<CR>]], { desc = "Keymaps" })
+
+  -- without leader key
+  map("n", "gr", "<cmd>Pick lsp scope='references'<cr>", { desc = "[G]oto [R]eferences" })
+  map("n", "gd", "<cmd>Pick lsp scope='definition'<cr>", { desc = "[G]oto [D]definition" })
+  map("n", "gD", "<cmd>Pick lsp scope='declaration'<cr>", { desc = "[G]oto [D]eclaration" })
 end
 
 return M

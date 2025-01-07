@@ -62,10 +62,5 @@ with pkgs.vimPlugins;
     src = inputs.mini-nvim;
     pname = "mini-nvim";
   })
-
-  (mkVimPlugin {
-    src = inputs.yaml-companion-nvim;
-    pname = "yaml-companion.nvim";
-  })
 ]
 ++ (pkgs.lib.optionals opts.withSQLite [ sqlite-lua ])

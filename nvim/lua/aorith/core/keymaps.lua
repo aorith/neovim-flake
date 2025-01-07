@@ -61,7 +61,9 @@ map("n", "<leader>bb", function()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if bufnr ~= curbufnr and vim.api.nvim_get_option_value("modified", { buf = bufnr }) == false then
       bufinfo = vim.fn.getbufinfo(bufnr)[1]
-      if bufinfo.loaded == 1 and bufinfo.listed == 1 then vim.cmd("bd! " .. tostring(bufnr)) end
+      if bufinfo.loaded == 1 and bufinfo.listed == 1 then
+        vim.cmd("bd! " .. tostring(bufnr))
+      end
     end
   end
 end, { desc = "Close all other unmodified buffers" })
@@ -153,9 +155,6 @@ map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "[S]ignature" })
 map("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "UndoTree" })
 
 -- without leader key
-map("n", "gr", "<cmd>Pick lsp scope='references'<cr>", { desc = "[G]oto [R]eferences" })
-map("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]definition" })
-map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 map("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
 
 -- Diffview

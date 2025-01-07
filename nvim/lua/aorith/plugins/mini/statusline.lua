@@ -1,11 +1,5 @@
 local blocked_filetypes = { ["neo-tree"] = true }
 
-local function get_schema()
-  local schema = require("yaml-companion").get_buf_schema(0)
-  if schema.result[1].name == "none" then return "" end
-  return schema.result[1].name
-end
-
 local function get_attached_clients()
   local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
   if #buf_clients == 0 then return "{}" end
@@ -45,7 +39,6 @@ M.setup = function()
         local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
         local location = MiniStatusline.section_location({ trunc_width = 75 })
 
-        local yaml_schema = get_schema()
         local lsp_clients = get_attached_clients()
 
         return MiniStatusline.combine_groups({
@@ -55,7 +48,8 @@ M.setup = function()
           { hl = "MiniStatuslineFilename", strings = { filename } },
           "%=", -- End left alignment
           { hl = "MiniStatuslineModeReplace", strings = { search } },
-          { hl = "MiniStatuslineFileinfo", strings = { lsp_clients, yaml_schema, fileinfo } },
+          { hl = "MiniStatuslineInactive", strings = { lsp_clients } },
+          { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
           { hl = mode_hl, strings = { location } },
           -- { hl = mode_hl, strings = { "%l:%c%V %P 0x%B" } }, -- remove '0x%B', use :ascii
         })
