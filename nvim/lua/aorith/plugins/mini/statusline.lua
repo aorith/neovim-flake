@@ -6,6 +6,23 @@ local function get_schema()
   return schema.result[1].name
 end
 
+local function get_attached_clients()
+  local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #buf_clients == 0 then return "{}" end
+
+  local unique_buf_client_names = {}
+  for _, client in pairs(buf_clients) do
+    if not unique_buf_client_names[client.name] then unique_buf_client_names[client.name] = true end
+  end
+
+  local client_names = {}
+  for key in pairs(unique_buf_client_names) do
+    table.insert(client_names, key)
+  end
+
+  return "{" .. table.concat(client_names, " ") .. "}"
+end
+
 local M = {}
 
 M.setup = function()
@@ -29,6 +46,7 @@ M.setup = function()
         local location = MiniStatusline.section_location({ trunc_width = 75 })
 
         local yaml_schema = get_schema()
+        local lsp_clients = get_attached_clients()
 
         return MiniStatusline.combine_groups({
           { hl = mode_hl, strings = { mode } },
@@ -37,7 +55,7 @@ M.setup = function()
           { hl = "MiniStatuslineFilename", strings = { filename } },
           "%=", -- End left alignment
           { hl = "MiniStatuslineModeReplace", strings = { search } },
-          { hl = "MiniStatuslineFileinfo", strings = { yaml_schema, fileinfo } },
+          { hl = "MiniStatuslineFileinfo", strings = { lsp_clients, yaml_schema, fileinfo } },
           { hl = mode_hl, strings = { location } },
           -- { hl = mode_hl, strings = { "%l:%c%V %P 0x%B" } }, -- remove '0x%B', use :ascii
         })
