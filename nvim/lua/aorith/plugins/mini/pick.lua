@@ -10,7 +10,7 @@ M.setup = function()
       height = math.floor(0.8 * max_height),
       width = width,
       row = max_height + (has_tabline and 1 or 0),
-      col = 4,
+      col = 1,
     }
   end
 
@@ -49,16 +49,15 @@ M.setup = function()
   map("n", "<leader>fm", [[<Cmd>Pick git_hunks<CR>]], { desc = "Modified hunks (all)" })
   map("n", "<leader>fM", [[<Cmd>Pick git_hunks path='%'<CR>]], { desc = "Modified hunks (current)" })
   map("n", "<leader>fr", [[<Cmd>Pick resume<CR>]], { desc = "Resume" })
-  map("n", "<leader>fR", [[<Cmd>Pick lsp scope='references'<CR>]], { desc = "References (LSP)" })
   map("n", "<leader>fs", [[<Cmd>Pick lsp scope='workspace_symbol'<CR>]], { desc = "Symbols workspace (LSP)" })
   map("n", "<leader>fS", [[<Cmd>Pick lsp scope='document_symbol'<CR>]], { desc = "Symbols buffer (LSP)" })
   map("n", "<leader>fp", [[<Cmd>Pick spellsuggest<CR>]], { desc = "Spell suggest" })
   map("n", "<leader>fk", [[<Cmd>Pick keymaps<CR>]], { desc = "Keymaps" })
 
   -- without leader key
-  map("n", "gr", "<cmd>Pick lsp scope='references'<cr>", { desc = "[G]oto [R]eferences" })
-  map("n", "gd", "<cmd>Pick lsp scope='definition'<cr>", { desc = "[G]oto [D]definition" })
-  map("n", "gD", "<cmd>Pick lsp scope='declaration'<cr>", { desc = "[G]oto [D]eclaration" })
+  map("n", "gr", "<Cmd>Pick lsp scope='references'<CR>", { desc = "[G]oto [R]eferences" })
+  map("n", "gd", "<Cmd>Pick lsp scope='definition'<CR>", { desc = "[G]oto [D]definition" })
+  map("n", "gD", "<Cmd>Pick lsp scope='declaration'<CR>", { desc = "[G]oto [D]eclaration" })
 end
 
 return M
