@@ -28,6 +28,7 @@ local opts = {
     jsonc = { "prettierd" },
     markdown = { "prettierd" },
     terraform = { "terraform_fmt", "trim_newlines", "trim_whitespace" },
+    hcl = { "terraform_fmt", "trim_newlines", "trim_whitespace" },
     typescript = { "prettierd" },
     typescriptreact = { "prettierd" },
 

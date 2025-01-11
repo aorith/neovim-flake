@@ -73,6 +73,7 @@ return function()
     add({ source = "tpope/vim-sleuth" })
     add({ source = "mbbill/undotree" })
     add({ source = "sindrets/diffview.nvim" })
+    add({ source = "rebelot/kanagawa.nvim" })
   end)
 
   -- Load the configuration

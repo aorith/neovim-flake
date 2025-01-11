@@ -8,6 +8,7 @@ lint.linters_by_ft = {
   jinja = { "djlint" },
   nix = { "nix" },
   terraform = { "tflint" },
+  hcl = { "tflint" },
   yaml = { "yamllint" },
 }
 

@@ -28,6 +28,9 @@ with pkgs.vimPlugins;
   # Plugins can also be lazy loaded with ':packadd! plugin-name' when optional is true:
   #{ plugin = luasnip; optional = true; }
 
+  # themes
+  kanagawa-nvim
+
   #nvim-treesitter.withAllGrammars
   nvim-treesitter
   nvim-treesitter-grammars

@@ -2,5 +2,6 @@
 -- vim.opt.background = "dark"
 
 vim.o.termguicolors = true
-vim.cmd.colorscheme("randomhue")
---require("mini.hues").setup({ background = "#11262d", foreground = "#c0c8cc" })
+-- vim.cmd.colorscheme("randomhue")
+vim.cmd.colorscheme("kanagawa")
+-- require("mini.hues").setup({ background = "#11262d", foreground = "#c0c8cc" })
