@@ -40,7 +40,6 @@
       nodePackages.typescript-language-server
       basedpyright
       ruff-lsp
-      sqls
       terraform-ls
       vscode-langservers-extracted # html, css, ...
       yaml-language-server

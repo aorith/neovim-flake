@@ -66,10 +66,6 @@ lspconfig.gopls.setup({
   on_attach = on_attach,
 })
 
-lspconfig.sqlls.setup({
-  on_attach = on_attach,
-})
-
 lspconfig.yamlls.setup({
   on_attach = on_attach,
   on_init = function() require("aorith.core.yaml_schema").get_client() end,

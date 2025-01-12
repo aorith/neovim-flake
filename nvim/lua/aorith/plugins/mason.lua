@@ -36,7 +36,6 @@ local tools = {
   "marksman",
   "nil",
   "ruff-lsp",
-  "sqlls",
   "templ",
   "terraform-ls",
   "typescript-language-server",
