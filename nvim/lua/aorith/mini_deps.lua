@@ -47,8 +47,6 @@ return function()
     add({
       source = "neovim/nvim-lspconfig",
       depends = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
         "folke/lazydev.nvim",
       },
     })
@@ -86,7 +84,6 @@ return function()
 
     require("aorith.plugins.mini")
 
-    require("aorith.plugins.mason")
     require("aorith.plugins.treesitter")
     require("aorith.plugins.lsp")
 

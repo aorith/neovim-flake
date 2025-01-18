@@ -32,12 +32,11 @@ local opts = {
     typescript = { "prettierd" },
     typescriptreact = { "prettierd" },
 
-    go = { "goimports", "gofmt" },
+    go = { "goimports", "gofmt" }, -- go install golang.org/x/tools/cmd/goimports@latest
     lua = { "stylua" },
     nix = { "nixpkgs_fmt" },
     python = { "ruff_format", "ruff_organize_imports" }, -- ruff_format & ruff_organize_imports  ||  black & isort
     toml = { "taplo" },
-    xml = { "xmlformat" },
     yaml = { "yamlfmt", "trim_newlines" }, -- yamlfmt/yamlfix/prettierd
 
     sh = { "shfmt" },
