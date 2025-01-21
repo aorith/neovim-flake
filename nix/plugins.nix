@@ -35,6 +35,7 @@ with pkgs.vimPlugins;
   nvim-treesitter
   nvim-treesitter-grammars
   nvim-treesitter-textobjects
+  nvim-treesitter-context
 
   # format & linting
   conform-nvim
