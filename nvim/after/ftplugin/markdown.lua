@@ -81,3 +81,6 @@ vim.b.minihipatterns_config = {
     mdtags = { pattern = "%f[#]()#%w+", group = "Special" },
   },
 }
+
+-- Open aerial
+vim.cmd("AerialOpen!")

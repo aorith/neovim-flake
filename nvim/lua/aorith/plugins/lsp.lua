@@ -96,7 +96,7 @@ lspconfig.yamlls.setup({
       -- custom option to select schemas by name with 'YAMLSchemaSelect' (aorith.core.yaml_schema)
       -- [<uri>] = <name>
       custom_schemas = {
-        ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.22.4-standalone-strict/all.json"] = "k8s-1.22.4",
+        ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.16-standalone-strict/all.json"] = "k8s-1.25.16",
         ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.31.4-standalone-strict/all.json"] = "k8s-1.31.4",
       },
     },
@@ -164,5 +164,9 @@ lspconfig.cssls.setup({
 })
 
 lspconfig.templ.setup({
+  on_attach = on_attach,
+})
+
+lspconfig.zk.setup({
   on_attach = on_attach,
 })
