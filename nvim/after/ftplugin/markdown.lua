@@ -16,6 +16,14 @@ map("n", "<LocalLeader>c", utils.markdown_insert_codeblock, { buffer = 0, desc =
 map("n", "tt", utils.markdown_todo_toggle, { buffer = 0, desc = "Toggle To-Do" })
 map("n", "<CR>", vim.lsp.buf.definition, { buffer = 0, desc = "Follow link (go to definition)" })
 
+---@diagnostic disable-next-line: inject-field
+vim.b.minihipatterns_config = {
+  highlighters = {
+    -- Highlight markdown 'tags'
+    mdtags = { pattern = "%f[#]()#%w+", group = "Special" },
+  },
+}
+
 -- local markdown_query = [[
 --   (fenced_code_block) @code
 --   (fenced_code_block_delimiter) @codedelimiter
@@ -73,14 +81,3 @@ map("n", "<CR>", vim.lsp.buf.definition, { buffer = 0, desc = "Follow link (go t
 --   },
 --   callback = function(_) vim.schedule(render) end,
 -- })
-
----@diagnostic disable-next-line: inject-field
-vim.b.minihipatterns_config = {
-  highlighters = {
-    -- Highlight markdown 'tags'
-    mdtags = { pattern = "%f[#]()#%w+", group = "Special" },
-  },
-}
-
--- Open aerial
-vim.cmd("AerialOpen!")

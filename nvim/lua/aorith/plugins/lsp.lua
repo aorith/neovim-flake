@@ -170,3 +170,14 @@ lspconfig.templ.setup({
 lspconfig.zk.setup({
   on_attach = on_attach,
 })
+
+lspconfig.helm_ls.setup({
+  on_attach = on_attach,
+  settings = {
+    ["helm-ls"] = {
+      yamlls = {
+        path = "yaml-language-server",
+      },
+    },
+  },
+})
