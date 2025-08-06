@@ -8,9 +8,9 @@ It does not manage all the plugins with Nix, only the ones that break on NixOS a
 
 ## With Nix
 
-It has two flavours both of them set the variable `NVIM_APPNAME` to `nvim-nix`:
+It has two flavours, both of them set the variable `NVIM_APPNAME` to `nvim-nix` (the nvim wrapper does):
 
-- `#default`: configuration is copied over to the nix-store, and you can run it on any machine with Nix without symlinking the it to `~/.config`
+- `#default`: configuration is copied over to the nix-store, and you can run it on any machine with Nix without symlinking it to `~/.config`
 - `#nvim-without-config`: the configuration is loaded from `~/.config/$NVIM_APPNAME`, this is what I usually use as it allows modifying the config on the fly, so I execute `./link.sh` as part of the bootstrap to link the config on a new machine
 
 ### Folder Structure
