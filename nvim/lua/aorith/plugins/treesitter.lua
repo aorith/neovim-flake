@@ -6,10 +6,9 @@ local disabled_files = {
 }
 
 local disabled_filetypes = {
-  "bash",
-  "dockerfile",
-  "sh",
   "tmux",
+  "bash",
+  "sh",
 }
 
 local function disable_treesitter_features(bufnr)
@@ -19,27 +18,37 @@ local function disable_treesitter_features(bufnr)
   return vim.tbl_contains(disabled_files, short_name) or vim.tbl_contains(disabled_filetypes, filetype)
 end
 
-local ensure_installed = nvim_nix and {}
-  or {
-    "bash",
-    "c",
-    "diff",
-    "go",
-    "html",
-    "lua",
-    "luadoc",
-    "markdown",
-    "markdown_inline",
-    "python",
-    "query",
-    "vim",
-    "vimdoc",
-  }
+local ensure_installed = {
+  "bash",
+  "c",
+  "diff",
+  "go",
+  "html",
+  "javascript",
+  "jsdoc",
+  "json",
+  "jsonc",
+  "lua",
+  "luadoc",
+  "luap",
+  "markdown",
+  "markdown_inline",
+  "printf",
+  "python",
+  "query",
+  "regex",
+  "toml",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "xml",
+  "yaml",
+}
 
----@diagnostic disable-next-line: missing-fields
-require("nvim-treesitter.configs").setup({
-  auto_install = not nvim_nix,
-  ensure_installed = ensure_installed,
+local opts = {
+  auto_install = not My.on_nixos,
+  ensure_installed = My.on_nixos and {} or ensure_installed,
 
   highlight = {
     enable = true,
@@ -49,7 +58,7 @@ require("nvim-treesitter.configs").setup({
         return true
       end
     end,
-    additional_vim_regex_highlighting = { "sh", "bash", "dockerfile", "org" },
+    additional_vim_regex_highlighting = disabled_filetypes,
   },
 
   indent = {
@@ -74,22 +83,22 @@ require("nvim-treesitter.configs").setup({
 
     move = {
       enable = true,
-      set_jumps = false,
+      set_jumps = true,
       goto_next_start = {
-        ["]f"] = { query = "@function.outer", desc = "Next Function outer" },
-        ["]c"] = { query = "@class.outer", desc = "Next Class outer" },
+        ["]m"] = "@function.outer",
+        ["]]"] = { query = "@class.outer", desc = "Next class start" },
       },
       goto_next_end = {
-        ["]F"] = { query = "@function.outer", desc = "Next Function outer end" },
-        ["]C"] = { query = "@class.outer", desc = "Next Class outer end" },
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
       },
       goto_previous_start = {
-        ["[f"] = { query = "@function.outer", desc = "Prev Function outer" },
-        ["[c"] = { query = "@class.outer", desc = "Prev Class outer" },
+        ["[m"] = "@function.outer",
+        ["[["] = { query = "@class.outer", desc = "Previous class start" },
       },
       goto_previous_end = {
-        ["[F"] = { query = "@function.outer", desc = "Prev Function outer end" },
-        ["[C"] = { query = "@class.outer", desc = "Prev Class outer end" },
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer",
       },
     },
   },
@@ -102,8 +111,14 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "<LocalLeader>-",
     },
   },
+}
+
+require("nvim-treesitter.configs").setup(opts)
+require("treesitter-context").setup({
+  enable = true,
+  max_lines = "15%",
 })
 
 -- Folds
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"

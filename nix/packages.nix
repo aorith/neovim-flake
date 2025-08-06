@@ -12,8 +12,7 @@
       black
       gotools # goimports
       isort
-      nixfmt-rfc-style
-      nixpkgs-fmt
+      nixfmt
       prettierd
       ruff
       shfmt
@@ -32,15 +31,16 @@
       yamllint
 
       # LSP
+      basedpyright
+      bash-language-server
       gopls
       lua-language-server
       marksman
       nil
-      nodePackages.bash-language-server
-      nodePackages.typescript-language-server
-      basedpyright
-      ruff-lsp
+      rust-analyzer
       terraform-ls
+      tofu-ls
+      typescript-language-server
       vscode-langservers-extracted # html, css, ...
       yaml-language-server
     ]

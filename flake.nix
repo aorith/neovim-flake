@@ -10,9 +10,6 @@
     # External plugins
     vim-varnish.url = "github:varnishcache-friends/vim-varnish";
     vim-varnish.flake = false;
-
-    mini-nvim.url = "github:echasnovski/mini.nvim";
-    mini-nvim.flake = false;
   };
 
   outputs =

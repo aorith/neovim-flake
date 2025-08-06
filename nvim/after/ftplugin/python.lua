@@ -1,4 +1,4 @@
 -- Format code selection lines and pressing gq
 -- Format entire buffer with gggqG
-vim.opt_local.shiftwidth = 4
-vim.opt_local.expandtab = true
+vim.bo.shiftwidth = 4
+vim.bo.expandtab = true

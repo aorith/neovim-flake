@@ -28,43 +28,16 @@ with pkgs.vimPlugins;
   # Plugins can also be lazy loaded with ':packadd! plugin-name' when optional is true:
   #{ plugin = luasnip; optional = true; }
 
-  # themes
-  kanagawa-nvim
-
   #nvim-treesitter.withAllGrammars
   nvim-treesitter
   nvim-treesitter-grammars
   nvim-treesitter-textobjects
   nvim-treesitter-context
 
-  # format & linting
-  conform-nvim
-  nvim-lint
-
-  # lsp
-  nvim-lspconfig
-  lazydev-nvim
-
-  neo-tree-nvim
-  undotree
-  vim-sleuth
-  aerial-nvim
-  diffview-nvim
-
-  # telescope-nvim
-  # telescope-zf-native-nvim
-
-  # Dependencies
-  plenary-nvim
-
   # Plugins outside of nixpkgs
   (mkVimPlugin {
     src = inputs.vim-varnish;
     pname = "vim-varnish";
-  })
-  (mkVimPlugin {
-    src = inputs.mini-nvim;
-    pname = "mini-nvim";
   })
 ]
 ++ (pkgs.lib.optionals opts.withSQLite [ sqlite-lua ])

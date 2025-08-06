@@ -1,14 +1,14 @@
-local lsp = vim.lsp
-
 -- Log level
-lsp.set_log_level(vim.log.levels.OFF)
+vim.lsp.set_log_level(vim.log.levels.ERROR)
 
 -- Diagnostics
 vim.diagnostic.config({
   signs = { priority = 9999 },
   underline = true,
   update_in_insert = false, -- false so diags are updated on InsertLeave
-  virtual_text = { severity = { min = "ERROR" } },
+  virtual_text = { current_line = true, severity = { min = "INFO" } },
+  -- virtual_text = { current_line = true, severity = { min = "INFO", max = "WARN" } },
+  -- virtual_lines = { current_line = true, severity = { min = "ERROR" } },
   severity_sort = true,
   float = {
     focusable = false,
@@ -19,56 +19,60 @@ vim.diagnostic.config({
   },
 })
 
--- common handlers
-lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, { border = "rounded" })
-lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, { border = "rounded" })
-
-local on_attach = function(client, bufnr)
+local custom_on_attach = function(client, bufnr)
   -- disable some more capabilities
   if client.name == "pylsp" then
     client.server_capabilities.renameProvider = false
     client.server_capabilities.rename = false
   end
 
-  -- When you move your cursor, the highlights will be cleared (the second autocommand).
-  if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      buffer = bufnr,
-      callback = vim.lsp.buf.document_highlight,
-    })
-    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-      buffer = bufnr,
-      callback = vim.lsp.buf.clear_references,
-    })
-  end
+  -- disable semantic tokens
+  -- currently it messes the highlighting, when I open a tf file it changes after a few seconds
+  if client.name == "terraformls" then client.server_capabilities.semanticTokensProvider = nil end
+
+  -- -- Set up 'mini.completion' LSP part of completion
+  vim.bo[bufnr].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
 
   -- notify attachment
   ---@diagnostic disable-next-line: param-type-mismatch
-  vim.notify(client.name .. " started", vim.log.levels.INFO, {
-    -- title = "Attaching LSP",
-    timeout = 3000,
-  })
+  -- vim.notify(client.name .. " started", vim.log.levels.INFO, {
+  --   -- title = "Attaching LSP",
+  --   timeout = 3000,
+  -- })
 end
+
+-- capabilities
+local capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {})
 
 -- Load LSP
 local lspconfig = require("lspconfig")
+local util = require("lspconfig.util")
+
+-- Use same capabilities and custom_on_attach on every lsp
+-- TODO: for some reason this does not work
+-- vim.lsp.config("*", {
+--   capabilities = capabilities,
+--   on_attach = custom_on_attach,
+-- })
 
 lspconfig.nil_ls.setup({
-  on_attach = on_attach,
   -- settings = { ["nil"] = { formatting = { command = { "nixpkgs-fmt" } } } },
 })
 
 lspconfig.bashls.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.gopls.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.yamlls.setup({
-  on_attach = on_attach,
   on_init = function() require("aorith.core.yaml_schema").get_client() end,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 
   settings = {
     redhat = { telemetry = { enabled = false } },
@@ -96,6 +100,7 @@ lspconfig.yamlls.setup({
       -- custom option to select schemas by name with 'YAMLSchemaSelect' (aorith.core.yaml_schema)
       -- [<uri>] = <name>
       custom_schemas = {
+        ["kubernetes"] = "kubernetes",
         ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.16-standalone-strict/all.json"] = "k8s-1.25.16",
         ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.31.4-standalone-strict/all.json"] = "k8s-1.31.4",
       },
@@ -104,26 +109,40 @@ lspconfig.yamlls.setup({
 })
 
 lspconfig.terraformls.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.marksman.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.lua_ls.setup({
-  on_attach = on_attach,
+  on_attach = function(client, bufnr)
+    custom_on_attach(client, bufnr)
+    -- Reduce unnecessarily long list of completion triggers for better
+    -- 'mini.completion' experience
+    client.server_capabilities.completionProvider.triggerCharacters = { ".", ":" }
+  end,
+  capabilities = capabilities,
+
   settings = {
     Lua = {
       runtime = {
         version = "LuaJIT",
+        -- Setup your lua path
+        path = vim.split(package.path, ";"),
       },
       diagnostics = {
+        -- Get the language server to recognize common globals
         globals = { "vim" },
+        disable = { "need-check-nil" },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
+        -- Don't analyze code from submodules
+        ignoreSubmodules = true,
       },
       telemetry = {
         enable = false,
@@ -133,7 +152,8 @@ lspconfig.lua_ls.setup({
 })
 
 lspconfig.basedpyright.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
   settings = {
     {
       python = {
@@ -147,32 +167,51 @@ lspconfig.basedpyright.setup({
   },
 })
 
-lspconfig.ruff.setup({
-  on_attach = on_attach,
-})
+-- TODO: it seems to disable basedpyright documentation (priority thing?)
+-- lspconfig.ruff.setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
 
 lspconfig.ts_ls.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
+})
+
+lspconfig.eslint.setup({
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.html.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.cssls.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.templ.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.zk.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
+})
+
+-- go install github.com/grafana/jsonnet-language-server@latest
+lspconfig.jsonnet_ls.setup({
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })
 
 lspconfig.helm_ls.setup({
-  on_attach = on_attach,
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
   settings = {
     ["helm-ls"] = {
       yamlls = {
@@ -180,4 +219,22 @@ lspconfig.helm_ls.setup({
       },
     },
   },
+})
+
+lspconfig.kcl.setup({
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
+  cmd = { "kcl-language-server" },
+  filetypes = { "kcl" },
+  root_dir = util.root_pattern("kcl.mod"),
+})
+
+lspconfig.cue.setup({
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
+})
+
+lspconfig.rust_analyzer.setup({
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
 })

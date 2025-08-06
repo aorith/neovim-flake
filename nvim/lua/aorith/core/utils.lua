@@ -104,25 +104,6 @@ M.markdown_insert_codeblock = function()
   vim.api.nvim_win_set_cursor(win, { newRow, newCol })
 end
 
--- Navigate between links / headers
-M.markdown_next_link = function()
-  if vim.fn.search("\\(](.\\+)\\|^#\\+ .\\+\\|\\[\\[.\\+]]\\)", "w") ~= 0 then
-    vim.cmd("norm w")
-  else
-    vim.notify("No markdown headers or links found.")
-  end
-end
-M.markdown_prev_link = function()
-  if vim.fn.search("\\(](.\\+)\\|^#\\+ .\\+\\|\\[\\[.\\+]]\\)", "b") ~= 0 then
-    -- I have to search twice backwards because the cursor is moved
-    -- with 'w' and the backward search finds the same item
-    vim.fn.search("\\(](.\\+)\\|^#\\+ .\\+\\|\\[\\[.\\+]]\\)", "b")
-    vim.cmd("norm w")
-  else
-    vim.notify("No markdown headers or links found.")
-  end
-end
-
 -- Toggle To-Dos
 M.markdown_todo_toggle = function()
   -- In lua '%' are escape chars

@@ -1,60 +1,52 @@
 # Aorith's Neovim Flake
 
-This flake packages Neovim with my custom configuration, including essential tools, linters, and LSP binaries using [Nix/nixpkgs](https://nixos.org/).
+This flake packages Neovim with my custom configuration, including tools, linters, and LSP binaries using [Nix/nixpkgs](https://nixos.org/).
+It does also work without Nix, since I use it on machines that do not have or cannot install Nix.
+The Nix wrapper sets an environment variable (`NVIM_NIX=1`). If this variable is present, the Nix-specific Lua configuration is loaded.
 
-## Don't have Nix?
-
-No worries! You can just clone or link the [nvim](./nvim) folder to `~/.config/nvim` to use a standard configuration.
-
-### How does it work?
-
-The Nix wrapper sets an environment variable (`NVIM_NIX=1`). If this variable is present, the Nix-specific Lua configuration is loaded. If not, a standard configuration using [mini.deps](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-deps.md) is loaded instead. This default setup doesn't include the bundled tools, linters, or other extras.
+It does not manage all the plugins with Nix, only the ones that break on NixOS are installed with it, like treesitter and its parsers, everything else is managed using [mini.deps](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-deps.md).
 
 ## With Nix
 
-### Run This Configuration
+It has two flavours both of them set the variable `NVIM_APPNAME` to `nvim-nix`:
 
-You can run this configuration without installing it on your system. Everything is bundled in the Nix store, except for the files that Neovim creates under `~/.local/...`.
-
-```sh
-nix run github:aorith/neovim-flake#default
-```
-
-### Development
-
-Run the flake directly from the local folder:
-
-```sh
-nix run /path/to/your/local/neovim-flake#default
-```
-
-Replace `/path/to/your/local/` with the actual path to your local flake directory.
+- `#default`: configuration is copied over to the nix-store, and you can run it on any machine with Nix without symlinking the it to `~/.config`
+- `#nvim-without-config`: the configuration is loaded from `~/.config/$NVIM_APPNAME`, this is what I usually use as it allows modifying the config on the fly, so I execute `./link.sh` as part of the bootstrap to link the config on a new machine
 
 ### Folder Structure
 
-- `nvim/`: Contains the standard Neovim configuration files, similar to what you would find in `~/.config/nvim`. The contents of this directory are copied to the Nix store at build time (ensure all the files are tracked by git).
+- `nvim/`: Contains the standard Neovim configuration files, similar to what you would find in `~/.config/nvim`.
+- `nix/neovim.nix`: Builds the actual package and sets the required environment vars so Neovim can find the tools/linters and plugins.
+- `nix/plugins.nix`: Plugins to be included in the configuration, either from `nixpkgs` or as flake inputs.
+- `nix/packages.nix`: Extra packages that will be made available in Neovim's `$PATH`.
 
-- `nix/neovim.nix`: Neovim package provided by `nixpkgs` with additional configuration, plugins, and dependencies specified in this flake. Two packages are available: `default` with the neovim configuration embedded in the nix store and `nvim-without-config` which uses the configuration from `~/.config/nvim-nix`, the `nvim` folder of this repository can be symlinked to that path by running the script [link.sh](link.sh).
+### Execution options
 
-- `nix/plugins.nix`: This file specifies the Neovim plugins to be included in the configuration. Plugins can be defined directly from `nixpkgs` or included from the flake inputs.
+```sh
+# One shot
+nix run github:aorith/neovim-flake#default
+nix run github:aorith/neovim-flake#nvim-without-config
 
-- `nix/packages.nix`: This file lists extra packages that will be made available in Neovim's `$PATH`. These packages might include tools, linters, formatters, language servers, or any other binaries that Neovim plugins or configurations might invoke.
+# Development
+nix run /path/to/your/local/neovim-flake#default
+nix run /path/to/your/local/neovim-flake#nvim-without-config
+```
 
 ### Installation
 
 #### Nix Profile
 
-For an imperative installation using `nix profile`, use the following command:
-
 ```sh
 # Remote install
 nix profile install github:aorith/neovim-flake#default
+nix profile install github:aorith/neovim-flake#nvim-without-config
 
 # Or install it using a local clone of this repository
 nix profile install /path/to/neovim-flake/#default
+nix profile install /path/to/neovim-flake/#nvim-without-config
 ```
 
-To update, first find the profile number associated with your Neovim flake installation using `nix profile list`, and then use `nix profile upgrade` with the profile number:
+To update, first find the profile number associated with it using `nix profile list`, and then use `nix profile upgrade` with the profile number:
 
 ```sh
 nix profile list # Find the index number for this flake
@@ -64,7 +56,7 @@ nix profile upgrade 2
 
 #### NixOS
 
-To declaratively install this flake in a NixOS configuration, add the package to `environment.systemPackages`. Here's an example configuration snippet:
+Add the flake and the package to `environment.systemPackages`. Either `default` or `nvim-without-config`, here's an example:
 
 ```nix
 {
@@ -91,7 +83,7 @@ To declaratively install this flake in a NixOS configuration, add the package to
 
 #### Home Manager
 
-To include it in your Home Manager configuration, add the package to `home.packages`:
+Same thing as with NixOS but under `home.packages`:
 
 ```nix
 home.packages = [ inputs.neovim-flake.packages.${pkgs.system}.default ];

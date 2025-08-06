@@ -12,6 +12,9 @@ vim.filetype.add({
     -- end,
 
     [".*container"] = "systemd",
+    [".*tofu"] = "terraform",
+    ["todo.txt"] = "todotxt",
+    ["done.txt"] = "todotxt",
 
     -- ansible
     [".*/host_vars/.*%.ya?ml"] = "yaml.ansible",
