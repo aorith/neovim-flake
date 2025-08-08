@@ -108,7 +108,7 @@ lspconfig.yamlls.setup({
   },
 })
 
-lspconfig.terraformls.setup({
+lspconfig.tofu_ls.setup({
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })

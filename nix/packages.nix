@@ -10,6 +10,7 @@
 
       # Formatters
       black
+      go-jsonnet # jsonnetfmt
       gotools # goimports
       isort
       nixfmt
@@ -38,6 +39,7 @@
       marksman
       nil
       rust-analyzer
+      templ
       terraform-ls
       tofu-ls
       typescript-language-server
