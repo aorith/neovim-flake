@@ -34,6 +34,7 @@
       # LSP
       basedpyright
       bash-language-server
+      cue
       gopls
       lua-language-server
       marksman
