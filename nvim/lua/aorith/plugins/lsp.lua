@@ -41,35 +41,56 @@ local custom_on_attach = function(client, bufnr)
   -- })
 end
 
--- capabilities
 local capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {})
-
--- Load LSP
-local lspconfig = require("lspconfig")
 local util = require("lspconfig.util")
 
 -- Use same capabilities and custom_on_attach on every lsp
--- TODO: for some reason this does not work
--- vim.lsp.config("*", {
---   capabilities = capabilities,
---   on_attach = custom_on_attach,
--- })
-
-lspconfig.nil_ls.setup({
-  -- settings = { ["nil"] = { formatting = { command = { "nixpkgs-fmt" } } } },
-})
-
-lspconfig.bashls.setup({
+vim.lsp.config("*", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.gopls.setup({
+vim.lsp.enable({
+  "tofu_ls",
+  "nil_ls",
+  "bashls",
+  "gopls",
+  "yamlls",
+  "marksman",
+  "lua_ls",
+  "basedpyright",
+  "ts_ls",
+  "eslint",
+  "html",
+  "cssls",
+  "templ",
+  "zk",
+  "jsonnet_ls",
+  "helm_ls",
+  -- "kcl",
+  "cue",
+  "rust_analyzer",
+})
+
+vim.lsp.config("tofu_ls", {
+  filetypes = { "terraform", "terraform-vars", "opentofu", "opentofu-vars" },
+})
+
+vim.lsp.config("nil_ls", {
+  settings = { ["nil"] = { formatting = { command = { "nixfmt" } } } },
+})
+
+vim.lsp.config("bashls", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.yamlls.setup({
+vim.lsp.config("gopls", {
+  capabilities = capabilities,
+  on_attach = custom_on_attach,
+})
+
+vim.lsp.config("yamlls", {
   on_init = function() require("aorith.core.yaml_schema").get_client() end,
   capabilities = capabilities,
   on_attach = custom_on_attach,
@@ -108,17 +129,12 @@ lspconfig.yamlls.setup({
   },
 })
 
-lspconfig.tofu_ls.setup({
+vim.lsp.config("marksman", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.marksman.setup({
-  capabilities = capabilities,
-  on_attach = custom_on_attach,
-})
-
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
   on_attach = function(client, bufnr)
     custom_on_attach(client, bufnr)
     -- Reduce unnecessarily long list of completion triggers for better
@@ -151,7 +167,7 @@ lspconfig.lua_ls.setup({
   },
 })
 
-lspconfig.basedpyright.setup({
+vim.lsp.config("basedpyright", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
   settings = {
@@ -167,49 +183,43 @@ lspconfig.basedpyright.setup({
   },
 })
 
--- TODO: it seems to disable basedpyright documentation (priority thing?)
--- lspconfig.ruff.setup({
---   capabilities = capabilities,
---   on_attach = on_attach,
--- })
-
-lspconfig.ts_ls.setup({
+vim.lsp.config("ts_ls", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.eslint.setup({
+vim.lsp.config("eslint", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.html.setup({
+vim.lsp.config("html", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.cssls.setup({
+vim.lsp.config("cssls", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.templ.setup({
+vim.lsp.config("templ", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.zk.setup({
+vim.lsp.config("zk", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
 -- go install github.com/grafana/jsonnet-language-server@latest
-lspconfig.jsonnet_ls.setup({
+vim.lsp.config("jsonnet_ls", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.helm_ls.setup({
+vim.lsp.config("helm_ls", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
   settings = {
@@ -221,7 +231,7 @@ lspconfig.helm_ls.setup({
   },
 })
 
-lspconfig.kcl.setup({
+vim.lsp.config("kcl", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
   cmd = { "kcl-language-server" },
@@ -229,12 +239,12 @@ lspconfig.kcl.setup({
   root_dir = util.root_pattern("kcl.mod"),
 })
 
-lspconfig.cue.setup({
+vim.lsp.config("cue", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
 
-lspconfig.rust_analyzer.setup({
+vim.lsp.config("rust_analyzer", {
   capabilities = capabilities,
   on_attach = custom_on_attach,
 })
