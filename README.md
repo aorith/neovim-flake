@@ -49,9 +49,11 @@ nix profile install /path/to/neovim-flake/#nvim-without-config
 To update, first find the profile number associated with it using `nix profile list`, and then use `nix profile upgrade` with the profile number:
 
 ```sh
-nix profile list # Find the index number for this flake
-# Assume the profile number is 2 for the next command
-nix profile upgrade 2
+nix profile list # Find the name for this flake
+# Assuming the name is 'nvim-without-config'
+nix profile upgrade 'nvim-without-config'
+# Or upgrade everything
+nix profile upgrade --all
 ```
 
 #### NixOS
