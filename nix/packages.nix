@@ -14,6 +14,7 @@
       gotools # goimports
       isort
       nixfmt
+      prettier
       prettierd
       ruff
       shfmt

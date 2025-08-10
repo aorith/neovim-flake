@@ -25,6 +25,7 @@ let
   externalPackages = pkgs.buildEnv {
     name = "nvim-external-pkgs";
     paths = packages.packages;
+    pathsToLink = [ "/bin" ];
   };
 
   # Configuration for the Neovim wrapper
