@@ -34,6 +34,8 @@ with pkgs.vimPlugins;
   nvim-treesitter-textobjects
   nvim-treesitter-context
 
+  rest-nvim
+
   # Plugins outside of nixpkgs
   (mkVimPlugin {
     src = inputs.vim-varnish;
