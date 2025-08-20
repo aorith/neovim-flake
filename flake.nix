@@ -10,6 +10,10 @@
     # External plugins
     vim-varnish.url = "github:varnishcache-friends/vim-varnish";
     vim-varnish.flake = false;
+
+    # External plugins
+    hover-nvim.url = "github:lewis6991/hover.nvim";
+    hover-nvim.flake = false;
   };
 
   outputs =

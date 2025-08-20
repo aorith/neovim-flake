@@ -36,6 +36,10 @@ miniclue.setup({
     -- `z` key
     { mode = "n", keys = "z" },
     { mode = "x", keys = "z" },
+
+    -- `[` and `]` keys
+    { mode = "n", keys = "[" },
+    { mode = "n", keys = "]" },
   },
 
   clues = {
@@ -51,6 +55,7 @@ miniclue.setup({
     { mode = "n", keys = "<Leader>v", desc = "+Visits" },
     { mode = "n", keys = "<Leader>n", desc = "+Notes" },
 
+    miniclue.gen_clues.square_brackets(),
     miniclue.gen_clues.builtin_completion(),
     miniclue.gen_clues.g(),
     miniclue.gen_clues.marks(),
