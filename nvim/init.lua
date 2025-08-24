@@ -5,7 +5,7 @@ vim.loader.enable()
 _G.My = {
   notes_dir = "~/Syncthing/SYNC_STUFF/notes/zk/notes",
   ---@diagnostic disable-next-line: undefined-field
-  on_nixos = (vim.fn.getenv("NVIM_NIX") ~= vim.NIL or vim.uv.fs_stat("/etc/nixos")) and true or false,
+  on_nix = (vim.fn.getenv("NVIM_NIX") ~= vim.NIL or vim.uv.fs_stat("/etc/nixos")) and true or false,
 
   --- Function to modify an existing highlight group in Neovim
   ---@param name string The name of the highlight group to modify
@@ -91,11 +91,10 @@ later(function() require("aorith.plugins.mini.snippets") end)
 --- Plugins
 -------------------------------------------------------------------------------
 add({ source = "tpope/vim-sleuth" })
--- add({ source = "kcl-lang/kcl.nvim" })
 
--- Treesitter
 now_if_args(function()
-  if not My.on_nixos then
+  if not My.on_nix then
+    -- Treesitter
     add({
       source = "nvim-treesitter/nvim-treesitter",
       checkout = "master",
@@ -103,9 +102,14 @@ now_if_args(function()
     })
     add({ source = "nvim-treesitter/nvim-treesitter-context" })
     add({ source = "nvim-treesitter/nvim-treesitter-textobjects" })
+
+    -- Other plugins packaged at nix/plugins.nix
+    add({ source = "varnishcache-friends/vim-varnish" })
+    add({ source = "lewis6991/hover.nvim" })
   end
 
   require("aorith.plugins.treesitter")
+  require("aorith.plugins.hover")
 end)
 
 -- Nvim-Lspconfig
@@ -152,31 +156,4 @@ later(function()
   add({ source = "theHamsta/nvim-dap-virtual-text" })
   add({ source = "mfussenegger/nvim-dap-python" })
   require("aorith.plugins.dap")
-end)
-
--- Hover nvim
-later(function()
-  add({ source = "lewis6991/hover.nvim" })
-  require("hover").setup({
-    init = function()
-      -- Require providers
-      require("hover.providers.lsp")
-      -- require('hover.providers.gh')
-      -- require('hover.providers.gh_user')
-      -- require('hover.providers.jira')
-      -- require('hover.providers.dap')
-      -- require('hover.providers.fold_preview')
-      require("hover.providers.diagnostic")
-      require("hover.providers.man")
-      require("hover.providers.dictionary")
-      -- require("hover.providers.highlight")
-    end,
-    -- Whether the contents of a currently open hover window should be moved
-    -- to a :h preview-window when pressing the hover keymap.
-    preview_window = false,
-    title = true,
-  })
-
-  -- Setup keymaps
-  vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
 end)

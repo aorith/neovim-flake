@@ -7,13 +7,9 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # External plugins
+    # Plugins built from source outside of nixpkgs
     vim-varnish.url = "github:varnishcache-friends/vim-varnish";
     vim-varnish.flake = false;
-
-    # External plugins
-    hover-nvim.url = "github:lewis6991/hover.nvim";
-    hover-nvim.flake = false;
   };
 
   outputs =
