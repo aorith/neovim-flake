@@ -77,5 +77,8 @@ A.nvim_create_autocmd("ColorScheme", {
     My.hi("@comment.warning", { italic = true })
     My.hi("@comment.todo", { italic = true })
     My.hi("@comment.note", { italic = true })
+
+    -- treesitter.context
+    vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { link = "TreesitterContext" })
   end,
 })

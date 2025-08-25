@@ -116,7 +116,13 @@ local opts = {
 require("nvim-treesitter.configs").setup(opts)
 require("treesitter-context").setup({
   enable = true,
-  max_lines = "15%",
+  multiwindow = false,
+  max_lines = 0,
+  min_window_height = 0,
+  line_numbers = true,
+  multiline_threshold = 20, -- Maximum number of lines to show for a single context
+  trim_scope = "outer",
+  mode = "cursor",
 })
 
 -- Folds
