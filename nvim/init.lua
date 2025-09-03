@@ -157,3 +157,9 @@ later(function()
   add({ source = "mfussenegger/nvim-dap-python" })
   require("aorith.plugins.dap")
 end)
+
+-- Quicker nvim
+later(function()
+  add({ source = "stevearc/quicker.nvim" })
+  require("quicker").setup()
+end)
