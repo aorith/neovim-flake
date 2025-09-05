@@ -91,6 +91,7 @@ later(function() require("aorith.plugins.mini.snippets") end)
 --- Plugins
 -------------------------------------------------------------------------------
 add({ source = "tpope/vim-sleuth" })
+add({ source = "b0o/SchemaStore.nvim" })
 
 now_if_args(function()
   if not My.on_nix then
