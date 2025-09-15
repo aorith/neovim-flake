@@ -38,12 +38,14 @@ nix run /path/to/your/local/neovim-flake#vanilla
 
 ```sh
 # Remote install
-nix profile install github:aorith/neovim-flake#default
-nix profile install github:aorith/neovim-flake#vanilla
+nix profile add github:aorith/neovim-flake#default
+# or
+nix profile add github:aorith/neovim-flake#vanilla
 
-# Or install it using a local clone of this repository
-nix profile install /path/to/neovim-flake/#default
-nix profile install /path/to/neovim-flake/#vanilla
+# Using a local clone of this repository
+nix profile add /path/to/neovim-flake/#default
+# or
+nix profile add /path/to/neovim-flake/#vanilla
 ```
 
 To update, first find the profile number associated with it using `nix profile list`, and then use `nix profile upgrade` with the profile number:
