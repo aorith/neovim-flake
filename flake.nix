@@ -31,7 +31,7 @@
         # Default package, neovim with the config embedded in the store
         default = import ./nix/neovim.nix { inherit inputs system; };
         # Alternative, uses the config at ~/.config/nvim-nix
-        nvim-without-config = import ./nix/neovim.nix {
+        vanilla = import ./nix/neovim.nix {
           inherit inputs system;
           with-config = false;
         };

@@ -10,8 +10,8 @@ It does not manage all the plugins with Nix, only the ones that break on NixOS a
 
 It has two flavours, both of them set the variable `NVIM_APPNAME` to `nvim-nix` (the nvim wrapper does):
 
-- `#default`: configuration is copied over to the nix-store, and you can run it on any machine with Nix without symlinking it to `~/.config`
-- `#nvim-without-config`: the configuration is loaded from `~/.config/$NVIM_APPNAME`, this is what I usually use as it allows modifying the config on the fly, so I execute `./link.sh` as part of the bootstrap to link the config on a new machine
+- `#default`: neovim configuration is copied over to the nix-store, and you can run it on any machine with Nix without symlinking it to `~/.config/nvim`
+- `#vanilla`: neovim configuration is loaded from `~/.config/$NVIM_APPNAME`, this is what I usually use as it allows modifying the config on the fly, it also means that I can use the same config on systems without nix. This requires an extra step: execute `./link.sh` as part of the bootstrap to link the config on a new machine
 
 ### Folder Structure
 
@@ -25,11 +25,11 @@ It has two flavours, both of them set the variable `NVIM_APPNAME` to `nvim-nix` 
 ```sh
 # One shot
 nix run github:aorith/neovim-flake#default
-nix run github:aorith/neovim-flake#nvim-without-config
+nix run github:aorith/neovim-flake#vanilla
 
 # Development
 nix run /path/to/your/local/neovim-flake#default
-nix run /path/to/your/local/neovim-flake#nvim-without-config
+nix run /path/to/your/local/neovim-flake#vanilla
 ```
 
 ### Installation
@@ -39,26 +39,26 @@ nix run /path/to/your/local/neovim-flake#nvim-without-config
 ```sh
 # Remote install
 nix profile install github:aorith/neovim-flake#default
-nix profile install github:aorith/neovim-flake#nvim-without-config
+nix profile install github:aorith/neovim-flake#vanilla
 
 # Or install it using a local clone of this repository
 nix profile install /path/to/neovim-flake/#default
-nix profile install /path/to/neovim-flake/#nvim-without-config
+nix profile install /path/to/neovim-flake/#vanilla
 ```
 
 To update, first find the profile number associated with it using `nix profile list`, and then use `nix profile upgrade` with the profile number:
 
 ```sh
 nix profile list # Find the name for this flake
-# Assuming the name is 'nvim-without-config'
-nix profile upgrade 'nvim-without-config'
+# Assuming the name is 'vanilla'
+nix profile upgrade 'vanilla'
 # Or upgrade everything
 nix profile upgrade --all
 ```
 
 #### NixOS
 
-Add the flake and the package to `environment.systemPackages`. Either `default` or `nvim-without-config`, here's an example:
+Add the flake and the package to `environment.systemPackages`. Either `default` or `vanilla`, here's an example:
 
 ```nix
 {
