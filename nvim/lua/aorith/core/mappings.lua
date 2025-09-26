@@ -242,26 +242,3 @@ for i = 1, 5 do
     vim.notify("Mark set for '" .. i .. "' (" .. mark_char .. ")")
   end, { desc = "Set mark " .. mark_char })
 end
-
--- Nvim Dap
-nmap_leader("dt", function()
-  require("dap-view").toggle()
-  vim.o.signcolumn = "auto:4"
-end, "Toggle DAP UI")
-nmap_leader("dT", function()
-  require("dap").terminate()
-  vim.o.signcolumn = "yes"
-end, "Terminate")
-nmap_leader("db", function()
-  require("dap").toggle_breakpoint()
-  vim.o.signcolumn = "auto:4"
-end, "Breakpoint")
-nmap_leader("dB", function()
-  require("dap.breakpoints").clear()
-  vim.o.signcolumn = "yes"
-end, "Breakpoint")
-nmap_leader("dc", function() require("dap").continue() end, "Continue")
-nmap_leader("dC", function() require("dap").run_to_cursor() end, "Run to cursor")
-nmap_leader("do", function() require("dap").step_over() end, "Step Over")
-nmap_leader("di", function() require("dap").step_into() end, "Step Into")
-nmap_leader("dr", function() require("dap").repl.open() end, "REPL")

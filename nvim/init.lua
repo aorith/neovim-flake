@@ -17,6 +17,8 @@ _G.My = {
       pcall(vim.api.nvim_set_hl, 0, name, hl)
     end
   end,
+
+  debug_mode = false,
 }
 
 --- Bootstrap 'mini.deps'
@@ -153,7 +155,7 @@ end)
 -- Nvim Dap
 later(function()
   add({ source = "mfussenegger/nvim-dap" })
-  add({ source = "igorlfs/nvim-dap-view" })
+  add({ source = "miroshQa/debugmaster.nvim" })
   add({ source = "theHamsta/nvim-dap-virtual-text" })
   add({ source = "mfussenegger/nvim-dap-python" })
   require("aorith.plugins.dap")
