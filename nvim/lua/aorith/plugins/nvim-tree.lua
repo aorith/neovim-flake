@@ -1,5 +1,6 @@
 require("nvim-tree").setup({
   reload_on_bufenter = true,
+  sync_root_with_cwd = true,
   diagnostics = {
     enable = false,
   },
