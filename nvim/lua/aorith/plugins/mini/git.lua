@@ -1,7 +1,7 @@
 local MiniGit = require("mini.git")
 MiniGit.setup({ command = { split = "vertical" } })
 
--- Improves git blame: https://github.com/nvim-mini/mini.nvim/discussions/2029
+-- Improves git blame, original idea: https://github.com/nvim-mini/mini.nvim/discussions/2029
 vim.api.nvim_create_autocmd("User", {
   pattern = "MiniGitCommandSplit",
   callback = function(e)
@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("User", {
     vim.bo[buf].modifiable = false
     vim.wo[win].wrap = false
     vim.wo[win].cursorline = true
+    vim.wo[win].cursorlineopt = "both"
     -- View
     vim.fn.winrestview({ topline = vim.fn.line("w0", win_src) })
     vim.api.nvim_win_set_cursor(0, { vim.fn.line(".", win_src), 0 })
