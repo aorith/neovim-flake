@@ -215,8 +215,12 @@ nmap_leader("q", function() require("mini.bufremove").delete() end, "Delete curr
 nmap_leader("z", function() require("mini.misc").zoom() end, "Zoom window")
 nmap_leader("go", function() require("mini.diff").toggle_overlay(0) end, "Toggle diff overlay")
 
--- Search
+-- lewis6991/hover
+nmap_leader("k", require("hover").hover, "hover.nvim")
+
+-- Search notes
 nmap_leader("nn", "<Cmd>Pick notes<CR>", "Notes")
+nmap_leader("nf", "<Cmd>Pick notes<CR>", "Notes Find")
 nmap_leader("ng", "<Cmd>Pick notes_grep<CR>", "Notes Grep")
 
 -- Marks
