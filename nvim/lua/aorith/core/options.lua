@@ -2,6 +2,16 @@
 vim.g.mapleader = " " -- Leader key must set before plugins
 vim.g.maplocalleader = "\\" -- Using ',' breaks: f<letter> + ;,
 
+-- Avoid automatic decompression of files
+vim.g.loaded_gzip = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+-- I don't think this is required for anything: https://vimhelp.org/pi_getscript.txt.html
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+
 -- Enable filetype plugins
 vim.cmd("filetype plugin indent on")
 -- Enable syntax highlighting if it wasn't already (as it is time consuming)
