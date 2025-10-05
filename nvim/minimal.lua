@@ -4,7 +4,7 @@ vim.cmd("syntax off")
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.o.number = true
+vim.o.number = false
 vim.o.ruler = true
 vim.o.scrolloff = 3
 vim.o.sidescrolloff = 3
@@ -13,7 +13,7 @@ vim.o.wrap = true
 vim.o.lazyredraw = true
 
 vim.o.list = true
-vim.o.listchars = table.concat({ "extends:…", "trail:·", "nbsp:␣", "precedes:…", "tab:> " }, ",")
+vim.o.listchars = table.concat({ "extends:…", "trail:·", "nbsp: ", "precedes:…", "tab:> " }, ",")
 
 vim.o.hlsearch = true
 vim.o.ignorecase = true
