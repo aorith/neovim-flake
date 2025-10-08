@@ -12,7 +12,7 @@ require("mini.statusline").setup({
       local diff = MiniStatusline.section_diff({ trunc_width = 75 })
       local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
       -- local lsp = MiniStatusline.section_lsp({ trunc_width = 75 }) -- Shows number of attached lsp servers
-      -- local filename = MiniStatusline.section_filename({ trunc_width = 100 })
+      local filename = MiniStatusline.section_filename({ trunc_width = 100 })
       local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
       -- local location = MiniStatusline.section_location({ trunc_width = 75 })
       local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
@@ -25,9 +25,9 @@ require("mini.statusline").setup({
       return MiniStatusline.combine_groups({
         { hl = mode_hl, strings = { mode } },
         { hl = "MiniStatuslineDevinfo", strings = { git, diff } },
-        { hl = "MiniStatuslineFilename", strings = { diagnostics } },
+        { hl = "MiniStatuslineModeCommand", strings = { diagnostics } },
         "%<", -- Mark general truncate point
-        -- { hl = "MiniStatuslineFilename", strings = { filename } },
+        { hl = "MiniStatuslineFilename", strings = { filename } },
         "%=", -- End left alignment
         { hl = "MiniStatuslineModeReplace", strings = { search } },
         { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },

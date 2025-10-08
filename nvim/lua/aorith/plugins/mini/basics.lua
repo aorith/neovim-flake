@@ -3,10 +3,10 @@ require("mini.basics").setup({
   -- Options. Set to `false` to disable.
   options = {
     -- Basic options ('number', 'ignorecase', and many more)
-    basic = false,
+    basic = true,
 
     -- Extra UI features ('winblend', 'cmdheight=0', ...)
-    extra_ui = false,
+    extra_ui = true,
   },
 
   -- Mappings. Set to `false` to disable.
