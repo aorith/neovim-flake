@@ -2,8 +2,9 @@ vim.loader.enable()
 
 --- Global configuration and functions
 -------------------------------------------------------------------------------
-_G.My = {
+_G.Config = {
   notes_dir = "~/Syncthing/SYNC_STUFF/notes/zk/notes",
+
   ---@diagnostic disable-next-line: undefined-field
   on_nix = (vim.fn.getenv("NVIM_NIX") ~= vim.NIL or vim.uv.fs_stat("/etc/nixos")) and true or false,
 
@@ -18,6 +19,7 @@ _G.My = {
     end
   end,
 
+  -- Show debug mode in statusline when nvim-dap is enabled
   debug_mode = false,
 }
 
@@ -47,16 +49,14 @@ local add, later = MiniDeps.add, MiniDeps.later
 local now_if_args = vim.fn.argc(-1) > 0 and MiniDeps.now or later
 
 add({ name = "mini.nvim" })
--- vim.cmd("colorscheme selenized")
--- vim.cmd("colorscheme selenized-bw")
--- vim.cmd("colorscheme mininord")
-vim.cmd("colorscheme randomhue")
+-- colorscheme
+vim.cmd("colorscheme miniwinter")
 
 require("aorith.plugins.mini.basics")
 require("aorith.plugins.mini.notify")
 require("mini.icons").setup()
 require("mini.icons").mock_nvim_web_devicons()
--- require("mini.tabline").setup()
+require("mini.tabline").setup()
 require("aorith.plugins.mini.statusline")
 require("mini.extra").setup()
 require("mini.diff").setup({ view = { style = "sign" } })
@@ -96,7 +96,7 @@ add({ source = "tpope/vim-sleuth" })
 add({ source = "b0o/SchemaStore.nvim" })
 
 now_if_args(function()
-  if not My.on_nix then
+  if not _G.Config.on_nix then
     -- Treesitter
     add({
       source = "nvim-treesitter/nvim-treesitter",
@@ -108,11 +108,9 @@ now_if_args(function()
 
     -- Other plugins packaged at nix/plugins.nix
     add({ source = "varnishcache-friends/vim-varnish" })
-    add({ source = "lewis6991/hover.nvim" })
   end
 
   require("aorith.plugins.treesitter")
-  require("aorith.plugins.hover")
 end)
 
 -- Nvim-Lspconfig
@@ -137,19 +135,6 @@ end)
 later(function()
   add({ source = "hedyhli/outline.nvim" })
   require("aorith.plugins.outline")
-end)
-
--- File tree
-later(function()
-  add({
-    source = "nvim-tree/nvim-tree.lua",
-    name = "nvim-tree",
-    depends = {
-      { source = "nvim-lua/plenary.nvim", name = "plenary" },
-      { source = "MunifTanjim/nui.nvim", name = "nui" },
-    },
-  })
-  require("aorith.plugins.nvim-tree")
 end)
 
 -- Nvim Dap

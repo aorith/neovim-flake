@@ -31,7 +31,7 @@ local opts = {
     sh = { "shfmt" },
     bash = { "shfmt" },
 
-    templ = { "templ", lsp_format = "last" },
+    templ = { "templ", lsp_format = "fallback" },
 
     jsonnet = { "jsonnetfmt" },
   },

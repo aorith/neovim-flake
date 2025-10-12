@@ -1,24 +1,6 @@
 -- Log level
 vim.lsp.set_log_level(vim.log.levels.ERROR)
 
--- Diagnostics
-vim.diagnostic.config({
-  signs = { priority = 9999 },
-  underline = true,
-  update_in_insert = false, -- false so diags are updated on InsertLeave
-  virtual_text = { current_line = true, severity = { min = "INFO" } },
-  -- virtual_text = { current_line = true, severity = { min = "INFO", max = "WARN" } },
-  -- virtual_lines = { current_line = true, severity = { min = "ERROR" } },
-  severity_sort = true,
-  float = {
-    focusable = false,
-    style = "minimal",
-    border = "rounded",
-    source = true,
-    header = "",
-  },
-})
-
 local custom_on_attach = function(client, bufnr)
   -- -- Set up 'mini.completion' LSP part of completion
   vim.bo[bufnr].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"

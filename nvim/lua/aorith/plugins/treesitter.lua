@@ -47,8 +47,8 @@ local ensure_installed = {
 }
 
 local opts = {
-  auto_install = not My.on_nix,
-  ensure_installed = My.on_nix and {} or ensure_installed,
+  auto_install = not _G.Config.on_nix,
+  ensure_installed = _G.Config.on_nix and {} or ensure_installed,
 
   highlight = {
     enable = true,
@@ -120,9 +120,10 @@ require("treesitter-context").setup({
   max_lines = 0,
   min_window_height = 0,
   line_numbers = true,
-  multiline_threshold = 20, -- Maximum number of lines to show for a single context
+  multiline_threshold = 10, -- Maximum number of lines to show for a single context
   trim_scope = "outer",
   mode = "cursor",
+  separator = "-",
 })
 
 -- Folds

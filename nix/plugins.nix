@@ -34,8 +34,6 @@ with pkgs.vimPlugins;
   nvim-treesitter-textobjects
   nvim-treesitter-context
 
-  hover-nvim
-
   # Plugins outside of nixpkgs
   (mkVimPlugin {
     src = inputs.vim-varnish;

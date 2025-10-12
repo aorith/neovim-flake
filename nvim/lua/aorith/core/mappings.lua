@@ -172,12 +172,14 @@ xmap_leader("gs", "<Cmd>lua MiniGit.show_at_cursor()<CR>", "Show at selection") 
 xmap_leader("gb", function() vim.cmd("Git log -L " .. vim.fn.line("'<") .. "," .. vim.fn.line("'>") .. ":" .. vim.fn.expand("%:p")) end, "Blame selection")
 
 -- LSP
-map("n", "gd", vim.lsp.buf.definition, { desc = "Definitions" })
-map("n", "gD", vim.lsp.buf.declaration, { desc = "Declaration" })
-map("n", "gR", vim.lsp.buf.references, { desc = "References" })
-map("n", "gi", vim.lsp.buf.implementation, { desc = "Implementation" })
-map("n", "gt", vim.lsp.buf.type_definition, { desc = "Type Definitions" })
-map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "Code Actions" })
+map("n", "grd", vim.lsp.buf.definition, { desc = "Definitions" }) -- 'gd' is 'definition in function'
+map("n", "grD", vim.lsp.buf.declaration, { desc = "Declaration" }) -- 'gD' is 'definition in file'
+--- 'gi' by default is mapped to 'Start Insert where it stopped', so better not remap that
+--- 'gr' prefix is default as of nvim 0.11
+map("n", "gri", vim.lsp.buf.implementation, { desc = "Implementation" })
+map("n", "grr", vim.lsp.buf.references, { desc = "References" })
+map("n", "grn", vim.lsp.buf.rename, { desc = "Rename" })
+map("n", "grt", vim.lsp.buf.type_definition, { desc = "Type Definitions" })
 
 -- Formatting
 nmap_leader("lf", function() require("conform").format({ async = false, timeout_ms = 5000 }) end, "Format buffer")
@@ -191,13 +193,16 @@ nmap_leader("e", "<Cmd>NvimTreeToggle<CR>", "File Tree")
 
 -- Mini.files
 map("n", "-", function()
+  local mf = require("mini.files")
   local currFile = vim.api.nvim_buf_get_name(0)
-  if vim.uv.fs_stat(currFile) then
-    require("mini.files").open(currFile)
+  if vim.uv.fs_stat(currFile) == nil then
+    mf.open(nil, false)
   else
-    require("mini.files").open(nil, false)
+    mf.open(currFile, false)
   end
 end, { desc = "Open parent directory" })
+
+nmap_leader("e", function() require("mini.files").open(nil, false) end, "MiniFiles")
 
 -- Toggles (most of them are setup with 'mini.basics')
 nmap_leader("tx", function()
@@ -214,9 +219,6 @@ end, "Toggle context")
 nmap_leader("q", function() require("mini.bufremove").delete() end, "Delete current buffer")
 nmap_leader("z", function() require("mini.misc").zoom() end, "Zoom window")
 nmap_leader("go", function() require("mini.diff").toggle_overlay(0) end, "Toggle diff overlay")
-
--- lewis6991/hover
-nmap_leader("k", require("hover").hover, "hover.nvim")
 
 -- Search notes
 nmap_leader("nn", "<Cmd>Pick notes<CR>", "Notes")

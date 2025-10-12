@@ -1,4 +1,4 @@
-vim.o.winbar = "%#MiniStatuslineFileinfo# %f%( %m%r%) %= "
+-- vim.o.winbar = "%#MiniStatuslineFileinfo# %f%( %m%r%) %= "
 
 ---@diagnostic disable-next-line: redundant-parameter
 require("mini.statusline").setup({
@@ -17,15 +17,14 @@ require("mini.statusline").setup({
       -- local location = MiniStatusline.section_location({ trunc_width = 75 })
       local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
-      if My.debug_mode then
+      if _G.Config.debug_mode then
         mode = "DEBUG"
         mode_hl = "MiniStatuslineModeReplace"
       end
 
       return MiniStatusline.combine_groups({
         { hl = mode_hl, strings = { mode } },
-        { hl = "MiniStatuslineDevinfo", strings = { git, diff } },
-        { hl = "MiniStatuslineModeCommand", strings = { diagnostics } },
+        { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
         "%<", -- Mark general truncate point
         { hl = "MiniStatuslineFilename", strings = { filename } },
         "%=", -- End left alignment

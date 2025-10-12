@@ -32,13 +32,13 @@ vim.o.breakindent   = true         -- Indent wrapped lines to match line start
 vim.o.breakindentopt = 'list:-1'   -- Add padding for lists when 'wrap' is on
 vim.o.colorcolumn   = '+1'         -- Colored column according to 'textwidth' if it's > 0
 vim.o.cursorline    = true         -- Enable highlighting of the current line
-vim.o.cursorlineopt = 'number'     -- Highlight only the number, both and or screenline messes up some treesitter highlights
+vim.o.cursorlineopt = 'both'       -- Highlight only the number, both and or screenline messes up some treesitter highlights
 vim.o.laststatus    = 3            -- Always show statusline
 vim.o.linebreak     = true         -- Wrap long lines at 'breakat' (if 'wrap' is set)
 vim.o.list          = true         -- Show helpful character indicators
 vim.o.number        = true         -- Show line numbers
-vim.o.pumblend      = 0            -- Builtin completion menus transparency
-vim.o.winblend      = 0            -- Floating windows transparency
+vim.o.pumblend      = 5            -- Builtin completion menus transparency
+vim.o.winblend      = 5            -- Floating windows transparency
 vim.o.pumheight     = 12           -- Popup menu size
 vim.o.shortmess     = 'aoOTtWFCcS' -- Disable certain messages from |ins-completion-menu|
 vim.o.showmode      = false        -- Show mode in command line
@@ -96,8 +96,30 @@ vim.o.ttimeoutlen   = 5     -- Milliseconds to wait for a key code sequence to c
 vim.o.timeoutlen    = 700   -- Milliseconds to wait for a mapped sequence to complete
 vim.o.updatetime    = 150   -- Affects cursor hold update time
 vim.o.lazyredraw    = true  -- Do not redraw when executing macros, registers and other commands
+--stylua: ignore end
 
 -- let sqlite.lua know where to find sqlite
 -- vim.g.sqlite_clib_path = vim.fn.getenv("LIBSQLITE")
 
---stylua: ignore end
+local diagnostic_opts = {
+  -- Show signs on top of any other sign, but only for warnings and errors
+  signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
+
+  -- Show all diagnostics as underline
+  underline = { severity = { min = "HINT", max = "ERROR" } },
+
+  virtual_lines = false,
+  virtual_text = {
+    current_line = true,
+    severity = { min = "INFO" },
+  },
+
+  -- Don't update diagnostics when typing
+  update_in_insert = false,
+
+  severity_sort = true,
+  float = { source = true },
+}
+
+-- Use `later()` to avoid sourcing `vim.diagnostic` on startup
+MiniDeps.later(function() vim.diagnostic.config(diagnostic_opts) end)
