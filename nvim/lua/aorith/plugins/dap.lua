@@ -20,7 +20,7 @@ dm.plugins.osv_integration.enabled = true -- needed if you want to debug neovim 
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "DebugModeChanged",
-  callback = function(args) _G.Config.debug_mode = args.data.enabled end,
+  callback = function(args) Config.debug_mode = args.data.enabled end,
 })
 
 local dap = require("dap")

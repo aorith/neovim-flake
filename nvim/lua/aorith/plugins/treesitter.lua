@@ -1,24 +1,4 @@
-local disabled_files = {
-  "Enums.hs",
-  "all-packages.nix",
-  "hackage-packages.nix",
-  "generated.nix",
-}
-
-local disabled_filetypes = {
-  "tmux",
-  "bash",
-  "sh",
-}
-
-local function disable_treesitter_features(bufnr)
-  local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-  local fname = vim.api.nvim_buf_get_name(bufnr)
-  local short_name = vim.fn.fnamemodify(fname, ":t")
-  return vim.tbl_contains(disabled_files, short_name) or vim.tbl_contains(disabled_filetypes, filetype)
-end
-
-local ensure_installed = {
+local ensure_languages = {
   "bash",
   "c",
   "diff",
@@ -46,74 +26,39 @@ local ensure_installed = {
   "yaml",
 }
 
-local opts = {
-  auto_install = not _G.Config.on_nix,
-  ensure_installed = _G.Config.on_nix and {} or ensure_installed,
-
-  highlight = {
-    enable = true,
-    disable = function(_, buf)
-      if disable_treesitter_features(buf) then
-        vim.notify("Treesitter disabled by file/filetype.")
-        return true
-      end
-    end,
-    additional_vim_regex_highlighting = disabled_filetypes,
-  },
-
-  indent = {
-    enable = false, -- Experimental
-  },
-
-  textobjects = {
-    select = {
-      enable = true,
-
-      -- If outside of an object, jump to the next one
-      lookahead = true,
-
-      -- For example, 'vaf' would enter visual mode and select the defined @function.outer
-      keymaps = {
-        ["af"] = { query = "@function.outer", desc = "Function outer" },
-        ["if"] = { query = "@function.inner", desc = "Function inner" },
-        ["ac"] = { query = "@class.outer", desc = "Class outer" },
-        ["ic"] = { query = "@class.inner", desc = "Class inner" },
-      },
-    },
-
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = { query = "@class.outer", desc = "Next class start" },
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = { query = "@class.outer", desc = "Previous class start" },
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-    },
-  },
-
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<LocalLeader>+",
-      node_incremental = "<LocalLeader>+",
-      node_decremental = "<LocalLeader>-",
-    },
-  },
+local disabled_files = {
+  "Enums.hs",
+  "all-packages.nix",
+  "hackage-packages.nix",
+  "generated.nix",
 }
 
-require("nvim-treesitter.configs").setup(opts)
+local function disable_treesitter_features(bufnr)
+  local fname = vim.api.nvim_buf_get_name(bufnr)
+  local short_name = vim.fn.fnamemodify(fname, ":t")
+  return vim.tbl_contains(disabled_files, short_name)
+end
+
+-- Install missing languages
+if not Config.on_nix then
+  local isnt_installed = function(lang) return #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".*", false) == 0 end
+  local to_install = vim.tbl_filter(isnt_installed, ensure_languages)
+  if #to_install > 0 then require("nvim-treesitter").install(to_install) end
+end
+
+-- Ensure tree-sitter enabled after opening a file for target language
+local filetypes = {}
+for _, lang in ipairs(ensure_languages) do
+  for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+    table.insert(filetypes, ft)
+  end
+end
+local ts_start = function(ev)
+  if disable_treesitter_features(ev.buf) then return end
+  vim.treesitter.start(ev.buf)
+end
+Config.new_autocmd("FileType", filetypes, ts_start, "Start tree-sitter")
+
 require("treesitter-context").setup({
   enable = true,
   multiwindow = false,
@@ -125,7 +70,3 @@ require("treesitter-context").setup({
   mode = "cursor",
   separator = "-",
 })
-
--- Folds
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"

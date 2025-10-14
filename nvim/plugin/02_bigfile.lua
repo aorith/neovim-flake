@@ -11,20 +11,19 @@ vim.filetype.add({
 
 local function on_bigfile(ev)
   vim.b.minianimate_disable = true
-  vim.schedule(function() vim.bo[ev.buf].syntax = ev.ft end)
+  vim.schedule(function()
+    vim.bo[ev.buf].syntax = ev.ft
+    vim.wo[0][0].cursorlineopt = "number"
+  end)
   local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(ev.buf), ":p:~:.")
   vim.notify(("Big file detected `%s`."):format(path))
 end
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = vim.api.nvim_create_augroup("on_bigfile", { clear = true }),
-  pattern = "bigfile",
-  callback = function(ev)
-    vim.api.nvim_buf_call(ev.buf, function()
-      on_bigfile({
-        buf = ev.buf,
-        ft = vim.filetype.match({ buf = ev.buf }) or "",
-      })
-    end)
-  end,
-})
+Config.new_autocmd("FileType", "bigfile", function(ev)
+  vim.api.nvim_buf_call(ev.buf, function()
+    on_bigfile({
+      buf = ev.buf,
+      ft = vim.filetype.match({ buf = ev.buf }) or "",
+    })
+  end)
+end, "Bigfile")

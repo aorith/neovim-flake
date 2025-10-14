@@ -17,7 +17,7 @@ require("mini.statusline").setup({
       -- local location = MiniStatusline.section_location({ trunc_width = 75 })
       local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
-      if _G.Config.debug_mode then
+      if Config.debug_mode then
         mode = "DEBUG"
         mode_hl = "MiniStatuslineModeReplace"
       end

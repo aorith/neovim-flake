@@ -4,48 +4,34 @@ miniclue.setup({
   window = { delay = 200, config = { width = "auto" } },
 
   triggers = {
-    -- Leader triggers
-    { mode = "n", keys = "<Leader>" },
+    { mode = "n", keys = "<Leader>" }, -- Leader triggers
     { mode = "x", keys = "<Leader>" },
-    -- Local leader
     { mode = "n", keys = "<LocalLeader>" },
     { mode = "x", keys = "<LocalLeader>" },
-
-    -- Built-in completionmini
-    { mode = "i", keys = "<C-x>" },
-
-    -- `g` key
-    { mode = "n", keys = "g" },
+    { mode = "n", keys = "\\" }, -- mini.basics
+    { mode = "n", keys = "[" }, -- mini.bracketed
+    { mode = "n", keys = "]" },
+    { mode = "x", keys = "[" },
+    { mode = "x", keys = "]" },
+    { mode = "i", keys = "<C-x>" }, -- Built-in completion
+    { mode = "n", keys = "g" }, -- `g` key
     { mode = "x", keys = "g" },
-
-    -- Marks
-    { mode = "n", keys = "'" },
+    { mode = "n", keys = "'" }, -- Marks
     { mode = "n", keys = "`" },
     { mode = "x", keys = "'" },
     { mode = "x", keys = "`" },
-
-    -- Registers
-    { mode = "n", keys = '"' },
+    { mode = "n", keys = '"' }, -- Registers
     { mode = "x", keys = '"' },
     { mode = "i", keys = "<C-r>" },
     { mode = "c", keys = "<C-r>" },
-
-    -- Window commands
-    { mode = "n", keys = "<C-w>" },
-
-    -- `z` key
-    { mode = "n", keys = "z" },
+    { mode = "n", keys = "<C-w>" }, -- Window commands
+    { mode = "n", keys = "z" }, -- `z` key
     { mode = "x", keys = "z" },
-
-    -- `[` and `]` keys
-    { mode = "n", keys = "[" },
-    { mode = "n", keys = "]" },
   },
 
   clues = {
     { mode = "n", keys = "<leader>b", desc = "+Buffer" },
     { mode = "n", keys = "<leader>f", desc = "+Find" },
-    -- { mode = "n", keys = "<leader>s", desc = "+Search" },
     { mode = "n", keys = "<leader>g", desc = "+Git" },
     { mode = "x", keys = "<leader>g", desc = "+Git" },
     { mode = "n", keys = "<leader>l", desc = "+LSP" },

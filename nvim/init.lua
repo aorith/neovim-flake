@@ -3,10 +3,10 @@ vim.loader.enable()
 --- Global configuration and functions
 -------------------------------------------------------------------------------
 _G.Config = {
-  notes_dir = "~/Syncthing/SYNC_STUFF/notes/zk/notes",
+  notes_dir = vim.env.HOME .. "/Syncthing/SYNC_STUFF/notes/zk/notes",
 
   ---@diagnostic disable-next-line: undefined-field
-  on_nix = (vim.fn.getenv("NVIM_NIX") ~= vim.NIL or vim.uv.fs_stat("/etc/nixos")) and true or false,
+  on_nix = (vim.env.NVIM_NIX == "1" or vim.uv.fs_stat("/etc/nixos")) and true or false,
 
   --- Function to modify an existing highlight group in Neovim
   ---@param name string The name of the highlight group to modify
@@ -23,131 +23,24 @@ _G.Config = {
   debug_mode = false,
 }
 
+-- Define custom autocommand group and helper to create an autocommand.
+local gr = vim.api.nvim_create_augroup("ao-custom-config", {})
+_G.Config.new_autocmd = function(event, pattern, callback, desc)
+  local opts = { group = gr, pattern = pattern, callback = callback, desc = desc }
+  vim.api.nvim_create_autocmd(event, opts)
+end
+
 --- Bootstrap 'mini.deps'
 -------------------------------------------------------------------------------
 local mini_path = vim.fn.stdpath("data") .. "/site/pack/deps/start/mini.nvim"
 ---@diagnostic disable-next-line: undefined-field
-if not vim.uv.fs_stat(mini_path) then
+if not vim.loop.fs_stat(mini_path) then
   vim.cmd('echo "Installing `mini.nvim`" | redraw')
-  local clone_cmd = { "git", "clone", "--filter=blob:none", "https://github.com/echasnovski/mini.nvim", mini_path }
+  local origin = "https://github.com/nvim-mini/mini.nvim"
+  local clone_cmd = { "git", "clone", "--filter=blob:none", origin, mini_path }
   vim.fn.system(clone_cmd)
   vim.cmd("packadd mini.nvim | helptags ALL")
   vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
+
 require("mini.deps").setup({ job = { n_threads = 4 } })
-
---- Core configuration
--------------------------------------------------------------------------------
-require("aorith.core.options")
-require("aorith.core.mappings")
-require("aorith.core.commands")
-require("aorith.core.autocmds")
-
---- Mini nvim
--------------------------------------------------------------------------------
-local add, later = MiniDeps.add, MiniDeps.later
-local now_if_args = vim.fn.argc(-1) > 0 and MiniDeps.now or later
-
-add({ name = "mini.nvim" })
--- colorscheme
-vim.cmd("colorscheme miniwinter")
-
-require("aorith.plugins.mini.basics")
-require("aorith.plugins.mini.notify")
-require("mini.icons").setup()
-require("mini.icons").mock_nvim_web_devicons()
-require("mini.tabline").setup()
-require("aorith.plugins.mini.statusline")
-require("mini.extra").setup()
-require("mini.diff").setup({ view = { style = "sign" } })
-require("aorith.plugins.mini.git")
-require("aorith.plugins.mini.files")
-require("aorith.plugins.mini.hipatterns")
-require("aorith.plugins.mini.pick")
-
-later(function()
-  require("mini.misc").setup({ make_global = { "put", "put_text" } })
-  -- MiniMisc.setup_auto_root()
-  -- MiniMisc.setup_termbg_sync()
-end)
-later(function() require("mini.ai").setup() end) -- Enables 'ciq' (change inside quotes) or 'cib' (change inside brackets), etc.
-later(function() require("mini.bufremove").setup() end)
--- later(require("mini.cursorword").setup)
-later(function() require("aorith.plugins.mini.indentscope") end)
--- sa => surround around
--- sd => surround delete
--- sr => surround replace
--- Example: Visual select a word -> sa"  (surround around quotes, 'saq' with mini.ai)
-later(function() require("mini.surround").setup() end)
-later(function() require("mini.visits").setup() end)
-later(function() require("mini.trailspace").setup({ only_in_normal_buffers = true }) end)
-later(function() require("aorith.plugins.mini.clue") end)
-later(function() require("aorith.plugins.mini.completion") end)
-later(function() require("mini.jump").setup({ delay = { highlight = 50 } }) end)
-later(
-  -- Press CR to start jumping
-  function() require("mini.jump2d").setup({ labels = "abcdefghijklmnopqrstu1234vwxyz", allowed_lines = { blank = false, cursor_at = false, fold = false } }) end
-)
-later(function() require("aorith.plugins.mini.snippets") end)
-
---- Plugins
--------------------------------------------------------------------------------
-add({ source = "tpope/vim-sleuth" })
-add({ source = "b0o/SchemaStore.nvim" })
-
-now_if_args(function()
-  if not _G.Config.on_nix then
-    -- Treesitter
-    add({
-      source = "nvim-treesitter/nvim-treesitter",
-      checkout = "master",
-      hooks = { post_checkout = function() vim.cmd("TSUpdate") end },
-    })
-    add({ source = "nvim-treesitter/nvim-treesitter-context" })
-    add({ source = "nvim-treesitter/nvim-treesitter-textobjects" })
-
-    -- Other plugins packaged at nix/plugins.nix
-    add({ source = "varnishcache-friends/vim-varnish" })
-  end
-
-  require("aorith.plugins.treesitter")
-end)
-
--- Nvim-Lspconfig
-now_if_args(function()
-  add({ source = "neovim/nvim-lspconfig" })
-  require("aorith.plugins.lsp")
-end)
-
--- Formatting
-later(function()
-  add({ source = "stevearc/conform.nvim" })
-  require("aorith.plugins.formatting")
-end)
-
--- Linting
-later(function()
-  add({ source = "mfussenegger/nvim-lint" })
-  require("aorith.plugins.linting")
-end)
-
--- Outline
-later(function()
-  add({ source = "hedyhli/outline.nvim" })
-  require("aorith.plugins.outline")
-end)
-
--- Nvim Dap
-later(function()
-  add({ source = "mfussenegger/nvim-dap" })
-  add({ source = "miroshQa/debugmaster.nvim" })
-  add({ source = "theHamsta/nvim-dap-virtual-text" })
-  add({ source = "mfussenegger/nvim-dap-python" })
-  require("aorith.plugins.dap")
-end)
-
--- Quicker nvim
-later(function()
-  add({ source = "stevearc/quicker.nvim" })
-  require("quicker").setup()
-end)

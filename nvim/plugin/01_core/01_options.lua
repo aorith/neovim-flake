@@ -12,12 +12,8 @@ vim.g.loaded_zipPlugin = 1
 vim.g.loaded_getscript = 1
 vim.g.loaded_getscriptPlugin = 1
 
--- Enable filetype plugins
-vim.cmd("filetype plugin indent on")
--- Enable syntax highlighting if it wasn't already (as it is time consuming)
-if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
-
 --stylua: ignore start
+
 -- General --------------------------------------------------------------------
 vim.o.shell        = "bash"   -- Force bash as the shell for '!' commands
 vim.o.modelineexpr = false    -- Disable modeline expressions for security
@@ -25,22 +21,27 @@ vim.o.backup       = false    -- Don't store backup
 vim.o.writebackup  = false    -- Don't store backup
 vim.o.mouse        = 'a'      -- Enable mouse
 vim.o.undofile     = true     -- Enable persistent undo
+vim.o.switchbuf    = 'usetab' -- Use already opened buffers when switching
+
+vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
+
+-- Enable all filetype plugins and syntax (if not enabled, for better startup)
+vim.cmd("filetype plugin indent on")
+if vim.fn.exists("syntax_on") ~= 1 then vim.cmd("syntax enable") end
 
 
 -- UI -------------------------------------------------------------------------
 vim.o.breakindent   = true         -- Indent wrapped lines to match line start
 vim.o.breakindentopt = 'list:-1'   -- Add padding for lists when 'wrap' is on
 vim.o.colorcolumn   = '+1'         -- Colored column according to 'textwidth' if it's > 0
-vim.o.cursorline    = true         -- Enable highlighting of the current line
-vim.o.cursorlineopt = 'both'       -- Highlight only the number, both and or screenline messes up some treesitter highlights
 vim.o.laststatus    = 3            -- Always show statusline
 vim.o.linebreak     = true         -- Wrap long lines at 'breakat' (if 'wrap' is set)
 vim.o.list          = true         -- Show helpful character indicators
 vim.o.number        = true         -- Show line numbers
 vim.o.pumblend      = 5            -- Builtin completion menus transparency
 vim.o.winblend      = 5            -- Floating windows transparency
-vim.o.pumheight     = 12           -- Popup menu size
-vim.o.shortmess     = 'aoOTtWFCcS' -- Disable certain messages from |ins-completion-menu|
+vim.o.pumheight     = 10           -- Popup menu size
+vim.o.shortmess     = 'CFOSWaco'   -- Disable some built-in completion messages
 vim.o.showmode      = false        -- Show mode in command line
 vim.o.signcolumn    = 'yes'        -- How signcolumn behaves
 vim.o.splitbelow    = true         -- Horizontal splits will be below
@@ -51,12 +52,13 @@ vim.o.showmatch     = true         -- Highlight matching parentheses
 vim.o.scrolloff     = 3            -- Scroll context
 vim.o.sidescrolloff = 3            -- Line scroll context
 
-vim.o.fillchars = table.concat(
-  { 'fold:╌', 'horiz:═', 'horizdown:╦', 'horizup:╩', 'vert:║', 'verthoriz:╬', 'vertleft:╣', 'vertright:╠' },
-  ','
-)
-vim.o.listchars = table.concat({ 'extends:…', 'trail:·', 'nbsp:␣', 'precedes:…', 'tab:> ' }, ',')
-vim.o.winborder = "rounded"
+vim.o.cursorline    = true                -- Enable highlighting of the current line
+vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
+
+
+vim.o.fillchars = 'fold:╌,horiz:═,horizdown:╦,horizup:╩,vert:║,verthoriz:╬,vertleft:╣,vertright:╠'
+vim.o.listchars = 'extends:…,trail:·,nbsp:␣,precedes:…,tab:> '
+vim.o.winborder = "single"
 
 vim.opt.diffopt = { 'internal', 'filler', 'closeoff', 'context:12', 'algorithm:histogram', 'linematch:200', 'indent-heuristic' }
 
@@ -83,13 +85,15 @@ vim.o.grepformat = "%f:%l:%c:%m" -- Grep format
 -- Spelling -------------------------------------------------------------------
 vim.o.spelllang    = 'en,es'      -- Define spelling dictionaries
 vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as separate words
-vim.o.complete     = ".,b,kspell" -- Use spell check and don't use tags for completion
+vim.o.complete     = ".,w,b,kspell" -- Use spell check and don't use tags for completion
+vim.o.completeopt  = "menuone,noselect,fuzzy,nosort"
+
 
 -- Folds ----------------------------------------------------------------------
-vim.o.foldmethod       = 'indent' -- Set 'indent' folding method
-vim.o.foldlevel        = 1        -- Display all folds except top ones
-vim.o.foldlevelstart   = 99       -- Start with all folds open
-vim.o.foldnestmax      = 10       -- Create folds only for some number of nested levels
+vim.o.foldmethod  = 'indent' -- Set 'indent' folding method
+vim.o.foldlevel   = 10       -- Fold nothing by default
+vim.o.foldnestmax = 10       -- Limit number of fold levels
+vim.o.foldtext    = ''       -- Show text under fold with its highlighting
 
 -- Timers and performance -----------------------------------------------------
 vim.o.ttimeoutlen   = 5     -- Milliseconds to wait for a key code sequence to complete

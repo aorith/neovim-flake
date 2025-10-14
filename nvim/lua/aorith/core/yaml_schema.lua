@@ -40,9 +40,7 @@ M._change_settings = function(schema)
   for key, value in pairs(previous_settings.yaml.schemas) do
     if vim.islist(value) then
       for idx, value_value in pairs(value) do
-        if value_value == M.uri or string.find(value_value, "*") then
-          table.remove(previous_settings.yaml.schemas[key], idx)
-        end
+        if value_value == M.uri or string.find(value_value, "*") then table.remove(previous_settings.yaml.schemas[key], idx) end
       end
     elseif value == M.uri or string.find(value, "*") then
       previous_settings.yaml.schemas[key] = nil
@@ -62,9 +60,7 @@ end
 
 M._display_schema_item = function(schema) return schema.name or schema.uri end
 
-M._open_ui_select = function(schemas)
-  vim.ui.select(schemas, { format_item = M._display_schema_item, prompt = "Select YAML Schema" }, M._change_settings)
-end
+M._open_ui_select = function(schemas) vim.ui.select(schemas, { format_item = M._display_schema_item, prompt = "Select YAML Schema" }, M._change_settings) end
 
 M.select = function()
   M.get_client()

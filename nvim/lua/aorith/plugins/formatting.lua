@@ -8,7 +8,7 @@ local opts = {
     css = { "prettierd", lsp_format = "prefer" },
     scss = { "prettierd", lsp_format = "prefer" },
     graphql = { "prettierd", lsp_format = "fallback" },
-    html = { "prettierd", lsp_format = "prefer" },
+    html = { "prettierd", lsp_format = "fallback" },
     javascript = { "prettierd", lsp_format = "prefer" },
     javascriptreact = { "prettierd", lsp_format = "prefer" },
     json = { "prettierd", lsp_format = "fallback" },

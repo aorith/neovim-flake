@@ -1,3 +1,6 @@
+vim.cmd("set packpath=")
+vim.cmd("set rtp=")
+
 -- use as a pager, etc
 vim.cmd("syntax off")
 

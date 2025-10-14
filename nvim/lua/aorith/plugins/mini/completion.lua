@@ -1,20 +1,27 @@
----@diagnostic disable-next-line: redundant-parameter
+-- Customize post-processing of LSP responses for a better user experience.
+-- Don't show 'Text' suggestions (usually noisy) and show snippets last.
+local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
+local process_items = function(items, base) return MiniCompletion.default_process_items(items, base, process_items_opts) end
 require("mini.completion").setup({
-  set_vim_settings = true,
-
-  delay = { signature = 200 },
-
   lsp_completion = {
     source_func = "omnifunc",
-    auto_setup = false, -- Done manually on 'lsp.lua'
+    auto_setup = false,
+    process_items = process_items,
   },
 })
 
-vim.o.completeopt = "menuone,noselect,noinsert,popup,fuzzy"
+-- Set 'omnifunc' for LSP completion only when needed.
+local on_attach = function(ev) vim.bo[ev.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp" end
+Config.new_autocmd("LspAttach", nil, on_attach, "Set 'omnifunc'")
 
-local map_multistep = require("mini.keymap").map_multistep
-map_multistep("i", "<Tab>", { "pmenu_next" })
-map_multistep("i", "<S-Tab>", { "pmenu_prev" })
-map_multistep("i", "<CR>", { "pmenu_accept" })
+-- Advertise to servers that Neovim now supports certain set of completion and
+-- signature features through 'mini.completion'.
+vim.lsp.config("*", { capabilities = MiniCompletion.get_lsp_capabilities() })
 
-require("mini.icons").tweak_lsp_kind()
+MiniDeps.later(function()
+  require("mini.keymap").setup()
+  -- Navigate 'mini.completion' menu with `<Tab>` /  `<S-Tab>`
+  MiniKeymap.map_multistep("i", "<Tab>", { "pmenu_next" })
+  MiniKeymap.map_multistep("i", "<S-Tab>", { "pmenu_prev" })
+  MiniKeymap.map_multistep("i", "<CR>", { "pmenu_accept" })
+end)
