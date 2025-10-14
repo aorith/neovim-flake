@@ -60,7 +60,7 @@ now_if_args(function()
       checkout = "main",
       hooks = { post_checkout = function() vim.cmd("TSUpdate") end },
     })
-    add({ source = "nvim-treesitter/nvim-treesitter-context", checkout = "main" })
+    add({ source = "nvim-treesitter/nvim-treesitter-context", checkout = "master" })
     add({ source = "nvim-treesitter/nvim-treesitter-textobjects", checkout = "main" })
 
     -- Other plugins packaged at nix/plugins.nix
