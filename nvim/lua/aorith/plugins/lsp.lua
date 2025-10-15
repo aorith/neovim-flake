@@ -28,7 +28,6 @@ vim.lsp.enable({
   "gopls",
   "helm_ls",
   "html",
-  "jsonls",
   "jsonnet_ls", -- go install github.com/grafana/jsonnet-language-server@latest
   "lua_ls",
   "marksman",
@@ -38,5 +37,4 @@ vim.lsp.enable({
   "tofu_ls",
   "ts_ls",
   "yamlls",
-  "zk",
 })

@@ -4,6 +4,10 @@ local add, later = MiniDeps.add, MiniDeps.later
 local now_if_args = vim.fn.argc(-1) > 0 and MiniDeps.now or later
 
 add({ name = "mini.nvim" })
+
+-- nvim should detect terminal features and enable this automatically, but
+-- the combination of tmux + ssh + nixos leaves this disabled
+vim.o.termguicolors = true
 -- colorscheme
 vim.cmd("colorscheme miniwinter")
 
