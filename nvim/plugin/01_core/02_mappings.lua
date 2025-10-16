@@ -111,8 +111,8 @@ map('n', '<leader>k', '<cmd>cprevious<CR>', { desc = 'Previous item in QuickFix'
 -- diagnostics
 map('n', '<leader>ll', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
 map('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Set Loc List' })
-map('n', '<leader>lj', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
-map('n', '<leader>lk', vim.diagnostic.goto_prev, { desc = 'Prev diagnostic' })
+map('n', '<leader>lj', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Next diagnostic' })
+map('n', '<leader>lk', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Prev diagnostic' })
 
 map('n', '<leader>lc', vim.lsp.buf.code_action, { desc = 'Code actions' })
 map('n', '<leader>lr', vim.lsp.buf.rename, { desc = 'Rename' })
