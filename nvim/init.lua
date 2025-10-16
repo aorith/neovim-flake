@@ -4,6 +4,7 @@ vim.loader.enable()
 -------------------------------------------------------------------------------
 _G.Config = {
   notes_dir = vim.env.HOME .. '/Syncthing/SYNC_STUFF/notes/zk/notes',
+  nvim_appname = vim.env.NVIM_APPNAME ~= vim.NIL and vim.env.NVIM_APPNAME or 'nvim',
 
   ---@diagnostic disable-next-line: undefined-field
   on_nix = (vim.env.NVIM_NIX == '1' or vim.uv.fs_stat('/etc/nixos')) and true or false,

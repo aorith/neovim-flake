@@ -1,13 +1,10 @@
 local M = {}
 
--- directory configuration
-M.nvim_appname = vim.env.NVIM_APPNAME ~= vim.NIL and vim.env.NVIM_APPNAME or 'nvim'
-
 M.find_stylua_conf = function()
   local conf_paths = {
     vim.fn.getcwd() .. '/stylua.toml',
     vim.fn.getcwd() .. '/.stylua.toml',
-    vim.env.XDG_CONFIG_HOME .. '/' .. M.nvim_appname .. '/stylua.toml',
+    vim.env.XDG_CONFIG_HOME .. '/' .. Config.nvim_appname .. '/stylua.toml',
   }
 
   for _, v in ipairs(conf_paths) do

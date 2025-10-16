@@ -103,7 +103,7 @@ vim.o.lazyredraw    = true  -- Do not redraw when executing macros, registers an
 --stylua: ignore end
 
 -- let sqlite.lua know where to find sqlite
--- vim.g.sqlite_clib_path = vim.fn.getenv("LIBSQLITE")
+-- vim.g.sqlite_clib_path = vim.env.LIBSQLITE
 
 local diagnostic_opts = {
   -- Show signs on top of any other sign, but only for warnings and errors
