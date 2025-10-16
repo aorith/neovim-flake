@@ -5,28 +5,21 @@ return {
     client.server_capabilities.documentRangeFormattingProvider = nil
   end,
 
+  on_attach = function(client, buf_id)
+    -- Reduce very long list of triggers for better 'mini.completion' experience
+    client.server_capabilities.completionProvider.triggerCharacters = { ".", ":", "#", "(" }
+  end,
+
   settings = {
     Lua = {
-      addonManager = { enable = false },
-      format = { enable = false },
-      hint = { enable = true },
-      runtime = {
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = vim.split(package.path, ";"),
-      },
-      diagnostics = {
-        -- Get the language server to recognize common globals
-        globals = { "vim" },
-        disable = { "need-check-nil" },
-      },
-      telemetry = { enable = false },
+      runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
       workspace = {
-        checkThirdParty = false,
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = { vim.env.VIMRUNTIME },
         -- Don't analyze code from submodules
         ignoreSubmodules = true,
       },
+      format = { enable = false },
+      telemetry = { enable = false },
     },
   },
 }
