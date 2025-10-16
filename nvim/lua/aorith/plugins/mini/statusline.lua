@@ -1,7 +1,7 @@
 -- vim.o.winbar = "%#MiniStatuslineFileinfo# %f%( %m%r%) %= "
 
 ---@diagnostic disable-next-line: redundant-parameter
-require("mini.statusline").setup({
+require('mini.statusline').setup({
   set_vim_settings = false,
   use_icons = true,
 
@@ -18,26 +18,26 @@ require("mini.statusline").setup({
       local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
       if Config.debug_mode then
-        mode = "DEBUG"
-        mode_hl = "MiniStatuslineModeReplace"
+        mode = 'DEBUG'
+        mode_hl = 'MiniStatuslineModeReplace'
       end
 
       return MiniStatusline.combine_groups({
         { hl = mode_hl, strings = { mode } },
-        { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics } },
-        "%<", -- Mark general truncate point
-        { hl = "MiniStatuslineFilename", strings = { filename } },
-        "%=", -- End left alignment
-        { hl = "MiniStatuslineModeReplace", strings = { search } },
-        { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-        { hl = mode_hl, strings = { "%02l,%02c %P 0x%02B" } },
+        { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics } },
+        '%<', -- Mark general truncate point
+        { hl = 'MiniStatuslineFilename', strings = { filename } },
+        '%=', -- End left alignment
+        { hl = 'MiniStatuslineModeReplace', strings = { search } },
+        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+        { hl = mode_hl, strings = { '%02l,%02c %P 0x%02B' } },
       })
     end,
 
     inactive = function()
       local filename = MiniStatusline.section_filename({ trunc_width = 140 })
       return MiniStatusline.combine_groups({
-        { hl = "MiniStatuslineDevinfo", strings = { filename } },
+        { hl = 'MiniStatuslineDevinfo', strings = { filename } },
       })
     end,
   },

@@ -1,1 +1,1 @@
-vim.bo.formatprg = "prettier --parser html"
+vim.bo.formatprg = 'prettier --parser html'

@@ -1,2 +1,2 @@
-vim.bo.formatexpr = ""
-vim.bo.formatprg = "jq"
+vim.bo.formatexpr = ''
+vim.bo.formatprg = 'jq'

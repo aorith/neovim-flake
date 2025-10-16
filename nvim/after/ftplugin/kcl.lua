@@ -1,2 +1,2 @@
 vim.bo.expandtab = true
-vim.bo.commentstring = "# %s"
+vim.bo.commentstring = '# %s'

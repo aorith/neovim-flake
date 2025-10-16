@@ -5,13 +5,13 @@ local function _autoread()
     2000,
     0,
     vim.schedule_wrap(function()
-      vim.api.nvim_command("silent! checktime")
+      vim.api.nvim_command('silent! checktime')
       _autoread()
     end)
   )
 end
-vim.api.nvim_create_user_command("Autoread", function()
+vim.api.nvim_create_user_command('Autoread', function()
   ---@diagnostic disable-next-line: undefined-field
   _autoread()
-  vim.notify("Autoread enabled")
+  vim.notify('Autoread enabled')
 end, {})

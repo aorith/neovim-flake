@@ -1,5 +1,5 @@
 ---@diagnostic disable-next-line:redundant-parameter
-require("mini.basics").setup({
+require('mini.basics').setup({
   -- Options. Set to `false` to disable.
   options = {
     -- Basic options ('number', 'ignorecase', and many more)

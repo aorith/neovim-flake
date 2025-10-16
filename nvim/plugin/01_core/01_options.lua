@@ -1,6 +1,6 @@
 -- Leader keys configuration ---------------------------------------------------
-vim.g.mapleader = " " -- Leader key must set before plugins
-vim.g.maplocalleader = "\\" -- Using ',' breaks: f<letter> + ;,
+vim.g.mapleader = ' ' -- Leader key must set before plugins
+vim.g.maplocalleader = '\\' -- Using ',' breaks: f<letter> + ;,
 
 -- Avoid automatic decompression of files
 vim.g.loaded_gzip = 1
@@ -107,15 +107,15 @@ vim.o.lazyredraw    = true  -- Do not redraw when executing macros, registers an
 
 local diagnostic_opts = {
   -- Show signs on top of any other sign, but only for warnings and errors
-  signs = { priority = 9999, severity = { min = "WARN", max = "ERROR" } },
+  signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
 
   -- Show all diagnostics as underline
-  underline = { severity = { min = "HINT", max = "ERROR" } },
+  underline = { severity = { min = 'HINT', max = 'ERROR' } },
 
   virtual_lines = false,
   virtual_text = {
     current_line = true,
-    severity = { min = "INFO" },
+    severity = { min = 'INFO' },
   },
 
   -- Don't update diagnostics when typing

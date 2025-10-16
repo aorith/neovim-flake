@@ -1,9 +1,9 @@
 ---@type vim.lsp.Config
 return {
   settings = {
-    ["helm-ls"] = {
+    ['helm-ls'] = {
       yamlls = {
-        path = "yaml-language-server",
+        path = 'yaml-language-server',
       },
     },
   },
