@@ -9,7 +9,8 @@ add({ name = 'mini.nvim' })
 -- the combination of tmux + ssh + nixos leaves this disabled
 if not vim.o.termguicolors then vim.o.termguicolors = true end
 -- colorscheme
-vim.cmd('colorscheme miniwinter')
+vim.cmd.colorscheme('miniwinter')
+vim.cmd("echo ' '") -- for some reason this avoids flickering (dark=>light) when using a light theme
 
 require('aorith.plugins.mini.basics')
 require('aorith.plugins.mini.notify')
