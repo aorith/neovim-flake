@@ -7,7 +7,7 @@ add({ name = 'mini.nvim' })
 
 -- nvim should detect terminal features and enable this automatically, but
 -- the combination of tmux + ssh + nixos leaves this disabled
-vim.o.termguicolors = true
+if not vim.o.termguicolors then vim.o.termguicolors = true end
 -- colorscheme
 vim.cmd('colorscheme miniwinter')
 

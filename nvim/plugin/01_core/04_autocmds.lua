@@ -43,12 +43,6 @@ Config.new_autocmd('ColorScheme', '*', function()
   -- Make MiniJump more noticeable
   vim.api.nvim_set_hl(0, 'MiniJump', { link = 'Search' })
 
-  Config.hi('Comment', { italic = true })
-  Config.hi('@comment.error', { italic = true })
-  Config.hi('@comment.warning', { italic = true })
-  Config.hi('@comment.todo', { italic = true })
-  Config.hi('@comment.note', { italic = true })
-
   -- treesitter.context
   vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'TreesitterContext' })
 end, 'Theme overrides')
