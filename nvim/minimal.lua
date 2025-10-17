@@ -5,7 +5,6 @@ vim.cmd('set rtp=')
 vim.cmd('syntax off')
 
 vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
 
 vim.o.number = false
 vim.o.ruler = true

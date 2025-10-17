@@ -130,7 +130,6 @@ nmap_leader('<leader>', function()
 end, 'Buffers')
 nmap_leader('bm', "<Cmd>Pick marks scope='global'<CR>", 'Global Marks')
 nmap_leader('ff', '<Cmd>Pick files<CR>', 'Files')
-map('n', '<localleader><localleader>', '<Cmd>Pick files<CR>', { desc = 'Files' })
 nmap_leader('fg', '<Cmd>Pick grep_live<CR>', 'Grep live')
 nmap_leader('fl', '<Cmd>Pick buf_lines scope="current"<CR>', 'Lines (current)')
 nmap_leader('fL', '<Cmd>Pick buf_lines scope="all"<CR>', 'Lines (all)')
@@ -256,3 +255,5 @@ for i = 1, 5 do
     vim.notify("Mark set for '" .. i .. "' (" .. mark_char .. ')')
   end, { desc = 'Set mark ' .. mark_char })
 end
+
+map('n', '<localleader>m', '<Cmd>Pick marks<CR>', { desc = 'Pick marks' })
