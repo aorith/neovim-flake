@@ -1,6 +1,9 @@
 local utils = require('aorith.core.utils')
 
 local opts = {
+  log_level = vim.log.levels.ERROR,
+  notify_on_error = true,
+
   formatters_by_ft = {
     jinja = { 'djlint', lsp_format = 'fallback' },
     htmldjango = { 'djlint', lsp_format = 'fallback' },
@@ -8,7 +11,6 @@ local opts = {
     css = { 'prettierd', lsp_format = 'prefer' },
     scss = { 'prettierd', lsp_format = 'prefer' },
     graphql = { 'prettierd', lsp_format = 'fallback' },
-    html = { 'prettierd', lsp_format = 'fallback' },
     javascript = { 'prettierd', lsp_format = 'prefer' },
     javascriptreact = { 'prettierd', lsp_format = 'prefer' },
     json = { 'prettierd', lsp_format = 'fallback' },
@@ -35,8 +37,6 @@ local opts = {
 
     jsonnet = { 'jsonnetfmt' },
   },
-  log_level = vim.log.levels.ERROR,
-  notify_on_error = true,
 }
 
 local xdg_config = vim.env.XDG_CONFIG_HOME ~= nil and vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. '/.config')

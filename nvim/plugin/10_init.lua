@@ -27,7 +27,7 @@ require('mini.icons').setup()
 later(require('mini.icons').mock_nvim_web_devicons)
 later(require('mini.icons').tweak_lsp_kind)
 
-later(function()
+now_if_args(function()
   require('mini.misc').setup({ make_global = { 'put', 'put_text' } })
   -- MiniMisc.setup_auto_root()
   -- MiniMisc.setup_termbg_sync()

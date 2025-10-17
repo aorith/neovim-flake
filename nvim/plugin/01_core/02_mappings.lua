@@ -136,6 +136,8 @@ nmap_leader('fl', '<Cmd>Pick buf_lines scope="current"<CR>', 'Lines (current)')
 nmap_leader('fL', '<Cmd>Pick buf_lines scope="all"<CR>', 'Lines (all)')
 nmap_leader('fd', '<Cmd>Pick diagnostic scope="current"<CR>', 'Diagnostic buffer')
 nmap_leader('fD', '<Cmd>Pick diagnostic scope="all"<CR>', 'Diagnostic workspace')
+nmap_leader('fa', '<Cmd>Pick git_hunks scope="staged"<CR>', 'Added hunks (all)')
+nmap_leader('fA', '<Cmd>Pick git_hunks path="%" scope="staged"<CR>', 'Added hunks (buf)')
 nmap_leader('fm', '<Cmd>Pick git_hunks path="%:p" n_context=0<CR>', 'Modified hunks (current)')
 nmap_leader('fM', '<Cmd>Pick git_hunks<CR>', 'Modified hunks (all)')
 nmap_leader('fr', '<Cmd>Pick resume<CR>', 'Resume')
@@ -151,18 +153,11 @@ nmap_leader('fC', '<Cmd>Pick git_commits<CR>', 'Commits (all)')
 nmap_leader('fv', '<Cmd>Pick visit_paths<CR>', 'Visit paths (cwd)')
 nmap_leader('fV', '<Cmd>Pick visit_paths cwd=""<CR>', 'Visit paths (all)')
 
--- v is for 'visits'
-nmap_leader('vv', '<Cmd>Pick visit_labels<CR>', 'Visit labels')
-nmap_leader('va', '<Cmd>lua MiniVisits.add_label()<CR>', 'Add label')
-nmap_leader('vr', '<Cmd>lua MiniVisits.remove_label()<CR>', 'Remove label')
-
 local git_log_cmd = [[Git log --pretty=format:\%h\ \%as\ │\ \%s --topo-order]]
 local git_reflog_cmd = [[Git log --abbrev-commit --walk-reflogs --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]] -- similar to 'git reflog'
 local git_graph_cmd = [[Git log --graph --all --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]]
 nmap_leader('ga', '<Cmd>Git diff --cached -- %:p<CR>', 'Added diff buffer')
 nmap_leader('gA', '<Cmd>Git diff --cached<CR>', 'Added diff')
-nmap_leader('gc', '<Cmd>Git commit<CR>', 'Commit')
-nmap_leader('gC', '<Cmd>Git commit --amend<CR>', 'Commit amend')
 nmap_leader('gd', '<Cmd>Git diff -- %:p<CR>', 'Diff buffer')
 nmap_leader('gD', '<Cmd>Git diff<CR>', 'Diff')
 nmap_leader('gb', '<Cmd>Git blame -- %:p<CR>', 'Blame buffer')
@@ -170,7 +165,7 @@ nmap_leader('gl', '<Cmd>' .. git_log_cmd .. ' --follow -- %:p<CR>', 'Log buffer'
 nmap_leader('gL', '<Cmd>' .. git_log_cmd .. '<CR>', 'Log')
 nmap_leader('gr', '<Cmd>tab ' .. git_reflog_cmd .. '<CR>', 'Reflog')
 nmap_leader('gg', '<Cmd>tab ' .. git_graph_cmd .. '<CR>', 'Graph')
-nmap_leader('go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>', 'Toggle overlay')
+nmap_leader('go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>', 'Toggle diff overlay')
 nmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at cursor')
 
 xmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at selection') -- Show at cursor already gives info from show_range_history
@@ -191,14 +186,19 @@ map('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename' })
 map('n', 'grt', vim.lsp.buf.type_definition, { desc = 'Type Definitions' })
 
 -- Formatting
-nmap_leader('lf', function() require('conform').format({ async = false, timeout_ms = 5000 }) end, 'Format buffer')
-xmap_leader('lf', function() require('conform').format({ async = false, timeout_ms = 5000 }) end, 'Format buffer')
+nmap_leader(
+  'lf',
+  function() require('conform').format({ lsp_format = 'fallback', async = false, timeout_ms = 2500 }) end,
+  'Format buffer'
+)
+xmap_leader(
+  'lf',
+  function() require('conform').format({ lsp_format = 'fallback', async = false, timeout_ms = 2500 }) end,
+  'Format buffer'
+)
 
 -- Outline
 nmap_leader('a', '<cmd>Outline<CR>', 'Toggle outline')
-
--- Neotree
-nmap_leader('e', '<Cmd>NvimTreeToggle<CR>', 'File Tree')
 
 -- Mini.files
 map('n', '-', function()
@@ -227,7 +227,6 @@ end, 'Toggle context')
 -- Misc
 nmap_leader('q', function() require('mini.bufremove').delete() end, 'Delete current buffer')
 nmap_leader('z', function() require('mini.misc').zoom() end, 'Zoom window')
-nmap_leader('go', function() require('mini.diff').toggle_overlay(0) end, 'Toggle diff overlay')
 
 -- Search notes
 nmap_leader('nn', '<Cmd>Pick notes<CR>', 'Notes')

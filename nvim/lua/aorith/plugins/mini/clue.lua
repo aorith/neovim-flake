@@ -38,7 +38,6 @@ miniclue.setup({
     { mode = 'n', keys = '<leader>w', desc = '+Window' },
     { mode = 'n', keys = '<leader>x', desc = '+Quickfix' },
     { mode = 'n', keys = '<leader>t', desc = '+Toggle' },
-    { mode = 'n', keys = '<Leader>v', desc = '+Visits' },
     { mode = 'n', keys = '<Leader>n', desc = '+Notes' },
 
     miniclue.gen_clues.square_brackets(),
