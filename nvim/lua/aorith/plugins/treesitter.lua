@@ -1,4 +1,5 @@
 local ensure_languages = {
+  'hurl',
   'bash',
   'c',
   'diff',
@@ -46,7 +47,7 @@ if not Config.on_nix then
   if #to_install > 0 then require('nvim-treesitter').install(to_install) end
 end
 
--- Ensure tree-sitter enabled after opening a file for target language
+-- Ensure tree-sitter is enabled after opening a file for target language
 local filetypes = {}
 for _, lang in ipairs(ensure_languages) do
   for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do

@@ -1,12 +1,13 @@
 -- Highlight on yank
-Config.new_autocmd('TextYankPost', '*', function() vim.hl.on_yank() end, 'Highlight on yank')
+Config.new_autocmd('TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
 
 -- Go to the last line edited when opening a file
-Config.new_autocmd('BufReadPost', '*', function(data)
+Config.new_autocmd('BufReadPost', nil, function(data)
   -- skip some filetypes
   if
-    vim.tbl_contains({ 'minifiles', 'minipick', 'snacks_picker_input', 'gitcommit' }, vim.bo.filetype)
+    vim.tbl_contains({ 'minifiles', 'minipick', 'gitcommit' }, vim.bo.filetype)
     or vim.bo.buftype == 'prompt'
+    or vim.bo.buftype == 'help'
   then
     return
   end
@@ -18,6 +19,8 @@ end, 'Go to the last known line of the file')
 
 -- close some filetypes with <q>
 Config.new_autocmd('FileType', {
+  'git',
+  'diff',
   'help',
   'lspinfo',
   'man',
@@ -31,11 +34,15 @@ end, "Close file with 'q'")
 
 -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'.
 -- Do on `FileType` to always override these changes from filetype plugins.
-local f = function() vim.cmd('setlocal formatoptions-=c formatoptions-=o') end
-Config.new_autocmd('FileType', nil, f, "Proper 'formatoptions'")
+Config.new_autocmd(
+  'FileType',
+  nil,
+  function() vim.cmd('setlocal formatoptions-=c formatoptions-=o') end,
+  "Proper 'formatoptions'"
+)
 
 -- Theme overrides
-Config.new_autocmd('ColorScheme', '*', function()
+Config.new_autocmd('ColorScheme', nil, function()
   -- Ensure that mini.cursorword always highlights without using underline
   -- vim.api.nvim_set_hl(0, "MiniCursorWord", { link = "Visual" })
   -- vim.api.nvim_set_hl(0, "MiniCursorWordCurrent", { link = "Visual" })
