@@ -9,17 +9,6 @@ _G.Config = {
   ---@diagnostic disable-next-line: undefined-field
   on_nix = (vim.env.NVIM_NIX == '1' or vim.uv.fs_stat('/etc/nixos')) and true or false,
 
-  --- Function to modify an existing highlight group in Neovim
-  ---@param name string The name of the highlight group to modify
-  ---@param opts table A table containing highlight options (e.g., colors, styles)
-  hi = function(name, opts)
-    local is_ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name })
-    if is_ok then
-      vim.iter(opts):each(function(k, v) hl[k] = v end)
-      pcall(vim.api.nvim_set_hl, 0, name, hl)
-    end
-  end,
-
   -- Show debug mode in statusline when nvim-dap is enabled
   debug_mode = false,
 }
