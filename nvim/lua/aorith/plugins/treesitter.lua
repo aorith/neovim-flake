@@ -1,10 +1,12 @@
 local ensure_languages = {
-  'hurl',
+  "terraform",
   'bash',
   'c',
+  'cue',
   'diff',
   'go',
   'html',
+  'hurl',
   'javascript',
   'jsdoc',
   'json',

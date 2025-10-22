@@ -6,9 +6,9 @@ local bg, fg = '#0d0e1c', '#ffffff'
 hues.setup({
   background = is_dark and bg or fg,
   foreground = is_dark and fg or bg,
-  n_hues = 2,
+  n_hues = is_dark and 4 or 2,
   saturation = is_dark and 'medium' or 'high',
-  accent = 'bg',
+  accent = 'red',
 })
 
-vim.g.colors_name = 'aodimmed'
+vim.g.colors_name = 'dimmed'
