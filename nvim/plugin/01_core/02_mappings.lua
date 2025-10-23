@@ -92,18 +92,6 @@ vim.api.nvim_create_user_command('Q', 'q', { bang = true })
 -- terminal
 map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Go to normal mode' })
 
---- LSP
--- having the keymaps outside of the 'on_attach' lsp allows to use them even if
--- no lsp server is attached, useful for null-ls and I prefer the keymap to fail than to not exist
-
--- Show active LSP clients
-map(
-  'n',
-  '<leader>la',
-  function() utils.show_in_popup(utils.get_active_lsp_clients(), 'markdown') end,
-  { desc = 'Get active LSP clients' }
-)
-
 -- quick fix
 map('n', '<leader>j', '<cmd>cnext<CR>', { desc = 'Next item in QuickFix' })
 map('n', '<leader>k', '<cmd>cprevious<CR>', { desc = 'Previous item in QuickFix' })

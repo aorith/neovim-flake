@@ -19,11 +19,8 @@ local opts = {
     typescript = { 'prettierd', lsp_format = 'prefer' },
     typescriptreact = { 'prettierd', lsp_format = 'prefer' },
 
-    terraform = { 'tofu_fmt', 'trim_newlines', 'trim_whitespace', lsp_format = 'fallback' },
-    hcl = { 'tofu_fmt', 'trim_newlines', 'trim_whitespace', lsp_format = 'fallback' },
-    ['terraform-vars'] = { 'tofu_fmt', 'trim_newlines', 'trim_whitespace', lsp_format = 'fallback' },
+    go = { 'goimports', lsp_format = 'last' }, -- go install golang.org/x/tools/cmd/goimports@latest
 
-    go = { 'goimports', 'gofmt', lsp_format = 'fallback' }, -- go install golang.org/x/tools/cmd/goimports@latest
     lua = { 'stylua', lsp_format = 'fallback' },
     nix = { 'nixfmt' },
     python = { 'ruff_format', 'ruff_organize_imports', lsp_format = 'first' }, -- ruff_format & ruff_organize_imports  ||  black & isort
