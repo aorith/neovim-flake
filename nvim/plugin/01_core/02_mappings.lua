@@ -1,5 +1,3 @@
-local utils = require('aorith.core.utils')
-
 local map = vim.keymap.set
 
 -- Create `<Leader>` mappings
@@ -220,28 +218,11 @@ nmap_leader('nn', '<Cmd>Pick notes<CR>', 'Notes')
 nmap_leader('nf', '<Cmd>Pick notes<CR>', 'Notes Find')
 nmap_leader('ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')
 
--- Marks
--- <localleader> 1..5  creates a new mark (replaces the current one if it exists)
--- <leader> 1..5  jumps to the mark
-for i = 1, 5 do
-  local mark_char = string.char(64 + i) -- A=65, B=66, etc.
-  nmap_leader(i, function()
-    local mark_pos = vim.api.nvim_get_mark(mark_char, {})
-    if mark_pos[1] == 0 then
-      vim.notify("No mark for '" .. mark_char .. "'")
-    else
-      vim.cmd('normal! `' .. mark_char) -- Jump to the mark
-    end
-  end, 'Go to mark ' .. mark_char)
+-- 'Harpoon' with :args
+nmap_leader('ha', '<Cmd>argadd %<Bar>argdedupe<Bar>args<CR>', 'Add current buffer to the arglist')
+nmap_leader('hd', '<Cmd>argdelete %<Bar>argdedupe<Bar>args<CR>', 'Delete current buffer to the arglist')
+nmap_leader('hc', '<Cmd>%argdelete<Bar>args<CR><C-L>', 'Clear all buffer args')
+nmap_leader('hs', function() vim.notify('Buffer args:\n' .. vim.inspect(vim.fn.argv())) end, 'Show current buffer args')
+for i = 1, 9 do
+  nmap_leader(i, '<Cmd>' .. i .. 'argument<CR>', 'Goto arg buffer ' .. i)
 end
-
-for i = 1, 5 do
-  local mark_char = string.char(64 + i) -- A=65, B=66, etc.
-  map('n', '<localleader>' .. i, function()
-    vim.cmd('delmarks ' .. mark_char)
-    vim.cmd('mark ' .. mark_char)
-    vim.notify("Mark set for '" .. i .. "' (" .. mark_char .. ')')
-  end, { desc = 'Set mark ' .. mark_char })
-end
-
-map('n', '<localleader>m', '<Cmd>Pick marks<CR>', { desc = 'Pick marks' })
