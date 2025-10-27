@@ -1,5 +1,5 @@
-local ensure_languages = {
-  "terraform",
+local languages = {
+  'terraform',
   'bash',
   'c',
   'cue',
@@ -20,6 +20,7 @@ local ensure_languages = {
   'python',
   'query',
   'regex',
+  'todotxt',
   'toml',
   'tsx',
   'typescript',
@@ -45,13 +46,13 @@ end
 -- Install missing languages
 if not Config.on_nix then
   local isnt_installed = function(lang) return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0 end
-  local to_install = vim.tbl_filter(isnt_installed, ensure_languages)
+  local to_install = vim.tbl_filter(isnt_installed, languages)
   if #to_install > 0 then require('nvim-treesitter').install(to_install) end
 end
 
 -- Ensure tree-sitter is enabled after opening a file for target language
 local filetypes = {}
-for _, lang in ipairs(ensure_languages) do
+for _, lang in ipairs(languages) do
   for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
     table.insert(filetypes, ft)
   end
