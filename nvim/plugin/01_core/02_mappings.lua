@@ -100,7 +100,7 @@ map('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Set Loc List' })
 map('n', '<leader>lj', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Next diagnostic' })
 map('n', '<leader>lk', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Prev diagnostic' })
 
-map('n', '<leader>lc', vim.lsp.buf.code_action, { desc = 'Code actions' })
+map('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code Actions' })
 map('n', '<leader>lr', vim.lsp.buf.rename, { desc = 'Rename' })
 map('n', '<leader>ls', vim.lsp.buf.signature_help, { desc = 'Signature' })
 
@@ -183,7 +183,7 @@ xmap_leader(
 )
 
 -- Outline
-nmap_leader('a', '<cmd>Outline<CR>', 'Toggle outline')
+nmap_leader('lo', '<cmd>Outline<CR>', 'Toggle Outline')
 
 -- Mini.files
 map('n', '-', function()

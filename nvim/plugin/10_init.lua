@@ -13,7 +13,7 @@ vim.cmd.colorscheme('minisummer')
 
 require('aorith.plugins.mini.basics')
 require('aorith.plugins.mini.notify')
-require('mini.tabline').setup()
+-- require('mini.tabline').setup()
 require('aorith.plugins.mini.statusline')
 require('mini.extra').setup()
 require('mini.diff').setup({ view = { style = 'sign' } })
