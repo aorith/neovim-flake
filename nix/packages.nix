@@ -12,6 +12,7 @@
       black
       go-jsonnet # jsonnetfmt
       gotools # goimports
+      hurl
       isort
       nixfmt
       prettier

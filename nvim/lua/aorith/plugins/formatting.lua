@@ -33,6 +33,8 @@ local opts = {
     templ = { 'templ', lsp_format = 'fallback' },
 
     jsonnet = { 'jsonnetfmt' },
+
+    hurl = { 'hurlfmt' },
   },
 }
 
