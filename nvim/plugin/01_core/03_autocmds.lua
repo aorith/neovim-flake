@@ -1,3 +1,6 @@
+-- Autoread on focus (required by tmux)
+Config.new_autocmd('FocusGained', nil, function() vim.cmd('checktime') end, 'Autoread on focus gained')
+
 -- Highlight on yank
 Config.new_autocmd('TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
 

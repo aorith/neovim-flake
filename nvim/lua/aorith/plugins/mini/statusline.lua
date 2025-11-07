@@ -1,4 +1,4 @@
-vim.o.winbar = " %f%( %m%r%) %= "
+-- vim.o.winbar = " %f%( %m%r%) %= "
 
 ---@diagnostic disable-next-line: redundant-parameter
 require('mini.statusline').setup({
