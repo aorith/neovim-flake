@@ -17,27 +17,20 @@ require('conform').setup({
     scss = { 'prettierd', lsp_format = 'prefer' },
     graphql = { 'prettierd', lsp_format = 'fallback' },
     javascript = { 'prettierd', lsp_format = 'prefer' },
-    javascriptreact = { 'prettierd', lsp_format = 'prefer' },
-    json = { 'prettierd', lsp_format = 'fallback' },
     jsonc = { 'prettierd', lsp_format = 'fallback' },
     markdown = { 'prettierd', lsp_format = 'prefer' },
     typescript = { 'prettierd', lsp_format = 'prefer' },
-    typescriptreact = { 'prettierd', lsp_format = 'prefer' },
-
-    lua = { 'stylua', lsp_format = 'fallback' },
-    nix = { 'nixfmt' },
-    python = { 'ruff_format', 'ruff_organize_imports', lsp_format = 'first' }, -- ruff_format & ruff_organize_imports  ||  black & isort
-    toml = { 'taplo', lsp_format = 'fallback' },
     yaml = { 'prettierd', 'trim_newlines', lsp_format = 'fallback' }, -- yamlfmt/yamlfix/prettierd (yamlfmt breaks yaml blocks (key: |) sometimes)
 
-    sh = { 'shfmt' },
-    bash = { 'shfmt' },
-
-    templ = { 'templ', lsp_format = 'fallback' },
-
-    jsonnet = { 'jsonnetfmt' },
-
     hurl = { 'hurlfmt' },
+    json = { 'jq' },
+    jsonnet = { 'jsonnetfmt' },
+    lua = { 'stylua', lsp_format = 'fallback' },
+    nix = { 'nixfmt' },
+    python = { 'ruff_format', 'ruff_organize_imports', lsp_format = 'fallback' }, -- ruff_format & ruff_organize_imports  ||  black & isort
+    sh = { 'shfmt' },
+    templ = { 'templ', lsp_format = 'fallback' },
+    toml = { 'taplo', lsp_format = 'fallback' },
   },
 
   formatters = {
