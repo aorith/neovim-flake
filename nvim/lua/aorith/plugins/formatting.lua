@@ -1,10 +1,15 @@
 local utils = require('aorith.core.utils')
+local xdg_config = vim.env.XDG_CONFIG_HOME ~= nil and vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. '/.config')
 
-local opts = {
+require('conform').setup({
   log_level = vim.log.levels.ERROR,
   notify_on_error = true,
 
   formatters_by_ft = {
+    -- go install mvdan.cc/gofumpt@latest
+    -- go install golang.org/x/tools/cmd/goimports@latest
+    go = { 'goimports', 'gofumpt' },
+
     jinja = { 'djlint', lsp_format = 'fallback' },
     htmldjango = { 'djlint', lsp_format = 'fallback' },
 
@@ -34,14 +39,14 @@ local opts = {
 
     hurl = { 'hurlfmt' },
   },
-}
 
-local xdg_config = vim.env.XDG_CONFIG_HOME ~= nil and vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. '/.config')
-require('conform').formatters.yamlfmt = {
-  prepend_args = { '-conf', xdg_config .. '/' .. Config.nvim_appname .. '/extra/yamlfmt' },
-}
-require('conform').formatters.shfmt = { prepend_args = { '--indent', '4' } }
-require('conform').formatters.ruff = { prepend_args = { '--ignore', 'F841' } }
-require('conform').formatters.stylua = { prepend_args = utils.find_stylua_conf }
+  formatters = {
+    yamlfmt = { prepend_args = { '-conf', xdg_config .. '/' .. Config.nvim_appname .. '/extra/yamlfmt' } },
+    shfmt = { prepend_args = { '--indent', '4' } },
+    ruff = { prepend_args = { '--ignore', 'F841' } },
+    stylua = { prepend_args = utils.find_stylua_conf },
 
-require('conform').setup(opts)
+    -- Organize imports taking into account local package/module (see gopls config)
+    goimports = { command = 'goimports', prepend_args = Config.gopls.goimports_args },
+  },
+})

@@ -11,6 +11,9 @@ _G.Config = {
 
   -- Show debug mode in statusline when nvim-dap is enabled
   debug_mode = false,
+
+  -- Should be populated after gopls init
+  gopls = { goimports_args = nil },
 }
 
 -- Define custom autocommand group and helper to create an autocommand.
