@@ -19,8 +19,6 @@ local opts = {
     typescript = { 'prettierd', lsp_format = 'prefer' },
     typescriptreact = { 'prettierd', lsp_format = 'prefer' },
 
-    go = { 'goimports', lsp_format = 'last' }, -- go install golang.org/x/tools/cmd/goimports@latest
-
     lua = { 'stylua', lsp_format = 'fallback' },
     nix = { 'nixfmt' },
     python = { 'ruff_format', 'ruff_organize_imports', lsp_format = 'first' }, -- ruff_format & ruff_organize_imports  ||  black & isort
