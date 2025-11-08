@@ -226,3 +226,4 @@ nmap_leader('hs', function() vim.notify('Buffer args:\n' .. vim.inspect(vim.fn.a
 for i = 1, 9 do
   nmap_leader(i, '<Cmd>' .. i .. 'argument<CR>', 'Goto arg buffer ' .. i)
 end
+nmap_leader('hf', '<Cmd>Pick harpoon<CR>', 'Pick')
