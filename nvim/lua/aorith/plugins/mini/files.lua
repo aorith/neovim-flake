@@ -63,16 +63,13 @@ end
 local ui_open = function() vim.ui.open(MiniFiles.get_fs_entry().path) end
 
 -- Setup mappings
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'MiniFilesBufferCreate',
-  callback = function(args)
-    local buf_id = args.data.buf_id
-    vim.keymap.set('n', 'g.', toggle_dotfiles, { buffer = buf_id, desc = 'Toggle hidden files' })
-    vim.keymap.set('n', 'gw', set_cwd, { buffer = buf_id, desc = 'Set cwd' })
-    vim.keymap.set('n', 'gX', ui_open, { buffer = buf_id, desc = 'OS open' })
-    vim.keymap.set('n', '<Esc>', MiniFiles.close, { buffer = buf_id })
-    map_split(buf_id, '<C-s>', 'belowright horizontal')
-    map_split(buf_id, '<C-v>', 'belowright vertical')
-    map_split(buf_id, '<C-t>', 'tab')
-  end,
-})
+Config.new_autocmd('User', 'MiniFilesBufferCreate', function(args)
+  local buf_id = args.data.buf_id
+  vim.keymap.set('n', 'g.', toggle_dotfiles, { buffer = buf_id, desc = 'Toggle hidden files' })
+  vim.keymap.set('n', 'gw', set_cwd, { buffer = buf_id, desc = 'Set cwd' })
+  vim.keymap.set('n', 'gX', ui_open, { buffer = buf_id, desc = 'OS open' })
+  vim.keymap.set('n', '<Esc>', MiniFiles.close, { buffer = buf_id })
+  map_split(buf_id, '<C-s>', 'belowright horizontal')
+  map_split(buf_id, '<C-v>', 'belowright vertical')
+  map_split(buf_id, '<C-t>', 'tab')
+end, 'Setup minifiles mappings')

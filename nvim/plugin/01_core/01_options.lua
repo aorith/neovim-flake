@@ -93,7 +93,6 @@ vim.o.completeopt  = "menuone,noselect,fuzzy,nosort"
 vim.o.foldmethod  = 'indent' -- Set 'indent' folding method
 vim.o.foldlevel   = 10       -- Fold nothing by default
 vim.o.foldnestmax = 10       -- Limit number of fold levels
-vim.o.foldtext    = ''       -- Show text under fold with its highlighting
 
 -- Timers and performance -----------------------------------------------------
 vim.o.ttimeoutlen   = 5     -- Milliseconds to wait for a key code sequence to complete

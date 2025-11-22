@@ -5,19 +5,16 @@ require('mini.indentscope').setup({
   },
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = {
-    'help',
-    'dashboard',
-    'minipick',
-    'bigfile',
-    'Trouble',
-    'trouble',
-    'lazy',
-    'mason',
-    'notify',
-    'NvimTree',
-    'man',
-  },
-  callback = function() vim.b.miniindentscope_disable = true end,
-})
+Config.new_autocmd('FileType', {
+  'help',
+  'dashboard',
+  'minipick',
+  'bigfile',
+  'Trouble',
+  'trouble',
+  'lazy',
+  'mason',
+  'notify',
+  'NvimTree',
+  'man',
+}, function() vim.b.miniindentscope_disable = true end, 'Disable mini indent scope')

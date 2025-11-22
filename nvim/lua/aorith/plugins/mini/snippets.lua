@@ -20,5 +20,4 @@ local make_stop = function()
   end
   vim.api.nvim_create_autocmd('ModeChanged', au_opts)
 end
-local opts = { pattern = 'MiniSnippetsSessionStart', callback = make_stop }
-vim.api.nvim_create_autocmd('User', opts)
+Config.new_autocmd('User', 'MiniSnippetsSessionStart', make_stop, 'Stop all snippet sessions on Normal mode exit')

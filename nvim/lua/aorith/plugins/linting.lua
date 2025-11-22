@@ -13,13 +13,10 @@ lint.linters_by_ft = {
   cue = { 'cue' },
 }
 
-vim.api.nvim_create_autocmd({ 'BufReadPost', 'BufWritePost', 'InsertLeave' }, {
-  group = vim.api.nvim_create_augroup('Nvim-Lint', { clear = true }),
-  callback = function()
-    lint.try_lint()
+Config.new_autocmd({ 'BufReadPost', 'BufWritePost', 'InsertLeave' }, nil, function()
+  lint.try_lint()
 
-    if vim.bo.filetype ~= 'bigfile' then
-      lint.try_lint('typos') -- run on all files
-    end
-  end,
-})
+  if vim.bo.filetype ~= 'bigfile' then
+    lint.try_lint('typos') -- run on all files
+  end
+end, 'Lint')
