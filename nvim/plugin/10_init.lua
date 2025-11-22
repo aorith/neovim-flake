@@ -9,7 +9,7 @@ add({ name = 'mini.nvim' })
 -- the combination of tmux + ssh + nixos leaves this disabled
 if not vim.o.termguicolors then vim.o.termguicolors = true end
 -- colorscheme
-vim.cmd.colorscheme('minisummer')
+vim.cmd.colorscheme('retrobox')
 
 require('aorith.plugins.mini.basics')
 require('aorith.plugins.mini.notify')
@@ -101,15 +101,6 @@ end)
 later(function()
   add({ source = 'hedyhli/outline.nvim' })
   require('aorith.plugins.outline')
-end)
-
--- Nvim Dap
-later(function()
-  add({ source = 'mfussenegger/nvim-dap' })
-  add({ source = 'miroshQa/debugmaster.nvim' })
-  add({ source = 'theHamsta/nvim-dap-virtual-text' })
-  add({ source = 'mfussenegger/nvim-dap-python' })
-  require('aorith.plugins.dap')
 end)
 
 -- Quicker nvim

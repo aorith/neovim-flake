@@ -17,11 +17,6 @@ require('mini.statusline').setup({
       -- local location = MiniStatusline.section_location({ trunc_width = 75 })
       local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
-      if Config.debug_mode then
-        mode = 'DEBUG'
-        mode_hl = 'MiniStatuslineModeReplace'
-      end
-
       return MiniStatusline.combine_groups({
         { hl = mode_hl, strings = { mode } },
         { hl = 'MiniStatuslineDevinfo', strings = { diagnostics } },

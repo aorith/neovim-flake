@@ -9,9 +9,6 @@ _G.Config = {
   ---@diagnostic disable-next-line: undefined-field
   on_nix = (vim.env.NVIM_NIX == '1' or vim.uv.fs_stat('/etc/nixos')) and true or false,
 
-  -- Show debug mode in statusline when nvim-dap is enabled
-  debug_mode = false,
-
   -- Should be populated after gopls init
   gopls = { goimports_args = nil },
 }
