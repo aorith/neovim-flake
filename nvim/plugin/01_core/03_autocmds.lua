@@ -50,6 +50,12 @@ Config.new_autocmd('ColorScheme', nil, function()
   -- vim.api.nvim_set_hl(0, "MiniCursorWord", { link = "Visual" })
   -- vim.api.nvim_set_hl(0, "MiniCursorWordCurrent", { link = "Visual" })
 
+  -- Transparency
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'MiniPickNormal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'MiniFilesNormal', { bg = 'none' })
+
   -- Make MiniJump more noticeable
   vim.api.nvim_set_hl(0, 'MiniJump', { link = 'Search' })
 

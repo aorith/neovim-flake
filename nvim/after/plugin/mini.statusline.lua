@@ -7,32 +7,29 @@ require('mini.statusline').setup({
 
   content = {
     active = function()
-      local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 1000 })
+      -- local mode, hl_group = MiniStatusline.section_mode({ trunc_width = 1000 })
       -- local git = MiniStatusline.section_git({ trunc_width = 75 })
       -- local diff = MiniStatusline.section_diff({ trunc_width = 75 })
       local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
       -- local lsp = MiniStatusline.section_lsp({ trunc_width = 75 }) -- Shows number of attached lsp servers
       local filename = MiniStatusline.section_filename({ trunc_width = 100 })
-      local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+      -- local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
       -- local location = MiniStatusline.section_location({ trunc_width = 75 })
       local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
       return MiniStatusline.combine_groups({
-        { hl = mode_hl, strings = { mode } },
-        { hl = 'MiniStatuslineDevinfo', strings = { diagnostics } },
         '%<', -- Mark general truncate point
-        { hl = 'MiniStatuslineFilename', strings = { filename } },
+        { hl = 'StatusLine', strings = { filename, diagnostics } },
         '%=', -- End left alignment
-        { hl = 'MiniStatuslineModeReplace', strings = { search } },
-        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-        { hl = mode_hl, strings = { '%02l,%02c %P 0x%02B' } },
+        { strings = { search } },
+        { strings = { '%y %02l,%02c %P 0x%02B' } },
       })
     end,
 
     inactive = function()
       local filename = MiniStatusline.section_filename({ trunc_width = 140 })
       return MiniStatusline.combine_groups({
-        { hl = 'MiniStatuslineDevinfo', strings = { filename } },
+        { hl = 'StatusLineNC', strings = { filename } },
       })
     end,
   },
