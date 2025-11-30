@@ -8,8 +8,8 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     # Plugins built from source outside of nixpkgs
-    vim-varnish.url = "github:varnishcache-friends/vim-varnish";
-    vim-varnish.flake = false;
+    # vim-varnish.url = "github:varnishcache-friends/vim-varnish";
+    # vim-varnish.flake = false;
   };
 
   outputs =

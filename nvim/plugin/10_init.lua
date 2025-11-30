@@ -45,6 +45,7 @@ later(
 -------------------------------------------------------------------------------
 add({ source = 'tpope/vim-sleuth' })
 add({ source = 'b0o/SchemaStore.nvim' })
+add({ source = 'varnishcache-friends/vim-varnish' })
 
 if not Config.on_nix then
   -- Treesitter
@@ -55,9 +56,6 @@ if not Config.on_nix then
   })
   add({ source = 'nvim-treesitter/nvim-treesitter-context', checkout = 'master' })
   add({ source = 'nvim-treesitter/nvim-treesitter-textobjects', checkout = 'main' })
-
-  -- Other plugins packaged at nix/plugins.nix
-  add({ source = 'varnishcache-friends/vim-varnish' })
 end
 
 -- Nvim-Lspconfig
@@ -79,7 +77,4 @@ later(function()
 end)
 
 -- colorscheme
-add({ source = 'sainnhe/everforest' })
-vim.g.everforest_background = 'hard'
-vim.g.everforest_transparent_background = '1'
-vim.cmd.colorscheme('everforest')
+vim.cmd.colorscheme('minisummer')

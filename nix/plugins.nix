@@ -35,9 +35,9 @@ with pkgs.vimPlugins;
   nvim-treesitter-context
 
   # Plugins outside of nixpkgs
-  (mkVimPlugin {
-    src = inputs.vim-varnish;
-    pname = "vim-varnish";
-  })
+  # (mkVimPlugin {
+  #   src = inputs.vim-varnish;
+  #   pname = "vim-varnish";
+  # })
 ]
 ++ (pkgs.lib.optionals opts.withSQLite [ sqlite-lua ])
