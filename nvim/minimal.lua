@@ -1,7 +1,5 @@
-vim.cmd('set packpath=')
-vim.cmd('set rtp=')
-
 -- use as a pager, etc
+-- load using --clean and -u, eg: nvim --clean -u ~/.config/nvim/minimal.lua
 vim.cmd('syntax off')
 
 vim.g.mapleader = ' '
@@ -29,11 +27,16 @@ vim.o.writebackup = false
 vim.o.mouse = 'a'
 vim.o.undofile = false
 
-vim.o.clipboard = 'unnamedplus'
+vim.cmd('set clipboard+=unnamedplus')
 
 vim.keymap.set('', '<F1>', '<nop>')
 vim.keymap.set('!', '<F1>', '<nop>')
 vim.keymap.set('n', 'q', ':qa!<CR>')
+-- Copy to primary selection on select
+vim.keymap.set('v', '<LeftRelease>', '"*ygv')
+vim.keymap.set('v', '<leader>y', '"+y', { remap = true, desc = 'Copy to the system clipboard' })
+vim.keymap.set('n', '<leader>y', '"+yy', { remap = true, desc = 'Copy to the system clipboard' })
+
 vim.api.nvim_create_user_command('W', 'w', { bang = true })
 vim.api.nvim_create_user_command('Q', 'q', { bang = true })
 
