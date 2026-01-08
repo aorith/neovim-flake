@@ -27,12 +27,12 @@ vim.lsp.enable({
   'eslint',
   'gopls',
   'helm_ls',
+  'html',
   'jsonnet_ls', -- go install github.com/grafana/jsonnet-language-server@latest
   'lua_ls',
   'marksman',
   'nil_ls',
   'rust_analyzer',
-  'superhtml',
   'templ',
   'terraformls',
   'tofu_ls',

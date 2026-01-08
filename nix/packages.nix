@@ -42,7 +42,6 @@
       marksman
       nil
       rust-analyzer
-      superhtml
       templ
       terraform-ls
       tofu-ls

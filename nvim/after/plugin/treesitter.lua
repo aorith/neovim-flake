@@ -66,10 +66,10 @@ Config.new_autocmd('FileType', filetypes, ts_start, 'Start tree-sitter')
 require('treesitter-context').setup({
   enable = true,
   multiwindow = false,
-  max_lines = 0,
-  min_window_height = 0,
+  max_lines = 3,
+  min_window_height = 28,
   line_numbers = true,
-  multiline_threshold = 10, -- Maximum number of lines to show for a single context
+  multiline_threshold = 3, -- Maximum number of lines to show for a single context
   trim_scope = 'outer',
   mode = 'cursor',
   separator = '-',

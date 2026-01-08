@@ -13,6 +13,7 @@ require('conform').setup({
     jinja = { 'djlint', lsp_format = 'fallback' },
     htmldjango = { 'djlint', lsp_format = 'fallback' },
 
+    html = { 'prettierd' },
     css = { 'prettierd', lsp_format = 'prefer' },
     scss = { 'prettierd', lsp_format = 'prefer' },
     graphql = { 'prettierd', lsp_format = 'fallback' },

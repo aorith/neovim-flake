@@ -8,7 +8,7 @@ add({ name = 'mini.nvim' })
 -- the combination of tmux + ssh + nixos leaves this disabled
 if not vim.o.termguicolors then vim.o.termguicolors = true end
 
--- require('mini.tabline').setup()
+require('mini.tabline').setup()
 require('mini.extra').setup()
 require('mini.diff').setup()
 
@@ -77,4 +77,4 @@ later(function()
 end)
 
 -- colorscheme
-vim.cmd.colorscheme('miniautumn')
+-- vim.cmd.colorscheme('randomhue')
