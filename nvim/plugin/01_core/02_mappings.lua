@@ -213,11 +213,6 @@ end, 'Toggle context')
 nmap_leader('q', function() require('mini.bufremove').delete() end, 'Delete current buffer')
 nmap_leader('z', function() require('mini.misc').zoom() end, 'Zoom window')
 
--- Search notes
-nmap_leader('nn', '<Cmd>Pick notes<CR>', 'Notes')
-nmap_leader('nf', '<Cmd>Pick notes<CR>', 'Notes Find')
-nmap_leader('ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')
-
 -- 'Harpoon' with :args
 nmap_leader('ha', '<Cmd>argadd %<Bar>argdedupe<Bar>args<CR>', 'Add current buffer to the arglist')
 nmap_leader('hd', '<Cmd>argdelete %<Bar>argdedupe<Bar>args<CR>', 'Delete current buffer to the arglist')

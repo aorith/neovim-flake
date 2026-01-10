@@ -3,7 +3,6 @@ vim.loader.enable()
 --- Global configuration and functions
 -------------------------------------------------------------------------------
 _G.Config = {
-  notes_dir = vim.env.HOME .. '/Syncthing/SYNC_STUFF/notes/zk/notes',
   nvim_appname = vim.env.NVIM_APPNAME ~= nil and vim.env.NVIM_APPNAME or 'nvim',
 
   ---@diagnostic disable-next-line: undefined-field
