@@ -77,4 +77,4 @@ later(function()
 end)
 
 -- colorscheme
--- vim.cmd.colorscheme('randomhue')
+vim.cmd.colorscheme('retrobox')

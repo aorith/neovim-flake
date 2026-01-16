@@ -1,5 +1,7 @@
 ---@diagnostic disable-next-line: redundant-parameter
 require('mini.pick').setup({
+  window = { config = { width = vim.o.columns } },
+
   mappings = {
     choose = '<CR>',
     choose_in_split = '<C-s>',
