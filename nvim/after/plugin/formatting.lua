@@ -5,6 +5,12 @@ require('conform').setup({
   log_level = vim.log.levels.ERROR,
   notify_on_error = true,
 
+  default_format_opts = {
+    lsp_format = 'fallback',
+    async = false,
+    timeout_ms = 2500,
+  },
+
   formatters_by_ft = {
     -- go install mvdan.cc/gofumpt@latest
     -- go install golang.org/x/tools/cmd/goimports@latest

@@ -141,6 +141,7 @@ nmap_leader('fV', '<Cmd>Pick visit_paths cwd=""<CR>', 'Visit paths (all)')
 local git_log_cmd = [[Git log --pretty=format:\%h\ \%as\ │\ \%s --topo-order]]
 local git_reflog_cmd = [[Git log --abbrev-commit --walk-reflogs --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]] -- similar to 'git reflog'
 local git_graph_cmd = [[Git log --graph --all --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]]
+nmap_leader('gp', '<Cmd>Git log -p -- %:p<CR>', 'Git log -p <file>')
 nmap_leader('ga', '<Cmd>Git diff --cached -- %:p<CR>', 'Added diff buffer')
 nmap_leader('gA', '<Cmd>Git diff --cached<CR>', 'Added diff')
 nmap_leader('gd', '<Cmd>Git diff -- %:p<CR>', 'Diff buffer')
@@ -171,16 +172,8 @@ map('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename' })
 map('n', 'grt', vim.lsp.buf.type_definition, { desc = 'Type Definitions' })
 
 -- Formatting
-nmap_leader(
-  'lf',
-  function() require('conform').format({ lsp_format = 'fallback', async = false, timeout_ms = 2500 }) end,
-  'Format buffer'
-)
-xmap_leader(
-  'lf',
-  function() require('conform').format({ lsp_format = 'fallback', async = false, timeout_ms = 2500 }) end,
-  'Format buffer'
-)
+nmap_leader('lf', function() require('conform').format() end, 'Format buffer')
+xmap_leader('lf', function() require('conform').format() end, 'Format buffer')
 
 -- Outline
 nmap_leader('lo', '<cmd>Outline<CR>', 'Toggle Outline')

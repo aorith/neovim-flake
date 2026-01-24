@@ -31,7 +31,7 @@ vim.lsp.enable({
   'jsonnet_ls', -- go install github.com/grafana/jsonnet-language-server@latest
   'lua_ls',
   'marksman',
-  'nil_ls',
+  'nil_ls', -- nix profile add nixpkgs#nil
   'rust_analyzer',
   'templ',
   'terraformls',
