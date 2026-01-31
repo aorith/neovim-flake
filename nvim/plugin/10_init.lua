@@ -77,4 +77,5 @@ later(function()
 end)
 
 -- colorscheme
-vim.cmd.colorscheme('miniwinter')
+add({ source = 'e-q/okcolors.nvim', name = 'okcolors' })
+vim.cmd.colorscheme('okcolors')

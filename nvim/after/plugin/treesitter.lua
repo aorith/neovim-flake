@@ -1,5 +1,4 @@
 local languages = {
-  'terraform',
   'bash',
   'c',
   'cue',
@@ -16,10 +15,12 @@ local languages = {
   'luap',
   'markdown',
   'markdown_inline',
+  'nix',
   'printf',
   'python',
   'query',
   'regex',
+  'terraform',
   'todotxt',
   'toml',
   'tsx',
@@ -37,9 +38,12 @@ local disabled_files = {
   'generated.nix',
 }
 
-local function disable_treesitter_features(bufnr)
-  local fname = vim.api.nvim_buf_get_name(bufnr)
-  local short_name = vim.fn.fnamemodify(fname, ':t')
+local function disable_treesitter_features(ev)
+  -- langs installed but disabled
+  if ev.match == 'sh' then return true end
+
+  -- filenames disabled
+  local short_name = vim.fn.fnamemodify(ev.file, ':t')
   return vim.tbl_contains(disabled_files, short_name)
 end
 
@@ -58,7 +62,10 @@ for _, lang in ipairs(languages) do
   end
 end
 local ts_start = function(ev)
-  if disable_treesitter_features(ev.buf) then return end
+  if disable_treesitter_features(ev) then
+    vim.notify('ts disabled')
+    return
+  end
   vim.treesitter.start(ev.buf)
 end
 Config.new_autocmd('FileType', filetypes, ts_start, 'Start tree-sitter')

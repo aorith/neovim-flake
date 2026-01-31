@@ -58,6 +58,8 @@ Config.new_autocmd('ColorScheme', nil, function()
 
   -- Make MiniJump more noticeable
   vim.api.nvim_set_hl(0, 'MiniJump', { link = 'Search' })
+  -- and MatchParen
+  vim.api.nvim_set_hl(0, 'MatchParen', { link = 'Search' })
 
   -- treesitter.context
   vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { link = 'TreesitterContext' })

@@ -2,11 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1760038930,
-        "narHash": "sha256-Oncbh0UmHjSlxO7ErQDM3KM0A5/Znfofj2BSzlHLeVw=",
+        "lastModified": 1769461804,
+        "narHash": "sha256-msG8SU5WsBUfVVa/9RPLaymvi5bI8edTavbIq3vRlhI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0b4defa2584313f3b781240b29d61f6f9f7e0df3",
+        "rev": "bfc1b8a4574108ceef22f02bafcf6611380c100d",
         "type": "github"
       },
       "original": {
@@ -20,8 +20,7 @@
       "inputs": {
         "nixpkgs": "nixpkgs",
         "systems": "systems",
-        "treefmt-nix": "treefmt-nix",
-        "vim-varnish": "vim-varnish"
+        "treefmt-nix": "treefmt-nix"
       }
     },
     "systems": {
@@ -45,32 +44,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1760120816,
-        "narHash": "sha256-gq9rdocpmRZCwLS5vsHozwB6b5nrOBDNc2kkEaTXHfg=",
+        "lastModified": 1769691507,
+        "narHash": "sha256-8aAYwyVzSSwIhP2glDhw/G0i5+wOrren3v6WmxkVonM=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "761ae7aff00907b607125b2f57338b74177697ed",
+        "rev": "28b19c5844cc6e2257801d43f2772a4b4c050a1b",
         "type": "github"
       },
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "vim-varnish": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1707645768,
-        "narHash": "sha256-rdAkh8gqHoiv9eFuHujdf8+YhOvXwtYjtm0/PjCNaOM=",
-        "owner": "varnishcache-friends",
-        "repo": "vim-varnish",
-        "rev": "01458458f20831d43045423344bcb70a40d04b0f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "varnishcache-friends",
-        "repo": "vim-varnish",
         "type": "github"
       }
     }
