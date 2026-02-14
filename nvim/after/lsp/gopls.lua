@@ -19,6 +19,6 @@ return {
     module = module:gsub('\n', ',')
 
     -- See conform config
-    _G.Config.gopls.goimports_args = { '-local', module }
+    Config.gopls.goimports_args = { '-local', module }
   end,
 }

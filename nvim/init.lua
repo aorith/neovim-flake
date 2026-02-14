@@ -14,7 +14,7 @@ _G.Config = {
 
 -- Define custom autocommand group and helper to create an autocommand.
 local gr = vim.api.nvim_create_augroup('ao-custom-config', {})
-_G.Config.new_autocmd = function(event, pattern, callback, desc)
+Config.new_autocmd = function(event, pattern, callback, desc)
   local opts = { group = gr, pattern = pattern, callback = callback, desc = desc }
   vim.api.nvim_create_autocmd(event, opts)
 end
