@@ -4,10 +4,6 @@ local add, later = MiniDeps.add, MiniDeps.later
 
 add({ name = 'mini.nvim' })
 
--- nvim should detect terminal features and enable this automatically, but
--- the combination of tmux + ssh + nixos leaves this disabled
-if not vim.o.termguicolors then vim.o.termguicolors = true end
-
 require('mini.tabline').setup()
 require('mini.extra').setup()
 require('mini.diff').setup()
@@ -43,7 +39,7 @@ later(
 
 --- Plugins
 -------------------------------------------------------------------------------
-add({ source = 'tpope/vim-sleuth' })
+add({ source = 'tpope/vim-sleuth' }) -- automatically adjust shiftwidth, expandtab, etc
 add({ source = 'b0o/SchemaStore.nvim' })
 add({ source = 'varnishcache-friends/vim-varnish' })
 
@@ -77,5 +73,8 @@ later(function()
 end)
 
 -- colorscheme
-add({ source = 'e-q/okcolors.nvim', name = 'okcolors' })
-vim.cmd.colorscheme('okcolors')
+-- nvim should detect terminal features and enable this automatically, but
+-- the combination of tmux + ssh + nixos leaves this disabled
+if not vim.o.termguicolors then vim.o.termguicolors = true end
+
+vim.cmd.colorscheme('randomhue')

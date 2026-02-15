@@ -52,7 +52,7 @@ vim.o.showmatch     = true         -- Highlight matching parentheses
 vim.o.scrolloff     = 3            -- Scroll context
 vim.o.sidescrolloff = 3            -- Line scroll context
 
-vim.o.cursorline    = true                -- Enable highlighting of the current line
+vim.o.cursorline    = false               -- Enable highlighting of the current line
 vim.o.cursorlineopt = 'screenline,number' -- Show cursor line per screen line
 
 
