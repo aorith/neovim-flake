@@ -40,7 +40,6 @@ later(
 --- Plugins
 -------------------------------------------------------------------------------
 add({ source = 'tpope/vim-sleuth' }) -- automatically adjust shiftwidth, expandtab, etc
-add({ source = 'b0o/SchemaStore.nvim' })
 add({ source = 'varnishcache-friends/vim-varnish' })
 
 if not Config.on_nix then
@@ -77,4 +76,4 @@ end)
 -- the combination of tmux + ssh + nixos leaves this disabled
 if not vim.o.termguicolors then vim.o.termguicolors = true end
 
-vim.cmd.colorscheme('randomhue')
+vim.cmd.colorscheme('minisummer')

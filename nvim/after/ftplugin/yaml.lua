@@ -4,18 +4,6 @@ vim.bo.cindent = false
 vim.wo[0][0].foldmethod = 'indent'
 vim.wo[0][0].foldlevel = 99
 
-vim.api.nvim_create_user_command('YamlSchemaSelect', require('aorith.core.yaml_schema').select, {})
-
-vim.api.nvim_create_user_command('YamlSchemaView', function()
-  local schema = require('aorith.core.yaml_schema').get_current_schema()
-  vim.notify(schema and schema or 'No YAML schema', vim.log.levels.INFO)
-end, {})
-
-vim.keymap.set('n', '<localleader>sv', '<cmd>YamlSchemaView<cr>', { buffer = 0, desc = 'YAML Schema View' })
-vim.keymap.set('n', '<localleader>ss', '<cmd>YamlSchemaSelect<cr>', { buffer = 0, desc = 'YAML Schema Select' })
--- notify the current schema
--- vim.defer_fn(function() vim.cmd("YAMLSchemaView") end, 3000)
-
 -- Convert yaml to json
 local function yaml_to_json_buffer()
   local f = vim.fn.expand('%')
