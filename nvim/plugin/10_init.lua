@@ -76,4 +76,4 @@ end)
 -- the combination of tmux + ssh + nixos leaves this disabled
 if not vim.o.termguicolors then vim.o.termguicolors = true end
 
-vim.cmd.colorscheme('minisummer')
+vim.cmd.colorscheme('default')

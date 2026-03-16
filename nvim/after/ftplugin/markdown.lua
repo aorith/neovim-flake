@@ -3,7 +3,6 @@ if vim.fn.expand('%') == '' then return end
 
 vim.bo.textwidth = 0
 
-vim.wo[0][0].number = false
 vim.wo[0][0].signcolumn = 'auto'
 vim.wo[0][0].spell = true
 vim.wo[0][0].foldexpr = 'nvim_treesitter#foldexpr()'
