@@ -1,5 +1,5 @@
 -- Log level
-vim.lsp.set_log_level(vim.log.levels.ERROR)
+vim.lsp.log.set_level(vim.log.levels.ERROR)
 
 local custom_on_attach = function(client, bufnr)
   -- notify attachment

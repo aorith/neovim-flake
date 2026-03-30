@@ -1,5 +1,17 @@
-local utils = require('aorith.core.utils')
 local xdg_config = vim.env.XDG_CONFIG_HOME ~= nil and vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. '/.config')
+
+local function find_stylua_conf()
+  local conf_paths = {
+    vim.fn.getcwd() .. '/stylua.toml',
+    vim.fn.getcwd() .. '/.stylua.toml',
+    vim.env.XDG_CONFIG_HOME .. '/' .. Config.nvim_appname .. '/stylua.toml',
+  }
+
+  for _, v in ipairs(conf_paths) do
+    if vim.fn.filereadable(v) == 1 then return { '--config-path', v } end
+  end
+  return {}
+end
 
 require('conform').setup({
   log_level = vim.log.levels.ERROR,
@@ -44,7 +56,7 @@ require('conform').setup({
     yamlfmt = { prepend_args = { '-conf', xdg_config .. '/' .. Config.nvim_appname .. '/extra/yamlfmt' } },
     shfmt = { prepend_args = { '--indent', '4' } },
     ruff = { prepend_args = { '--ignore', 'F841' } },
-    stylua = { prepend_args = utils.find_stylua_conf },
+    stylua = { prepend_args = find_stylua_conf },
 
     -- Organize imports taking into account local package/module (see gopls config)
     goimports = { command = 'goimports', prepend_args = Config.gopls.goimports_args },

@@ -72,8 +72,9 @@ later(function()
 end)
 
 -- colorscheme
+add('sainnhe/gruvbox-material')
 -- nvim should detect terminal features and enable this automatically, but
 -- the combination of tmux + ssh + nixos leaves this disabled
 if not vim.o.termguicolors then vim.o.termguicolors = true end
 
-vim.cmd.colorscheme('default')
+vim.cmd.colorscheme('gruvbox-material')
