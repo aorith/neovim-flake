@@ -179,17 +179,16 @@ xmap_leader('lf', function() require('conform').format() end, 'Format buffer')
 -- Outline
 nmap_leader('lo', '<cmd>Outline<CR>', 'Toggle Outline')
 
--- Mini.files
-map('n', '-', function()
-  local mf = require('mini.files')
-  local currFile = vim.api.nvim_buf_get_name(0)
-  if vim.uv.fs_stat(currFile) == nil then
-    mf.open(nil, false)
-  else
-    mf.open(currFile, false)
-  end
-end, { desc = 'Open parent directory' })
+-- Oil (add --preview to open with preview enabled directly, but it is distracting, rather toggle it with C-p)
+map('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
+-- Undotree
+nmap_leader('u', function()
+  vim.cmd('packadd nvim.undotree')
+  require('undotree').open({ command = 'leftabove 32vnew' })
+end, 'Undotree')
+
+-- Mini files
 nmap_leader('e', function() require('mini.files').open(nil, false) end, 'MiniFiles')
 
 -- Toggles (most of them are setup with 'mini.basics')

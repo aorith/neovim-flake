@@ -41,6 +41,7 @@ vim.o.number        = true         -- Show line numbers
 vim.o.pumblend      = 0            -- Builtin completion menus transparency
 vim.o.winblend      = 0            -- Floating windows transparency (NOTE: emojis break transparency)
 vim.o.pumheight     = 10           -- Popup menu size
+vim.o.pummaxwidth   = 100          -- Make popup menu not too wide
 vim.o.shortmess     = 'CFOSWaco'   -- Disable some built-in completion messages
 vim.o.showmode      = false        -- Show mode in command line
 vim.o.signcolumn    = 'yes'        -- How signcolumn behaves
@@ -77,16 +78,15 @@ vim.o.tabstop       = 4        -- Default tab size
 vim.o.softtabstop   = -1       -- Copy shiftwidth value
 vim.o.virtualedit   = 'block'  -- Allow going past the end of line in visual block mode
 vim.o.confirm       = true     -- Confirm on exit unsaved changes
-vim.o.cindent       = true     -- Or else comments do not indent in visualmode + > or <
--- vim.opt.cinkeys:remove("0#")   -- Prevent reindent of comments
-vim.o.grepprg = "rg --vimgrep"   -- Configure grep to use ripgrep
-vim.o.grepformat = "%f:%l:%c:%m" -- Grep format
+vim.o.grepformat    = "%f:%l:%c:%m" -- Grep format
+vim.o.grepprg       = "rg --vimgrep --smart-case"   -- Configure grep to use ripgrep
 
 -- Spelling -------------------------------------------------------------------
-vim.o.spelllang    = 'en,es'      -- Define spelling dictionaries
-vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as separate words
-vim.o.complete     = ".,w,b,kspell" -- Use spell check and don't use tags for completion
-vim.o.completeopt  = "menuone,noselect,fuzzy,nosort"
+vim.o.spelllang       = 'en,es'        -- Define spelling dictionaries
+vim.o.spelloptions    = 'camel'        -- Treat parts of camelCase words as separate words
+vim.o.complete        = ".,w,b,kspell" -- Use spell check and don't use tags for completion
+vim.o.completeopt     = "menuone,noselect,fuzzy,nosort"
+vim.o.completetimeout = 100            -- Limit sources delay
 
 
 -- Folds ----------------------------------------------------------------------
@@ -98,31 +98,7 @@ vim.o.foldnestmax = 10       -- Limit number of fold levels
 vim.o.ttimeoutlen   = 5     -- Milliseconds to wait for a key code sequence to complete
 vim.o.timeoutlen    = 700   -- Milliseconds to wait for a mapped sequence to complete
 vim.o.updatetime    = 150   -- Affects cursor hold update time
-vim.o.lazyredraw    = true  -- Do not redraw when executing macros, registers and other commands
 --stylua: ignore end
 
 -- let sqlite.lua know where to find sqlite
 -- vim.g.sqlite_clib_path = vim.env.LIBSQLITE
-
-local diagnostic_opts = {
-  -- Show signs on top of any other sign, but only for warnings and errors
-  signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
-
-  -- Show all diagnostics as underline
-  underline = { severity = { min = 'HINT', max = 'ERROR' } },
-
-  virtual_lines = false,
-  virtual_text = {
-    current_line = true,
-    severity = { min = 'INFO' },
-  },
-
-  -- Don't update diagnostics when typing
-  update_in_insert = false,
-
-  severity_sort = true,
-  float = { source = true },
-}
-
--- Use `later()` to avoid sourcing `vim.diagnostic` on startup
-MiniDeps.later(function() vim.diagnostic.config(diagnostic_opts) end)

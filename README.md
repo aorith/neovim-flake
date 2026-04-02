@@ -4,7 +4,7 @@ This flake packages Neovim with my custom configuration, including tools, linter
 It does also work without Nix, since I use it on machines that do not have or cannot install Nix.
 The Nix wrapper sets an environment variable (`NVIM_NIX=1`). If this variable is present, the Nix-specific Lua configuration is loaded.
 
-It does not manage all the plugins with Nix, only the ones that break on NixOS are installed with it, like treesitter and its parsers, everything else is managed using [mini.deps](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-deps.md).
+It does not manage all the plugins with Nix, only the ones that break on NixOS are installed with it, like treesitter and its parsers, everything else is managed using `vim.pack`.
 
 ## With Nix
 

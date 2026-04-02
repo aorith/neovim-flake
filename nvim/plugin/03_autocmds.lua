@@ -30,6 +30,7 @@ Config.new_autocmd('FileType', {
   'notify',
   'qf',
   'spectre_panel',
+  'nvim-undotree',
 }, function(event)
   vim.bo[event.buf].buflisted = false
   vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
