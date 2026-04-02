@@ -11,7 +11,7 @@ vim.wo[0][0].foldmethod = 'expr'
 vim.wo[0][0].foldlevel = 99
 vim.wo[0][0].breakindent = true
 
-vim.wo[0][0].conceallevel = 0
+vim.wo[0][0].conceallevel = 2
 vim.wo[0][0].wrap = true
 
 ---@diagnostic disable-next-line: inject-field
