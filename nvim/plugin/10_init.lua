@@ -237,47 +237,21 @@ later(function()
   local MiniGit = require('mini.git')
   MiniGit.setup({ command = { split = 'vertical' } })
 
-  -- Improves git blame. Original idea: https://github.com/nvim-mini/mini.nvim/discussions/2029
-  Config.new_autocmd('User', 'MiniGitCommandSplit', function(e)
-    if e.data.git_subcommand ~= 'blame' then return end
-    local win_src = e.data.win_source
-    local buf = e.buf
-    local win = e.data.win_stdout
+  local align_blame = function(au_data)
+    if au_data.data.git_subcommand ~= 'blame' then return end
 
-    -- Options
-    vim.bo[buf].modifiable = false
-    vim.wo[win].wrap = false
-    vim.wo[win].cursorline = true
-    vim.wo[win].cursorlineopt = 'both'
-
-    -- View
+    -- Align blame output with source
+    local win_src = au_data.data.win_source
+    vim.wo.wrap = false
     vim.fn.winrestview({ topline = vim.fn.line('w0', win_src) })
     vim.api.nvim_win_set_cursor(0, { vim.fn.line('.', win_src), 0 })
-    vim.wo[win_src].scrollbind, vim.wo[win].scrollbind = true, true
-    vim.wo[win_src].cursorbind, vim.wo[win].cursorbind = true, true
 
-    -- Highlight
-    vim.fn.matchadd('GitBlameHash', [[^[^^]\S\+]])
-    vim.fn.matchadd('GitBlameHashRoot', [[^^\S\+]])
-    vim.fn.matchadd('GitBlameAuthor', [[\v\(\zs.*\ze\s\d{4}-]])
-    vim.fn.matchadd('GitBlameDate', [[\v\d{4}-.*\ze\s\d+\)]])
-    vim.api.nvim_set_hl(0, 'GitBlameHashRoot', { link = 'Tag' })
-    vim.api.nvim_set_hl(0, 'GitBlameHash', { link = 'Identifier' })
-    vim.api.nvim_set_hl(0, 'GitBlameAuthor', { link = 'String' })
-    vim.api.nvim_set_hl(0, 'GitBlameDate', { link = 'Comment' })
-    vim.api.nvim_win_set_hl_ns(win, 0)
+    -- Bind both windows so that they scroll together
+    vim.wo[win_src].scrollbind, vim.wo.scrollbind = true, true
+  end
 
-    -- Vertical width: use string.find to handle compound mods (e.g. 'botright vertical')
-    if e.data.cmd_input.mods and e.data.cmd_input.mods:find('vertical') then
-      local lines = vim.api.nvim_buf_get_lines(0, 1, -1, false)
-      local width = vim.iter(lines):fold(-1, function(acc, ln)
-        local stat = string.match(ln, '^(.*%s+%d+%))%s+')
-        return math.max(acc, vim.fn.strwidth(stat))
-      end)
-      width = width + vim.fn.getwininfo(win)[1].textoff
-      vim.api.nvim_win_set_width(win, width)
-    end
-  end, 'Improve git blame')
+  local au_opts = { pattern = 'MiniGitCommandSplit', callback = align_blame }
+  vim.api.nvim_create_autocmd('User', au_opts)
 end)
 -- }}}
 
