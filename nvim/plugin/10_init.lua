@@ -646,7 +646,7 @@ now_if_args(function()
       ['<C-h>'] = false,
       ['<C-l>'] = false,
       ['<C-s>'] = { 'actions.select', opts = { horizontal = true } },
-      ['<C-v>'] = { 'actions.select', opts = { vertical = true } },
+      ['<C-Return>'] = { 'actions.select', opts = { vertical = true } },
     },
   })
 end)
