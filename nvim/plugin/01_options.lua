@@ -61,8 +61,6 @@ vim.o.fillchars = 'fold:╌,horiz:═,horizdown:╦,horizup:╩,vert:║,verthor
 vim.o.listchars = 'extends:…,trail:·,nbsp:␣,precedes:…,tab:> '
 vim.o.winborder = "single"
 
-vim.opt.diffopt = { 'internal', 'filler', 'closeoff', 'context:12', 'algorithm:histogram', 'linematch:200', 'indent-heuristic' }
-
 -- Editing --------------------------------------------------------------------
 vim.o.autoindent    = true     -- Use auto indent
 vim.o.expandtab     = true     -- Convert tabs to spaces
