@@ -24,34 +24,30 @@ end
 -- }}}
 
 -- {{{ Colorscheme
-now(function()
-  add({ 'https://github.com/sainnhe/gruvbox-material' })
+add({ 'https://github.com/sainnhe/gruvbox-material' })
 
-  -- nvim should detect terminal features and enable this automatically, but
-  -- the combination of tmux + ssh + nixos leaves this disabled
-  if not vim.o.termguicolors then vim.o.termguicolors = true end
+-- nvim should detect terminal features and enable this automatically, but
+-- the combination of tmux + ssh + nixos leaves this disabled
+if not vim.o.termguicolors then vim.o.termguicolors = true end
 
-  vim.g.gruvbox_material_foreground = 'mix'
-  vim.g.gruvbox_material_statusline_style = 'mix'
-  vim.g.gruvbox_material_sign_column_background = 'linenr'
-  vim.g.gruvbox_material_diagnostic_text_highlight = 1
-  vim.g.gruvbox_material_diagnostic_line_highlight = 1
-  vim.g.gruvbox_material_diagnostic_virtual_text = 'highlighted'
-  vim.cmd.colorscheme('gruvbox-material')
-end)
+vim.g.gruvbox_material_foreground = 'mix'
+vim.g.gruvbox_material_statusline_style = 'mix'
+vim.g.gruvbox_material_sign_column_background = 'linenr'
+vim.g.gruvbox_material_diagnostic_text_highlight = 1
+vim.g.gruvbox_material_diagnostic_line_highlight = 1
+vim.g.gruvbox_material_diagnostic_virtual_text = 'highlighted'
+vim.cmd.colorscheme('gruvbox-material')
 -- }}}
 
 -- {{{ Mini core (tabline, diff, icons, misc)
-now(function()
-  require('mini.tabline').setup()
-  require('mini.extra').setup()
-  require('mini.diff').setup()
-  require('mini.misc').setup({ make_global = { 'put', 'put_text' } })
+require('mini.tabline').setup()
+require('mini.extra').setup()
+require('mini.diff').setup()
+require('mini.misc').setup({ make_global = { 'put', 'put_text' } })
 
-  require('mini.icons').setup()
-  later(require('mini.icons').mock_nvim_web_devicons)
-  later(require('mini.icons').tweak_lsp_kind)
-end)
+require('mini.icons').setup()
+later(require('mini.icons').mock_nvim_web_devicons)
+later(require('mini.icons').tweak_lsp_kind)
 -- }}}
 
 -- {{{ Mini editing (ai, bufremove, surround)
@@ -68,41 +64,39 @@ end)
 -- }}}
 
 -- {{{ Statusline
-now(function()
-  require('mini.statusline').setup({
-    set_vim_settings = false,
-    use_icons = true,
+require('mini.statusline').setup({
+  set_vim_settings = false,
+  use_icons = true,
 
-    content = {
-      active = function()
-        -- local mode, hl_group = MiniStatusline.section_mode({ trunc_width = 1000 })
-        -- local git         = MiniStatusline.section_git({ trunc_width = 75 })
-        -- local diff        = MiniStatusline.section_diff({ trunc_width = 75 })
-        -- local lsp         = MiniStatusline.section_lsp({ trunc_width = 75 })
-        -- local fileinfo    = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-        -- local location    = MiniStatusline.section_location({ trunc_width = 75 })
-        local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
-        local filename = MiniStatusline.section_filename({ trunc_width = 100 })
-        local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
+  content = {
+    active = function()
+      -- local mode, hl_group = MiniStatusline.section_mode({ trunc_width = 1000 })
+      -- local git         = MiniStatusline.section_git({ trunc_width = 75 })
+      -- local diff        = MiniStatusline.section_diff({ trunc_width = 75 })
+      -- local lsp         = MiniStatusline.section_lsp({ trunc_width = 75 })
+      -- local fileinfo    = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+      -- local location    = MiniStatusline.section_location({ trunc_width = 75 })
+      local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
+      local filename = MiniStatusline.section_filename({ trunc_width = 100 })
+      local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
-        return MiniStatusline.combine_groups({
-          '%<', -- Mark general truncate point
-          { hl = 'StatusLine', strings = { filename, diagnostics } },
-          '%=', -- End left alignment
-          { strings = { search } },
-          { strings = { '%y %02l,%02c %P 0x%02B' } },
-        })
-      end,
+      return MiniStatusline.combine_groups({
+        '%<', -- Mark general truncate point
+        { hl = 'StatusLine', strings = { filename, diagnostics } },
+        '%=', -- End left alignment
+        { strings = { search } },
+        { strings = { '%y %02l,%02c %P 0x%02B' } },
+      })
+    end,
 
-      inactive = function()
-        local filename = MiniStatusline.section_filename({ trunc_width = 140 })
-        return MiniStatusline.combine_groups({
-          { hl = 'StatusLineNC', strings = { filename } },
-        })
-      end,
-    },
-  })
-end)
+    inactive = function()
+      local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+      return MiniStatusline.combine_groups({
+        { hl = 'StatusLineNC', strings = { filename } },
+      })
+    end,
+  },
+})
 -- }}}
 
 -- {{{ Mini navigation (visits, trailspace, jump, jump2d)
@@ -302,18 +296,16 @@ end)
 -- }}}
 
 -- {{{ Mini notify
-now(function()
-  require('mini.notify').setup({
-    content = {
-      -- Do not append timestamp to notifications
-      format = function(notif) return notif.msg end,
-    },
-    window = { winblend = 0 },
-  })
+require('mini.notify').setup({
+  content = {
+    -- Do not append timestamp to notifications
+    format = function(notif) return notif.msg end,
+  },
+  window = { winblend = 0 },
+})
 
-  vim.notify = require('mini.notify').make_notify()
-  vim.api.nvim_create_user_command('Notifications', function() require('mini.notify').show_history() end, {})
-end)
+vim.notify = require('mini.notify').make_notify()
+vim.api.nvim_create_user_command('Notifications', function() require('mini.notify').show_history() end, {})
 -- }}}
 
 -- {{{ Mini pick

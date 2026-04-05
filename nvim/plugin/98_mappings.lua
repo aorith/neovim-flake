@@ -38,13 +38,13 @@ map('n', '<C-j>', '<C-w>j', { desc = 'Go to lower window' })
 map('n', '<C-k>', '<C-w>k', { desc = 'Go to upper window' })
 map('n', '<C-l>', '<C-w>l', { desc = 'Go to right window' })
 -- Resize window using <ctrl> arrow keys
-map('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase window height' })
-map('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease window height' })
-map('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease window width' })
-map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase window width' })
+map('n', '<C-Up>', '<Cmd>resize +2<cr>', { desc = 'Increase window height' })
+map('n', '<C-Down>', '<Cmd>resize -2<cr>', { desc = 'Decrease window height' })
+map('n', '<C-Left>', '<Cmd>vertical resize -2<cr>', { desc = 'Decrease window width' })
+map('n', '<C-Right>', '<Cmd>vertical resize +2<cr>', { desc = 'Increase window width' })
 
 -- Clear search with <esc>
-map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+map({ 'i', 'n' }, '<esc>', '<Cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
 -- Don't reset indent on '#', see :h smartindent
 map('i', '#', 'X#')
@@ -55,12 +55,13 @@ map('n', '<C-e>', function()
   print(vim.inspect(result))
 end, { desc = 'highlight group under cursor' })
 
-map('n', '<leader>xl', '<cmd>lopen<cr>', { desc = 'Location List' })
-map('n', '<leader>xq', '<cmd>copen<cr>', { desc = 'Quickfix List' })
+map('n', '<leader>xl', '<Cmd>lopen<cr>', { desc = 'Location List' })
+map('n', '<leader>xq', '<Cmd>copen<cr>', { desc = 'Quickfix List' })
+map('n', '<leader>xd', vim.diagnostic.setqflist, { desc = 'Diagnostics to Quickfix' })
 
 -- buffers
-map('n', '<leader><TAB>', '<cmd>bnext<CR>', { silent = true, desc = 'Next buffer' })
-map('n', '<leader>ba', '<cmd>b#<cr>', { desc = 'Alternate buffer' })
+map('n', '<leader><TAB>', '<Cmd>bnext<CR>', { silent = true, desc = 'Next buffer' })
+map('n', '<leader>ba', '<Cmd>b#<cr>', { desc = 'Alternate buffer' })
 map('n', '<leader>bd', '<Cmd>lua MiniBufremove.delete()<CR>', { desc = 'Delete' })
 map('n', '<leader>bD', '<Cmd>lua MiniBufremove.delete(0, true)<CR>', { desc = 'Delete!' })
 map('n', '<leader>bw', '<Cmd>lua MiniBufremove.wipeout()<CR>', { desc = 'Wipeout' })
@@ -91,8 +92,8 @@ vim.api.nvim_create_user_command('Q', 'q', { bang = true })
 map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Go to normal mode' })
 
 -- quick fix
-map('n', '<leader>j', '<cmd>cnext<CR>', { desc = 'Next item in QuickFix' })
-map('n', '<leader>k', '<cmd>cprevious<CR>', { desc = 'Previous item in QuickFix' })
+map('n', '<leader>j', '<Cmd>cnext<CR>', { desc = 'Next item in QuickFix' })
+map('n', '<leader>k', '<Cmd>cprevious<CR>', { desc = 'Previous item in QuickFix' })
 
 -- diagnostics
 map('n', '<leader>ll', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
@@ -177,10 +178,10 @@ nmap_leader('lf', function() require('conform').format() end, 'Format buffer')
 xmap_leader('lf', function() require('conform').format() end, 'Format buffer')
 
 -- Outline
-nmap_leader('lo', '<cmd>Outline<CR>', 'Toggle Outline')
+nmap_leader('lo', '<Cmd>Outline<CR>', 'Toggle Outline')
 
 -- Oil (add --preview to open with preview enabled directly, but it is distracting, rather toggle it with C-p)
-map('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
+map('n', '-', '<Cmd>Oil<CR>', { desc = 'Open parent directory' })
 
 -- Undotree
 nmap_leader('u', function()
