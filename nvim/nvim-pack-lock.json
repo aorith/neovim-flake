@@ -8,16 +8,96 @@
       "rev": "afb275d8e6dc379762d122bd24e1773fc057abf3",
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
-    "mini.nvim": {
-      "rev": "402ee6c6ec8ea44b22330446c8fb4e615fd3953e",
-      "src": "https://github.com/nvim-mini/mini.nvim"
+    "mini-git": {
+      "rev": "a007cc40a4585c4f54787ddcf07295c2689daeb4",
+      "src": "https://github.com/nvim-mini/mini-git"
+    },
+    "mini.ai": {
+      "rev": "43eb2074843950a3a25aae56a5f41362ec043bfa",
+      "src": "https://github.com/nvim-mini/mini.ai"
+    },
+    "mini.bufremove": {
+      "rev": "8603490905fdfa31943cf2ede7ef4475e3dbac9a",
+      "src": "https://github.com/nvim-mini/mini.bufremove"
+    },
+    "mini.clue": {
+      "rev": "f8a11789cf34a7bae396dc0f828d06cdb5066793",
+      "src": "https://github.com/nvim-mini/mini.clue"
+    },
+    "mini.completion": {
+      "rev": "09884c629cac1a8c999ffb6c57dc8424450aea5e",
+      "src": "https://github.com/nvim-mini/mini.completion"
+    },
+    "mini.diff": {
+      "rev": "ab11575a6c147ecfba894d676d0c93e855021d34",
+      "src": "https://github.com/nvim-mini/mini.diff"
+    },
+    "mini.extra": {
+      "rev": "ca1932c95c6e757c06d2cc133b87835a01d909dd",
+      "src": "https://github.com/nvim-mini/mini.extra"
+    },
+    "mini.hipatterns": {
+      "rev": "a3ffba45e4119917b254c372df82e79f7d8c4aad",
+      "src": "https://github.com/nvim-mini/mini.hipatterns"
+    },
+    "mini.icons": {
+      "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
+      "src": "https://github.com/nvim-mini/mini.icons"
+    },
+    "mini.indentscope": {
+      "rev": "e0601f75aa5137a5a13bb92a988c9a300f5bd3de",
+      "src": "https://github.com/nvim-mini/mini.indentscope"
+    },
+    "mini.jump": {
+      "rev": "9e94f41a3ebcd5f5771d36fdedb18fde9d28da76",
+      "src": "https://github.com/nvim-mini/mini.jump"
+    },
+    "mini.jump2d": {
+      "rev": "c0df3170873b712b61951781aeee9942a92ba1f1",
+      "src": "https://github.com/nvim-mini/mini.jump2d"
+    },
+    "mini.keymap": {
+      "rev": "dc3b688b26a810f519cdd0572a27587a138ced78",
+      "src": "https://github.com/nvim-mini/mini.keymap"
+    },
+    "mini.misc": {
+      "rev": "4157b1f4cf28525c3c498ce82b1f3480d034a375",
+      "src": "https://github.com/nvim-mini/mini.misc"
+    },
+    "mini.notify": {
+      "rev": "32d3544b9368c76c562f22027ab25b750647fdf1",
+      "src": "https://github.com/nvim-mini/mini.notify"
+    },
+    "mini.pick": {
+      "rev": "fd7e7efadddcec3f3d7f3b363a99aa44e7286c65",
+      "src": "https://github.com/nvim-mini/mini.pick"
+    },
+    "mini.snippets": {
+      "rev": "8e3acd41bd7ee8f89967c83bacc93871b98a14aa",
+      "src": "https://github.com/nvim-mini/mini.snippets"
+    },
+    "mini.statusline": {
+      "rev": "b456bfe845e475e9cec065b7a9a1ef657ad2f41b",
+      "src": "https://github.com/nvim-mini/mini.statusline"
+    },
+    "mini.surround": {
+      "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
+      "src": "https://github.com/nvim-mini/mini.surround"
+    },
+    "mini.tabline": {
+      "rev": "169af955ad2ed0ffcc3d2c83e850bcc7eaac2f0e",
+      "src": "https://github.com/nvim-mini/mini.tabline"
+    },
+    "mini.trailspace": {
+      "rev": "b362246495d18c29b4545a8f1c47f627f8011b7c",
+      "src": "https://github.com/nvim-mini/mini.trailspace"
     },
     "nvim-lint": {
       "rev": "4b03656c09c1561f89b6aa0665c15d292ba9499d",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "9ccd58a7949091c0cc2777d4e92a45a209c808c1",
+      "rev": "a776085e04f7b15d0b59fae2244df07d98360ab4",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {

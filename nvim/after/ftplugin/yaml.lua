@@ -1,8 +1,13 @@
+vim.lsp.enable('yamlls')
+
 vim.bo.shiftwidth = 2
 vim.bo.expandtab = true
 vim.bo.cindent = false
-vim.wo[0][0].foldmethod = 'indent'
-vim.wo[0][0].foldlevel = 99
+
+local winid = vim.api.nvim_get_current_win()
+
+vim.wo[winid][0].foldmethod = 'indent'
+vim.wo[winid][0].foldlevel = 99
 
 -- Convert yaml to json
 local function yaml_to_json_buffer()

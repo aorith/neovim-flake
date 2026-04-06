@@ -1,18 +1,22 @@
+vim.lsp.enable('marksman')
+
 -- apply only if buffer is a file so it does not mess with documentation
 if vim.fn.expand('%') == '' then return end
 
 vim.bo.textwidth = 0
 
-vim.wo[0][0].number = false
-vim.wo[0][0].signcolumn = 'yes:2'
-vim.wo[0][0].spell = true
-vim.wo[0][0].foldexpr = 'nvim_treesitter#foldexpr()'
-vim.wo[0][0].foldmethod = 'expr'
-vim.wo[0][0].foldlevel = 99
-vim.wo[0][0].breakindent = true
+local winid = vim.api.nvim_get_current_win()
 
-vim.wo[0][0].conceallevel = 2
-vim.wo[0][0].wrap = true
+vim.wo[winid][0].number = false
+vim.wo[winid][0].signcolumn = 'yes:2'
+vim.wo[winid][0].spell = true
+vim.wo[winid][0].foldexpr = 'nvim_treesitter#foldexpr()'
+vim.wo[winid][0].foldmethod = 'expr'
+vim.wo[winid][0].foldlevel = 99
+vim.wo[winid][0].breakindent = true
+
+vim.wo[winid][0].conceallevel = 2
+vim.wo[winid][0].wrap = true
 
 ---@diagnostic disable-next-line: inject-field
 vim.b.minihipatterns_config = {

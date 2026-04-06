@@ -55,17 +55,13 @@ map('n', '<C-e>', function()
   print(vim.inspect(result))
 end, { desc = 'highlight group under cursor' })
 
-map('n', '<leader>xl', '<Cmd>lopen<cr>', { desc = 'Location List' })
-map('n', '<leader>xq', '<Cmd>copen<cr>', { desc = 'Quickfix List' })
+map('n', '<leader>xl', function() require('quicker').toggle({ loclist = true }) end, { desc = 'Location List' })
+map('n', '<leader>xq', require('quicker').toggle, { desc = 'Quickfix List' })
 map('n', '<leader>xd', vim.diagnostic.setqflist, { desc = 'Diagnostics to Quickfix' })
 
 -- buffers
 map('n', '<leader><TAB>', '<Cmd>bnext<CR>', { silent = true, desc = 'Next buffer' })
 map('n', '<leader>ba', '<Cmd>b#<cr>', { desc = 'Alternate buffer' })
-map('n', '<leader>bd', '<Cmd>lua MiniBufremove.delete()<CR>', { desc = 'Delete' })
-map('n', '<leader>bD', '<Cmd>lua MiniBufremove.delete(0, true)<CR>', { desc = 'Delete!' })
-map('n', '<leader>bw', '<Cmd>lua MiniBufremove.wipeout()<CR>', { desc = 'Wipeout' })
-map('n', '<leader>bW', '<Cmd>lua MiniBufremove.wipeout(0, true)<CR>', { desc = 'Wipeout!' })
 map('n', '<leader>bb', function()
   local curbufnr = vim.api.nvim_get_current_buf()
   local bufinfo
@@ -188,9 +184,6 @@ nmap_leader('u', function()
   vim.cmd('packadd nvim.undotree')
   require('undotree').open({ command = 'leftabove 32vnew' })
 end, 'Undotree')
-
--- Mini files
-nmap_leader('e', function() require('mini.files').open(nil, false) end, 'MiniFiles')
 
 -- Toggles (most of them are setup with 'mini.basics')
 nmap_leader('tx', function()

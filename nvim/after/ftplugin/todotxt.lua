@@ -1,6 +1,8 @@
-vim.wo[0][0].spell = true
-vim.wo[0][0].number = false
-vim.wo[0][0].signcolumn = 'auto'
+local winid = vim.api.nvim_get_current_win()
+
+vim.wo[winid][0].spell = true
+vim.wo[winid][0].number = false
+vim.wo[winid][0].signcolumn = 'auto'
 
 vim.b.minihipatterns_config = {
   highlighters = {

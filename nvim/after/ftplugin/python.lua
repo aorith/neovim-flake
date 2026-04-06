@@ -1,3 +1,5 @@
+vim.lsp.enable('basedpyright')
+
 -- Format code selection lines and pressing gq
 -- Format entire buffer with gggqG
 vim.bo.shiftwidth = 4
