@@ -38,7 +38,7 @@ Config.run_in_terminal = function(cmd)
   end
 
   local expanded = vim.fn.expandcmd(cmd)
-  vim.print(cmd)
+  vim.print(expanded)
   vim.cmd('terminal ' .. expanded)
 end
 
