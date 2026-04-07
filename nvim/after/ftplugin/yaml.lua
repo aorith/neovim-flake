@@ -1,5 +1,3 @@
-vim.lsp.enable('yamlls')
-
 vim.bo.shiftwidth = 2
 vim.bo.expandtab = true
 vim.bo.cindent = false

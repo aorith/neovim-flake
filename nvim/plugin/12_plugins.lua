@@ -1,75 +1,76 @@
 -------------------------------------------------------------------------------
+-- LSP (configuration provided by nvim-lspconfig and/or 'after/lsp/' dir)
+-------------------------------------------------------------------------------
+vim.lsp.enable({
+  'basedpyright',
+  'bashls',
+  'cssls',
+  'cue',
+  'gopls',
+  'html',
+  'jsonnet_ls', -- go install github.com/grafana/jsonnet-language-server@latest
+  'lua_ls',
+  'marksman',
+  'nil_ls', -- nix profile add nixpkgs#nil
+  'terraformls',
+  'yamlls',
+})
+
+-------------------------------------------------------------------------------
 -- Treesitter
 -------------------------------------------------------------------------------
+local languages = {
+  'bash',
+  'c',
+  'cue',
+  'diff',
+  'go',
+  'html',
+  'hurl',
+  'javascript',
+  'jsdoc',
+  'json',
+  'lua',
+  'luadoc',
+  'luap',
+  'markdown',
+  'markdown_inline',
+  'nix',
+  'printf',
+  'python',
+  'query',
+  'regex',
+  'terraform',
+  'todotxt',
+  'toml',
+  'tsx',
+  'typescript',
+  'vim',
+  'vimdoc',
+  'xml',
+  'yaml',
+}
+
+local disabled_files = {
+  'Enums.hs',
+  'all-packages.nix',
+  'hackage-packages.nix',
+  'generated.nix',
+}
+
+local function disable_treesitter_features(ev)
+  if ev.match == 'sh' then return true end
+  local short_name = vim.fn.fnamemodify(ev.file, ':t')
+  return vim.tbl_contains(disabled_files, short_name)
+end
+
 if not Config.on_nix then
   Config.on_packchanged('nvim-treesitter', { 'update' }, function() vim.cmd('TSUpdate') end, ':TSUpdate')
-
-  local languages = {
-    'bash',
-    'c',
-    'cue',
-    'diff',
-    'go',
-    'html',
-    'hurl',
-    'javascript',
-    'jsdoc',
-    'json',
-    'lua',
-    'luadoc',
-    'luap',
-    'markdown',
-    'markdown_inline',
-    'nix',
-    'printf',
-    'python',
-    'query',
-    'regex',
-    'terraform',
-    'todotxt',
-    'toml',
-    'tsx',
-    'typescript',
-    'vim',
-    'vimdoc',
-    'xml',
-    'yaml',
-  }
-
-  local disabled_files = {
-    'Enums.hs',
-    'all-packages.nix',
-    'hackage-packages.nix',
-    'generated.nix',
-  }
-
-  local function disable_treesitter_features(ev)
-    if ev.match == 'sh' then return true end
-    local short_name = vim.fn.fnamemodify(ev.file, ':t')
-    return vim.tbl_contains(disabled_files, short_name)
-  end
 
   -- Install missing parsers
   local isnt_installed = function(lang) return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0 end
   local to_install = vim.tbl_filter(isnt_installed, languages)
   if #to_install > 0 then require('nvim-treesitter').install(to_install) end
-
-  -- Start tree-sitter for each installed language's filetypes
-  local filetypes = {}
-  for _, lang in ipairs(languages) do
-    for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
-      table.insert(filetypes, ft)
-    end
-  end
-
-  Config.new_autocmd('FileType', filetypes, function(ev)
-    if disable_treesitter_features(ev) then
-      vim.notify('treesitter disabled for ' .. ev.file, vim.log.levels.DEBUG)
-      return
-    end
-
-    vim.treesitter.start(ev.buf)
-  end, 'Start tree-sitter')
 
   require('treesitter-context').setup({
     enable = true,
@@ -79,6 +80,32 @@ if not Config.on_nix then
     mode = 'topline',
   })
 end
+
+-- Start tree-sitter for each installed language's filetypes
+local filetypes = {}
+for _, lang in ipairs(languages) do
+  for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+    table.insert(filetypes, ft)
+  end
+end
+
+Config.new_autocmd('FileType', filetypes, function(ev)
+  if disable_treesitter_features(ev) then
+    vim.notify('treesitter disabled for ' .. ev.file, vim.log.levels.DEBUG)
+    return
+  end
+
+  vim.treesitter.start(ev.buf)
+
+  -- enable ts based folds
+  vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+  vim.wo.foldmethod = 'expr'
+  vim.o.foldlevel = 99
+
+  -- enable ts based indentation
+  vim.b.did_indent = 1 -- prevent built-in indent scripts from loading
+  vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
+end, 'Start tree-sitter')
 
 -------------------------------------------------------------------------------
 -- Formatting (conform.nvim)

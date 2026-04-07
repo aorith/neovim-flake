@@ -209,3 +209,6 @@ for i = 1, 9 do
   nmap_leader(i, '<Cmd>' .. i .. 'argument<CR>', 'Goto arg buffer ' .. i)
 end
 nmap_leader('hf', '<Cmd>Pick harpoon<CR>', 'Pick')
+
+-- Run cmd in terminal (overridden in some filetypes)
+nmap_leader('e', '<Cmd>Term<CR>', 'Run cmd in a terminal')

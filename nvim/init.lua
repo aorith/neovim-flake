@@ -23,10 +23,30 @@ Config.on_packchanged = function(plugin_name, kinds, callback, desc)
     local name, kind = ev.data.spec.name, ev.data.kind
     if not (name == plugin_name and vim.tbl_contains(kinds, kind)) then return end
     if not ev.data.active then vim.cmd.packadd(plugin_name) end
-    callback()
+    callback(ev.data)
   end
   Config.new_autocmd('PackChanged', '*', f, desc)
 end
+
+-- Define a custom function to run commands in a terminal.
+Config.run_in_terminal = function(cmd)
+  if cmd == nil or cmd == '' then
+    vim.ui.input({ prompt = 'Command to run: ' }, function(input)
+      if input and input ~= '' then Config.run_in_terminal(input) end
+    end)
+    return
+  end
+
+  local expanded = vim.fn.expandcmd(cmd)
+  vim.print(cmd)
+  vim.cmd('terminal ' .. expanded)
+end
+
+vim.api.nvim_create_user_command(
+  'Term',
+  function(opts) Config.run_in_terminal(opts.args ~= '' and opts.args or nil) end,
+  { nargs = '?', desc = 'Run command in a terminal' }
+)
 
 -------------------------------------------------------------------------------
 -- OPTIONS
