@@ -40,6 +40,10 @@
       "rev": "a3ffba45e4119917b254c372df82e79f7d8c4aad",
       "src": "https://github.com/nvim-mini/mini.hipatterns"
     },
+    "mini.hues": {
+      "rev": "943c966c5c165f4401164d72a6a221197fe124a4",
+      "src": "https://github.com/nvim-mini/mini.hues"
+    },
     "mini.icons": {
       "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
       "src": "https://github.com/nvim-mini/mini.icons"

@@ -38,13 +38,13 @@ map('n', '<C-j>', '<C-w>j', { desc = 'Go to lower window' })
 map('n', '<C-k>', '<C-w>k', { desc = 'Go to upper window' })
 map('n', '<C-l>', '<C-w>l', { desc = 'Go to right window' })
 -- Resize window using <ctrl> arrow keys
-map('n', '<C-Up>', '<Cmd>resize +2<cr>', { desc = 'Increase window height' })
-map('n', '<C-Down>', '<Cmd>resize -2<cr>', { desc = 'Decrease window height' })
-map('n', '<C-Left>', '<Cmd>vertical resize -2<cr>', { desc = 'Decrease window width' })
-map('n', '<C-Right>', '<Cmd>vertical resize +2<cr>', { desc = 'Increase window width' })
+map('n', '<C-Up>', '<Cmd>resize +2<CR>', { desc = 'Increase window height' })
+map('n', '<C-Down>', '<Cmd>resize -2<CR>', { desc = 'Decrease window height' })
+map('n', '<C-Left>', '<Cmd>vertical resize -2<CR>', { desc = 'Decrease window width' })
+map('n', '<C-Right>', '<Cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
 
 -- Clear search with <esc>
-map({ 'i', 'n' }, '<esc>', '<Cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
+map({ 'i', 'n' }, '<esc>', '<Cmd>noh<CR><ESC>', { desc = 'Escape and clear hlsearch' })
 
 -- Don't reset indent on '#', see :h smartindent
 map('i', '#', 'X#')
@@ -61,7 +61,7 @@ map('n', '<leader>xd', vim.diagnostic.setqflist, { desc = 'Diagnostics to Quickf
 
 -- buffers
 map('n', '<leader><TAB>', '<Cmd>bnext<CR>', { silent = true, desc = 'Next buffer' })
-map('n', '<leader>ba', '<Cmd>b#<cr>', { desc = 'Alternate buffer' })
+map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 map('n', '<leader>bb', function()
   local curbufnr = vim.api.nvim_get_current_buf()
   local bufinfo

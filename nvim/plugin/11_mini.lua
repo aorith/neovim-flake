@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
---  Mini core (tabline, diff, icons, misc)
+-- Core
 -------------------------------------------------------------------------------
 require('mini.tabline').setup()
 require('mini.extra').setup()
@@ -10,9 +10,6 @@ require('mini.icons').setup()
 require('mini.icons').mock_nvim_web_devicons()
 require('mini.icons').tweak_lsp_kind()
 
--------------------------------------------------------------------------------
--- Mini editing (ai, bufremove, surround)
--------------------------------------------------------------------------------
 require('mini.ai').setup() -- Enables 'ciq' (change inside quotes) or 'cib' (change inside brackets), etc.
 require('mini.bufremove').setup()
 
@@ -21,6 +18,15 @@ require('mini.bufremove').setup()
 -- sr => surround replace
 -- Example: Visual select a word -> sa"  (surround around quotes, 'saq' with mini.ai)
 require('mini.surround').setup()
+
+require('mini.trailspace').setup({ only_in_normal_buffers = true })
+require('mini.jump').setup({ delay = { highlight = 50 } })
+-- Press CR to start jumping
+require('mini.jump2d').setup({
+  labels = 'jkldefghiancmbopqrstu1234vwxyz',
+  allowed_lines = { blank = false, cursor_at = false, fold = false },
+  silent = true,
+})
 
 -------------------------------------------------------------------------------
 -- Statusline
@@ -57,17 +63,6 @@ require('mini.statusline').setup({
       })
     end,
   },
-})
-
--------------------------------------------------------------------------------
--- Mini navigation (visits, trailspace, jump, jump2d)
--------------------------------------------------------------------------------
-require('mini.trailspace').setup({ only_in_normal_buffers = true })
-require('mini.jump').setup({ delay = { highlight = 50 } })
--- Press CR to start jumping
-require('mini.jump2d').setup({
-  labels = 'abcdefghijklmnopqrstu1234vwxyz',
-  allowed_lines = { blank = false, cursor_at = false, fold = false },
 })
 
 -------------------------------------------------------------------------------
