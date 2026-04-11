@@ -202,11 +202,6 @@ local hipatterns = require('mini.hipatterns')
 
 hipatterns.setup({
   highlighters = {
-    delay = {
-      text_change = 600,
-      scroll = 200,
-    },
-
     -- Highlight standalone 'FIX', 'FIXME', 'HACK', 'TODO', 'NOTE'
     fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
     fix = { pattern = '%f[%w]()FIX()%f[%W]', group = 'MiniHipatternsFixme' },
