@@ -9,7 +9,7 @@ vim.wo[winid][0].number = false
 vim.wo[winid][0].signcolumn = 'yes:2'
 vim.wo[winid][0].spell = true
 vim.wo[winid][0].breakindent = true
-vim.wo[winid][0].conceallevel = 2
+vim.wo[winid][0].conceallevel = 0
 vim.wo[winid][0].wrap = true
 
 ---@diagnostic disable-next-line: inject-field

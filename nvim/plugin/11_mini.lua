@@ -192,8 +192,7 @@ local align_blame = function(au_data)
   vim.wo[win_src].scrollbind, vim.wo.scrollbind = true, true
 end
 
-local au_opts = { pattern = 'MiniGitCommandSplit', callback = align_blame }
-vim.api.nvim_create_autocmd('User', au_opts)
+Config.new_autocmd('User', 'MiniGitCommandSplit', align_blame)
 
 -------------------------------------------------------------------------------
 -- Mini hipatterns
@@ -248,7 +247,7 @@ vim.api.nvim_create_user_command('Notifications', function() require('mini.notif
 -- Mini pick
 -------------------------------------------------------------------------------
 require('mini.pick').setup({
-  window = { config = { width = vim.o.columns } },
+  window = { config = function() return { width = vim.o.columns } end },
 
   mappings = {
     choose = '<CR>',

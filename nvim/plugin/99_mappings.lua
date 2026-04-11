@@ -24,9 +24,9 @@ map('n', '<leader>y', '"+yy', { remap = true, desc = 'Copy to the system clipboa
 map('v', 'J', ":m '>+1<CR>gv=gv")
 map('v', 'K', ":m '<-2<CR>gv=gv")
 
--- Navigate wrapped lines
-map('n', 'j', 'gj')
-map('n', 'k', 'gk')
+-- Navigate wrapped lines (but moves real lines with relative number jumps, eg: 5j)
+map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 -- Center view on search
 map('n', 'n', 'nzz')
@@ -49,12 +49,6 @@ map({ 'i', 'n' }, '<esc>', '<Cmd>noh<CR><ESC>', { desc = 'Escape and clear hlsea
 -- Don't reset indent on '#', see :h smartindent
 map('i', '#', 'X#')
 
--- Get highlight group under cursor
-map('n', '<C-e>', function()
-  local result = vim.treesitter.get_captures_at_cursor(0)
-  print(vim.inspect(result))
-end, { desc = 'highlight group under cursor' })
-
 map('n', '<leader>xl', function() require('quicker').toggle({ loclist = true }) end, { desc = 'Location List' })
 map('n', '<leader>xq', require('quicker').toggle, { desc = 'Quickfix List' })
 map('n', '<leader>xd', vim.diagnostic.setqflist, { desc = 'Diagnostics to Quickfix' })
@@ -74,7 +68,7 @@ map('n', '<leader>bb', function()
 end, { desc = 'Close all other unmodified buffers' })
 
 -- windows
-map('n', '<leader>w', '<C-W>c', { desc = 'Delete window' })
+map('n', '<leader>wc', '<C-W>c', { desc = 'Delete window' })
 map('n', '<leader>-', '<C-W>s', { desc = 'Split window below' })
 map('n', '<leader>|', '<C-W>v', { desc = 'Split window right' })
 
