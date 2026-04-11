@@ -80,10 +80,12 @@ vim.o.number         = true         -- Show line numbers
 vim.o.signcolumn     = 'yes'        -- How signcolumn behaves
 vim.o.splitbelow     = true         -- Horizontal splits will be below
 vim.o.splitright     = true         -- Vertical splits will be to the right
+vim.o.splitkeep      = 'screen'     -- Stable content when opening/closing splits
 vim.o.wrap           = false        -- Display long lines as just one line
 vim.o.showmatch      = true         -- Highlight matching parentheses
 vim.o.scrolloff      = 3            -- Scroll context
 vim.o.sidescrolloff  = 3            -- Line scroll context
+vim.o.foldlevel      = 99           -- No fold by default
 vim.o.termguicolors  = true         -- It should be auto-detected, but weird combinations with ssh/nixos/tmux disable it
 
 vim.o.fillchars = 'fold:╌,horiz:═,horizdown:╦,horizup:╩,vert:║,verthoriz:╬,vertleft:╣,vertright:╠'
@@ -102,6 +104,7 @@ vim.o.tabstop       = 4        -- Default tab size
 vim.o.softtabstop   = -1       -- Copy shiftwidth value
 vim.o.virtualedit   = 'block'  -- Allow going past the end of line in visual block mode
 vim.o.confirm       = true     -- Confirm on exit unsaved changes
+vim.o.inccommand    = 'split'  -- Show changes in a split while running an :%s/aa/bb command
 
 vim.o.grepformat    = '%f:%l:%c:%m'               -- Ripgrep format
 vim.o.grepprg       = 'rg --vimgrep --smart-case' -- Configure grep to use ripgrep
