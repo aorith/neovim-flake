@@ -243,11 +243,7 @@ Config.new_autocmd('FileType', {
 -- Mini notify
 -------------------------------------------------------------------------------
 require('mini.notify').setup({
-  content = {
-    -- Do not append timestamp to notifications
-    format = function(notif) return notif.msg end,
-  },
-  window = { winblend = 0 },
+  lsp_progress = { enable = false },
 })
 
 vim.notify = require('mini.notify').make_notify()

@@ -65,7 +65,7 @@
       "src": "https://github.com/nvim-mini/mini.keymap"
     },
     "mini.misc": {
-      "rev": "4157b1f4cf28525c3c498ce82b1f3480d034a375",
+      "rev": "c72c90e083bcf24bfb2827d63b4752e414023f3e",
       "src": "https://github.com/nvim-mini/mini.misc"
     },
     "mini.notify": {
@@ -73,7 +73,7 @@
       "src": "https://github.com/nvim-mini/mini.notify"
     },
     "mini.pick": {
-      "rev": "fd7e7efadddcec3f3d7f3b363a99aa44e7286c65",
+      "rev": "437d44eb57312f23e6b931704694fc294922cd88",
       "src": "https://github.com/nvim-mini/mini.pick"
     },
     "mini.snippets": {
@@ -97,11 +97,11 @@
       "src": "https://github.com/nvim-mini/mini.trailspace"
     },
     "nvim-lint": {
-      "rev": "4b03656c09c1561f89b6aa0665c15d292ba9499d",
+      "rev": "eab58b48eb11d7745c11c505e0f3057165902461",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "bedca8b426b2fee0ccac596d167d71bbe971253f",
+      "rev": "cb5bc0b2b35a6d513e3298d285db81453e791f4f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
