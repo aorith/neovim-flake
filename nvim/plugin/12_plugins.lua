@@ -166,7 +166,7 @@ require('conform').setup({
     ruff = { prepend_args = { '--ignore', 'F841' } },
     stylua = { prepend_args = find_stylua_conf },
     -- Organize imports accounting for local package/module (see gopls config)
-    goimports = { command = 'goimports', prepend_args = Config.gopls.goimports_args },
+    goimports = { command = 'goimports', prepend_args = function() return Config.gopls.goimports_args end },
   },
 })
 
