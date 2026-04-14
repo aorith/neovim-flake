@@ -21,11 +21,11 @@
       "src": "https://github.com/nvim-mini/mini.bufremove"
     },
     "mini.clue": {
-      "rev": "f8a11789cf34a7bae396dc0f828d06cdb5066793",
+      "rev": "43bd6cf1c3ccdea46d403c32dbc4629fa6afa09d",
       "src": "https://github.com/nvim-mini/mini.clue"
     },
     "mini.completion": {
-      "rev": "09884c629cac1a8c999ffb6c57dc8424450aea5e",
+      "rev": "ffbdb06d2fa6a3fcef3891108bb38e33223b27a7",
       "src": "https://github.com/nvim-mini/mini.completion"
     },
     "mini.diff": {
@@ -45,7 +45,7 @@
       "src": "https://github.com/nvim-mini/mini.hues"
     },
     "mini.icons": {
-      "rev": "7fdae2443a0e2910015ca39ad74b50524ee682d3",
+      "rev": "bac6317300e205335df425296570d84322730067",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.indentscope": {
@@ -69,7 +69,7 @@
       "src": "https://github.com/nvim-mini/mini.misc"
     },
     "mini.notify": {
-      "rev": "32d3544b9368c76c562f22027ab25b750647fdf1",
+      "rev": "9e68ab0a54f90567b4fec2de22c851dba8480439",
       "src": "https://github.com/nvim-mini/mini.notify"
     },
     "mini.pick": {
@@ -101,7 +101,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "cb5bc0b2b35a6d513e3298d285db81453e791f4f",
+      "rev": "8a9378a822719346a0288fa004dab302ca3c0a8f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
