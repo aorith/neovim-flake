@@ -6,6 +6,6 @@ vim.bo.expandtab = true
 vim.keymap.set(
   'n',
   '<Leader>e',
-  "<Cmd>Term sh -c 'if command -v python; then python %; else python3 %; fi'<CR>",
+  "<Cmd>silent w | Term sh -c 'if command -v python; then python %; else python3 %; fi'<CR>",
   { buffer = 0, desc = 'Run this file with Python' }
 )
