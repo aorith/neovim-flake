@@ -12,6 +12,18 @@ vim.wo[winid][0].breakindent = true
 vim.wo[winid][0].conceallevel = 0
 vim.wo[winid][0].wrap = true
 
+vim.keymap.set(
+  'n',
+  '<Leader>e',
+  "<Cmd>silent w | silent Term sh -c 'pandoc -s --toc --syntax-highlighting kate -f markdown -t html5 -o /tmp/.output.html % -c "
+    .. vim.env.XDG_CONFIG_HOME
+    .. '/'
+    .. Config.nvim_appname
+    .. "/extra/pandoc.css && open /tmp/.output.html'"
+    .. '<CR>',
+  { buffer = 0, desc = 'Run this file with Python' }
+)
+
 ---@diagnostic disable-next-line: inject-field
 vim.b.minihipatterns_config = {
   highlighters = {
