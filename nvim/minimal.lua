@@ -41,3 +41,10 @@ vim.api.nvim_create_user_command('W', 'w', { bang = true })
 vim.api.nvim_create_user_command('Q', 'q', { bang = true })
 
 vim.o.rulerformat = '%30(%l,%c/%L %p%%%= [%b 0x%B] %)'
+
+local function augroup(name) return vim.api.nvim_create_augroup('user_' .. name, { clear = true }) end
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = augroup('highlight_yank'),
+  callback = function() (vim.hl or vim.highlight).on_yank() end,
+})

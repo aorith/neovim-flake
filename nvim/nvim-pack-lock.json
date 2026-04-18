@@ -5,7 +5,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "gruvbox-material": {
-      "rev": "afb275d8e6dc379762d122bd24e1773fc057abf3",
+      "rev": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79",
       "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "mini-git": {
@@ -25,7 +25,7 @@
       "src": "https://github.com/nvim-mini/mini.clue"
     },
     "mini.completion": {
-      "rev": "ffbdb06d2fa6a3fcef3891108bb38e33223b27a7",
+      "rev": "e934b46f6471a3bd0cd37fc06d0df198b9711882",
       "src": "https://github.com/nvim-mini/mini.completion"
     },
     "mini.diff": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/nvim-mini/mini.extra"
     },
     "mini.hipatterns": {
-      "rev": "a3ffba45e4119917b254c372df82e79f7d8c4aad",
+      "rev": "9eff319bbe66adfaf781a0d0e174baa08ba94909",
       "src": "https://github.com/nvim-mini/mini.hipatterns"
     },
     "mini.hues": {
@@ -101,7 +101,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "8a9378a822719346a0288fa004dab302ca3c0a8f",
+      "rev": "4b7fbaa239c5db6b36f424a4521ca9f1a401be33",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
