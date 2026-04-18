@@ -17,7 +17,6 @@ vim.pack.add({
   { src = 'https://github.com/nvim-mini/mini.notify' },
   { src = 'https://github.com/nvim-mini/mini.pick' },
   { src = 'https://github.com/nvim-mini/mini.snippets' },
-  { src = 'https://github.com/nvim-mini/mini.statusline' },
   { src = 'https://github.com/nvim-mini/mini.surround' },
   { src = 'https://github.com/nvim-mini/mini.tabline' },
   { src = 'https://github.com/nvim-mini/mini.trailspace' },
