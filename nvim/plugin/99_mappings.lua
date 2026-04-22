@@ -206,3 +206,8 @@ nmap_leader('hf', '<Cmd>Pick harpoon<CR>', 'Pick')
 
 -- Run cmd in terminal (overridden in some filetypes)
 nmap_leader('e', '<Cmd>Term<CR>', 'Run cmd in a terminal')
+
+-- Notes
+nmap_leader('nn', function() require('oil').open(Config.notes_dir, { preview = {} }) end, 'Notes')
+nmap_leader('nf', '<Cmd>Pick notes<CR>', 'Notes Find')
+nmap_leader('ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')

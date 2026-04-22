@@ -3,6 +3,7 @@
 -------------------------------------------------------------------------------
 _G.Config = {
   nvim_appname = vim.env.NVIM_APPNAME ~= nil and vim.env.NVIM_APPNAME or 'nvim',
+  notes_dir = vim.env.HOME .. '/Syncthing/SYNC_STUFF/notes/md',
 
   on_nix = (vim.env.NVIM_NIX == '1' or vim.uv.fs_stat('/etc/nixos')) and true or false,
 

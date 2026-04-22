@@ -25,7 +25,7 @@
       "src": "https://github.com/nvim-mini/mini.clue"
     },
     "mini.completion": {
-      "rev": "e934b46f6471a3bd0cd37fc06d0df198b9711882",
+      "rev": "667d94669be66043123cac44e7c5d65a31657732",
       "src": "https://github.com/nvim-mini/mini.completion"
     },
     "mini.diff": {
@@ -97,7 +97,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "4b7fbaa239c5db6b36f424a4521ca9f1a401be33",
+      "rev": "e146efacbafed3789ac568abcc5a981c5decaa58",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {

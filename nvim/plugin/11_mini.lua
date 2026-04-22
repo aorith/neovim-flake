@@ -225,6 +225,34 @@ require('mini.pick').setup({
 
 vim.ui.select = MiniPick.ui_select
 
+local function all_notes()
+  require('mini.pick').builtin.cli({
+    command = {
+      'fd',
+      '--type',
+      'f',
+      '--glob',
+      '*.md',
+    },
+  }, {
+    source = {
+      name = 'Notes',
+      cwd = Config.notes_dir,
+    },
+  })
+end
+
+MiniPick.registry.notes = function()
+  vim.fn.chdir(Config.notes_dir)
+  return all_notes()
+end
+
+MiniPick.registry.notes_grep = function()
+  vim.fn.chdir(Config.notes_dir)
+  local opts = { source = { cwd = Config.notes_dir } }
+  return MiniPick.builtin.grep_live({ globs = { '*.md' } }, opts)
+end
+
 -- Pick files from arglist (used as a Harpoon-style file list)
 MiniPick.registry.harpoon = function()
   local items = vim.fn.argv() --[[@as string[] ]]
