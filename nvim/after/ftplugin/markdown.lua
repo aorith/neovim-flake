@@ -15,7 +15,7 @@ vim.wo[winid][0].wrap = true
 vim.keymap.set(
   'n',
   '<Leader>e',
-  "<Cmd>silent w | silent Term sh -c 'pandoc -s --toc --syntax-highlighting kate -f markdown -t html5 -o /tmp/.output.html % -c "
+  "<Cmd>silent w | silent Term sh -c 'pandoc -s --embed-resources --toc --syntax-highlighting kate -f markdown -t html5 -o /tmp/.output.html % -c "
     .. vim.env.XDG_CONFIG_HOME
     .. '/'
     .. Config.nvim_appname

@@ -79,6 +79,7 @@ vim.o.linebreak      = true         -- Wrap long lines at 'breakat' (if 'wrap' i
 vim.o.list           = true         -- Show helpful character indicators
 vim.o.number         = true         -- Show line numbers
 vim.o.signcolumn     = 'yes'        -- How signcolumn behaves
+vim.o.cursorline     = true
 vim.o.splitbelow     = true         -- Horizontal splits will be below
 vim.o.splitright     = true         -- Vertical splits will be to the right
 vim.o.splitkeep      = 'screen'     -- Stable content when opening/closing splits

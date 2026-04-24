@@ -208,6 +208,9 @@ nmap_leader('hf', '<Cmd>Pick harpoon<CR>', 'Pick')
 nmap_leader('e', '<Cmd>Term<CR>', 'Run cmd in a terminal')
 
 -- Notes
-nmap_leader('nn', function() require('oil').open(Config.notes_dir, { preview = {} }) end, 'Notes')
+nmap_leader('nn', function()
+  vim.fn.chdir(Config.notes_dir)
+  require('oil').open(nil, { preview = {} })
+end, 'Notes')
 nmap_leader('nf', '<Cmd>Pick notes<CR>', 'Notes Find')
 nmap_leader('ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')

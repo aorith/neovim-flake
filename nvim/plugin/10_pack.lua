@@ -21,8 +21,6 @@ vim.pack.add({
   { src = 'https://github.com/nvim-mini/mini.tabline' },
   { src = 'https://github.com/nvim-mini/mini.trailspace' },
 
-  { src = 'https://github.com/sainnhe/gruvbox-material' },
-
   { src = 'https://github.com/tpope/vim-sleuth' }, -- auto-detect shiftwidth, expandtab, etc.
   { src = 'https://github.com/varnishcache-friends/vim-varnish' },
 
@@ -43,15 +41,4 @@ if not Config.on_nix then
 end
 
 -- Colorscheme
-vim.g.gruvbox_material_foreground = 'mix'
-vim.g.gruvbox_material_statusline_style = 'mix'
-vim.g.gruvbox_material_sign_column_background = 'linenr'
-vim.g.gruvbox_material_diagnostic_text_highlight = 1
-vim.g.gruvbox_material_diagnostic_line_highlight = 1
-vim.g.gruvbox_material_diagnostic_virtual_text = 'highlighted'
-
-if vim.o.background == 'dark' then
-  vim.cmd.colorscheme('gruvbox-material')
-else
-  vim.cmd.colorscheme('miniwinter')
-end
+vim.cmd.colorscheme('miniwinter')
