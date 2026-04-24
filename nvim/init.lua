@@ -87,6 +87,7 @@ vim.o.scrolloff      = 3            -- Scroll context
 vim.o.sidescrolloff  = 3            -- Line scroll context
 vim.o.foldlevel      = 99           -- No fold by default
 vim.o.termguicolors  = true         -- It should be auto-detected, but weird combinations with ssh/nixos/tmux disable it
+vim.o.scrollback     = 99999        -- Increase terminal scrollback buffer
 
 vim.o.fillchars = 'fold:╌,horiz:═,horizdown:╦,horizup:╩,vert:║,verthoriz:╬,vertleft:╣,vertright:╠'
 vim.o.listchars = 'extends:…,trail:·,nbsp:␣,precedes:…,tab:> '
