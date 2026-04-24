@@ -38,9 +38,7 @@ Config.run_in_terminal = function(cmd)
     return
   end
 
-  local expanded = vim.fn.expandcmd(cmd)
-  vim.print(expanded)
-  vim.cmd('terminal ' .. expanded)
+  vim.cmd('terminal ' .. cmd)
 end
 
 vim.api.nvim_create_user_command(

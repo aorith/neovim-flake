@@ -21,7 +21,7 @@ vim.keymap.set(
     .. Config.nvim_appname
     .. "/extra/pandoc.css && open /tmp/.output.html'"
     .. '<CR>',
-  { buffer = 0, desc = 'Run this file with Python' }
+  { buffer = 0, desc = 'Convert to HTML and open in a Browser' }
 )
 
 ---@diagnostic disable-next-line: inject-field
