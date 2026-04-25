@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, ... }:
 {
   packages =
     with pkgs;
@@ -11,7 +11,7 @@
       # Formatters
       black
       go-jsonnet # jsonnetfmt
-      gotools # goimports
+      (lib.lowPrio gotools) # goimports (lowPrio because 'modernize' collides with gopls)
       hurl
       isort
       nixfmt

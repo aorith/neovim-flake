@@ -14,12 +14,6 @@ let
 
   # NOTE: this is for luaPackages: https://github.com/NixOS/nixpkgs/blob/36dcdaf8f6b0e0860721ecd4aada50c0cccc3cfd/pkgs/applications/editors/neovim/build-neovim-plugin.nix#L11-L12
   # pkgs.neovimUtils.buildNeovimPlugin
-
-  # Merge nvim-treesitter parsers together to reduce vim.api.nvim_list_runtime_paths()
-  nvim-treesitter-grammars = pkgs.symlinkJoin {
-    name = "nvim-treesitter-grammars";
-    paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-  };
 in
 with pkgs.vimPlugins;
 [
@@ -28,9 +22,7 @@ with pkgs.vimPlugins;
   # Plugins can also be lazy loaded with ':packadd! plugin-name' when optional is true:
   #{ plugin = luasnip; optional = true; }
 
-  #nvim-treesitter.withAllGrammars
-  nvim-treesitter
-  nvim-treesitter-grammars
+  nvim-treesitter.withAllGrammars
   nvim-treesitter-textobjects
   nvim-treesitter-context
 
