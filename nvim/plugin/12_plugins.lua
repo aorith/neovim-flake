@@ -13,6 +13,7 @@ vim.lsp.enable({
   'marksman',
   'nil_ls', -- nix profile add nixpkgs#nil
   'terraformls',
+  'ts_ls',
   'yamlls',
 })
 
