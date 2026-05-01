@@ -9,9 +9,10 @@
       ripgrep
 
       # Formatters
-      black
-      go-jsonnet # jsonnetfmt
       (lib.lowPrio gotools) # goimports (lowPrio because 'modernize' collides with gopls)
+      black
+      clang-tools
+      go-jsonnet # jsonnetfmt
       hurl
       isort
       nixfmt

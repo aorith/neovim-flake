@@ -4,6 +4,7 @@
 vim.lsp.enable({
   'basedpyright',
   'bashls',
+  'clangd',
   'cssls',
   'cue',
   'gopls',

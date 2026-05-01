@@ -6,7 +6,6 @@ vim.bo.textwidth = 0
 local winid = vim.api.nvim_get_current_win()
 
 vim.wo[winid][0].number = false
-vim.wo[winid][0].signcolumn = 'yes:2'
 vim.wo[winid][0].spell = true
 vim.wo[winid][0].breakindent = true
 vim.wo[winid][0].conceallevel = 0
