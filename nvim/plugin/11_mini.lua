@@ -5,6 +5,7 @@ require('mini.tabline').setup()
 require('mini.extra').setup()
 require('mini.diff').setup()
 require('mini.misc').setup({ make_global = { 'put', 'put_text' } })
+require('mini.input').setup()
 
 require('mini.icons').setup()
 require('mini.icons').mock_nvim_web_devicons()

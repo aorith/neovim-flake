@@ -1,7 +1,6 @@
 vim.pack.add({
   { src = 'https://github.com/nvim-mini/mini.nvim', version = 'main' },
 
-  { src = 'https://github.com/tpope/vim-sleuth' }, -- auto-detect shiftwidth, expandtab, etc.
   { src = 'https://github.com/varnishcache-friends/vim-varnish' },
 
   { src = 'https://github.com/neovim/nvim-lspconfig' },
@@ -10,6 +9,8 @@ vim.pack.add({
   { src = 'https://github.com/hedyhli/outline.nvim' },
   { src = 'https://github.com/stevearc/quicker.nvim' },
   { src = 'https://github.com/stevearc/oil.nvim' },
+
+  { src = 'https://github.com/sainnhe/gruvbox-material' },
 })
 
 if not Config.on_nix then
@@ -21,4 +22,14 @@ if not Config.on_nix then
 end
 
 -- Colorscheme
-vim.cmd.colorscheme('default')
+
+-- Colorscheme
+vim.g.gruvbox_material_background = 'hard'
+vim.g.gruvbox_material_foreground = 'original'
+vim.g.gruvbox_material_statusline_style = 'mix'
+vim.g.gruvbox_material_sign_column_background = 'linenr'
+vim.g.gruvbox_material_diagnostic_text_highlight = 1
+vim.g.gruvbox_material_diagnostic_line_highlight = 1
+vim.g.gruvbox_material_diagnostic_virtual_text = 'highlighted'
+
+vim.cmd.colorscheme('gruvbox-material')

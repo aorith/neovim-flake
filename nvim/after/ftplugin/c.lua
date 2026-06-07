@@ -1,2 +1,2 @@
-vim.bo.formatprg = 'clang-format'
-vim.bo.equalprg = 'clang-format'
+vim.bo.indentexpr = ''
+vim.bo.cindent = true

@@ -1,20 +1,24 @@
 {
   "plugins": {
     "conform.nvim": {
-      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
+    "gruvbox-material": {
+      "rev": "11d779b26a9ab2b3db8c22c6ac9fb6e8ed4fea79",
+      "src": "https://github.com/sainnhe/gruvbox-material"
+    },
     "mini.nvim": {
-      "rev": "be81509b7160aa02264a59789164a2e1c4a6750a",
+      "rev": "d5e6f5b843f1d813d9c4bfb242b751dc5ab6f8ae",
       "src": "https://github.com/nvim-mini/mini.nvim",
       "version": "'main'"
     },
     "nvim-lint": {
-      "rev": "eab58b48eb11d7745c11c505e0f3057165902461",
+      "rev": "99cbc3ca8a76845fca50e496be7212bebf907dd3",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "31026a13eefb20681124706a79fc1df6bf11ab27",
+      "rev": "229b79051b380377664edc4cbd534930154921a1",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -22,7 +26,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-context": {
-      "rev": "b0c45cefe2c8f7b55fc46f34e563bc428ef99636",
+      "rev": "b311b30818951d01f7b4bf650521b868b3fece16",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
     "nvim-treesitter-textobjects": {
@@ -30,20 +34,16 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
     "oil.nvim": {
-      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
+      "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "outline.nvim": {
-      "rev": "c293eb56db880a0539bf9d85b4a27816960b863e",
+      "rev": "2a132953b944561d45b52e4541ebfff71934a742",
       "src": "https://github.com/hedyhli/outline.nvim"
     },
     "quicker.nvim": {
-      "rev": "063cc44da1eef8681bbd653b29d3bc961780886a",
+      "rev": "4a6883cb13fe097a20a046eb55f6dffd239276e3",
       "src": "https://github.com/stevearc/quicker.nvim"
-    },
-    "vim-sleuth": {
-      "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
-      "src": "https://github.com/tpope/vim-sleuth"
     },
     "vim-varnish": {
       "rev": "01458458f20831d43045423344bcb70a40d04b0f",

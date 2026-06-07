@@ -104,9 +104,11 @@ Config.new_autocmd('FileType', filetypes, function(ev)
   vim.wo.foldmethod = 'expr'
   vim.o.foldlevel = 99
 
-  -- enable ts based indentation
-  vim.b.did_indent = 1 -- prevent built-in indent scripts from loading
-  vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
+  -- enable ts based indentation only for some fts
+  if vim.tbl_contains({ 'python', 'b' }, ev.match) then
+    vim.b.did_indent = 1 -- prevent built-in indent scripts from loading
+    vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
+  end
 end, 'Start tree-sitter')
 
 -------------------------------------------------------------------------------
@@ -137,6 +139,8 @@ require('conform').setup({
   },
 
   formatters_by_ft = {
+    c = { 'clang_format' },
+    cpp = { 'clang_format' },
     -- go install mvdan.cc/gofumpt@latest
     -- go install golang.org/x/tools/cmd/goimports@latest
     go = { 'goimports', 'gofumpt' },
@@ -169,6 +173,9 @@ require('conform').setup({
     stylua = { prepend_args = find_stylua_conf },
     -- Organize imports accounting for local package/module (see gopls config)
     goimports = { command = 'goimports', prepend_args = function() return Config.gopls.goimports_args end },
+    clang_format = {
+      prepend_args = { '--style=InheritParentConfig' },
+    },
   },
 })
 
