@@ -94,7 +94,7 @@ let
   '';
 
 in
-pkgs.writeShellScriptBin appName ''
+pkgs.writeShellScriptBin "nvim" ''
   ${wrapper}
   exec ${baseNvim}/bin/nvim "$@"
 ''
