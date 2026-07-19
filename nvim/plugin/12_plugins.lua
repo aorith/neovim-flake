@@ -13,6 +13,7 @@ vim.lsp.enable({
   'lua_ls',
   'marksman',
   'nil_ls', -- nix profile add nixpkgs#nil
+  'rust_analyzer',
   'terraformls',
   'ts_ls',
   'yamlls',
@@ -42,6 +43,7 @@ local languages = {
   'python',
   'query',
   'regex',
+  'rust',
   'terraform',
   'todotxt',
   'toml',
@@ -161,6 +163,7 @@ require('conform').setup({
     lua = { 'stylua', lsp_format = 'fallback' },
     nix = { 'nixfmt' },
     python = { 'ruff_format', 'ruff_organize_imports', lsp_format = 'fallback' },
+    rust = { 'rustfmt', lsp_format = 'fallback' },
     sh = { 'shfmt' },
     templ = { 'templ', lsp_format = 'fallback' },
     toml = { 'taplo', lsp_format = 'fallback' },

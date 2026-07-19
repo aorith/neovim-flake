@@ -19,6 +19,7 @@
       prettier
       prettierd
       ruff
+      rustfmt
       shfmt
       stylua
       taplo
@@ -27,6 +28,7 @@
 
       # Linters
       ansible-lint
+      clippy
       djlint
       golangci-lint
       shellcheck
