@@ -60,10 +60,6 @@ vim.g.loaded_tarPlugin = 1
 vim.g.loaded_zip = 1
 vim.g.loaded_zipPlugin = 1
 
--- Enable all filetype plugins and syntax (if not enabled, for better startup)
-vim.cmd('filetype plugin indent on')
-if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
-
 -- Set LSP log level
 vim.lsp.log.set_level(vim.log.levels.ERROR)
 
@@ -80,7 +76,6 @@ vim.o.signcolumn     = 'yes'        -- How signcolumn behaves
 vim.o.cursorline     = true
 vim.o.splitbelow     = true         -- Horizontal splits will be below
 vim.o.splitright     = true         -- Vertical splits will be to the right
-vim.o.splitkeep      = 'screen'     -- Stable content when opening/closing splits
 vim.o.wrap           = false        -- Display long lines as just one line
 vim.o.showmatch      = true         -- Highlight matching parentheses
 vim.o.scrolloff      = 3            -- Scroll context
@@ -217,10 +212,10 @@ Config.new_autocmd('ColorScheme', nil, function()
   -- vim.api.nvim_set_hl(0, "MiniCursorWordCurrent", { link = "Visual" })
 
   -- Transparency
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'MiniPickNormal', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'MiniFilesNormal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'MiniPickNormal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'MiniFilesNormal', { bg = 'none' })
 
   -- Make MiniJump more noticeable
   vim.api.nvim_set_hl(0, 'MiniJump', { link = 'Search' })

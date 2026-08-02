@@ -201,9 +201,9 @@ lint.linters_by_ft = {
 }
 
 Config.new_autocmd({ 'BufReadPost', 'BufWritePost', 'InsertLeave' }, nil, function()
-  lint.try_lint()
   if vim.bo.filetype ~= 'bigfile' then
-    lint.try_lint('typos') -- run typos on all file types
+    lint.try_lint()
+    --   lint.try_lint('typos') -- run typos on all file types
   end
 end, 'Lint')
 
