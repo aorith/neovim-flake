@@ -65,7 +65,6 @@ vim.lsp.log.set_level(vim.log.levels.ERROR)
 
 --stylua: ignore start
 -- UI -------------------------------------------------------------------------
-vim.o.undofile       = true         -- Enable persistent undo
 vim.o.breakindent    = true         -- Indent wrapped lines to match line start
 vim.o.breakindentopt = 'list:-1'    -- Add padding for lists when 'wrap' is on
 vim.o.colorcolumn    = '+1'         -- Colored column according to 'textwidth' if it's > 0
@@ -89,6 +88,11 @@ vim.o.listchars = 'extends:…,trail:·,nbsp:␣,precedes:…,tab:> '
 vim.o.winborder = 'rounded'
 
 -- Editing --------------------------------------------------------------------
+vim.o.backup    = true
+vim.o.backupdir = vim.fn.stdpath('state') .. '/backup//'
+vim.o.undofile  = true
+vim.o.undodir   = vim.fn.stdpath('state') .. '/undo//'
+
 vim.o.expandtab     = true     -- Convert tabs to spaces
 vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
 vim.o.ignorecase    = true     -- Ignore case when searching (use `\C` to force not doing that)
@@ -165,19 +169,20 @@ Config.new_autocmd('FocusGained', nil, function() vim.cmd('checktime') end, 'Aut
 Config.new_autocmd('TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
 
 -- Go to the last line edited when opening a file
-Config.new_autocmd('BufReadPost', nil, function(data)
-  -- skip some filetypes
-  if
-    vim.tbl_contains({ 'minifiles', 'minipick', 'gitcommit' }, vim.bo.filetype)
-    or vim.bo.buftype == 'prompt'
-    or vim.bo.buftype == 'help'
-  then
-    return
-  end
-  local last_pos = vim.api.nvim_buf_get_mark(data.buf, '"')
-  if last_pos[1] > 0 and last_pos[1] <= vim.api.nvim_buf_line_count(data.buf) then
-    vim.api.nvim_win_set_cursor(0, last_pos)
-  end
+Config.new_autocmd('BufReadPost', nil, function(event)
+  -- schedule it so it runs after other 'BufReadPost' events
+  vim.schedule(function()
+    local excluded = { 'minifiles', 'minipick', 'gitcommit', 'prompt', 'help' }
+    local ft = vim.bo[event.buf].filetype
+    local bt = vim.bo[event.buf].buftype
+
+    if vim.tbl_contains(excluded, ft) or vim.tbl_contains(excluded, bt) then return end
+
+    local last_pos = vim.api.nvim_buf_get_mark(event.buf, '"')
+    if last_pos[1] > 0 and last_pos[1] <= vim.api.nvim_buf_line_count(event.buf) then
+      vim.api.nvim_win_set_cursor(0, last_pos)
+    end
+  end)
 end, 'Go to the last known line of the file')
 
 -- close some filetypes with <q>
@@ -212,7 +217,7 @@ Config.new_autocmd('ColorScheme', nil, function()
   -- vim.api.nvim_set_hl(0, "MiniCursorWordCurrent", { link = "Visual" })
 
   -- Transparency
-  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
   -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
   -- vim.api.nvim_set_hl(0, 'MiniPickNormal', { bg = 'none' })
   -- vim.api.nvim_set_hl(0, 'MiniFilesNormal', { bg = 'none' })
