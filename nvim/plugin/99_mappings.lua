@@ -179,15 +179,23 @@ nmap_leader('u', function()
   require('undotree').open({ command = 'leftabove 32vnew' })
 end, 'Undotree')
 
--- Toggles (most of them are setup with 'mini.basics')
+-- Toggles
+nmap_leader('tc', '<Cmd>setlocal cursorline! cursorline?<CR>', 'Toggle cursorline')
+nmap_leader('tC', '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>', 'Toggle cursorcolumn')
+nmap_leader('td', function()
+  local is_enabled = vim.diagnostic.is_enabled({ bufnr = 0 })
+  vim.diagnostic.enable(not is_enabled, { bufnr = 0 })
+  print(is_enabled and 'nodiagnostic' or '  diagnostic')
+end, 'Toggle diagnostic')
+nmap_leader('tl', '<Cmd>setlocal list! list?<CR>', 'Toggle list')
+nmap_leader('tn', '<Cmd>setlocal number! number?<CR>', 'Toggle number')
+nmap_leader('tr', '<Cmd>setlocal relativenumber! relativenumber?<CR>', 'Toggle relativenumber')
+nmap_leader('ts', '<Cmd>setlocal spell! spell?<CR>', 'Toggle spell')
+nmap_leader('tw', '<Cmd>setlocal wrap! wrap?<CR>', 'Toggle wrap')
 nmap_leader('tx', function()
   local ctx = require('treesitter-context')
   ctx.toggle()
-  if ctx.enabled() then
-    vim.notify('Context enabled')
-  else
-    vim.notify('Context disabled')
-  end
+  print(ctx.enabled() and '  tscontext' or 'notscontext')
 end, 'Toggle context')
 
 -- Misc
