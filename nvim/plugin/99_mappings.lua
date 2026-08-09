@@ -17,8 +17,8 @@ map('v', '<LeftRelease>', '"*ygv')
 
 -- Misc
 map('n', 'x', '"_x', { desc = "Avoid 'x' copying to the register" })
-map('v', '<leader>y', '"+y', { remap = true, desc = 'Copy to the system clipboard' })
-map('n', '<leader>y', '"+yy', { remap = true, desc = 'Copy to the system clipboard' })
+map('v', '<leader>y', '"+y', { desc = 'Copy to the system clipboard' })
+map('n', '<leader>y', '"+yy', { desc = 'Copy to the system clipboard' })
 
 -- Moves lines
 map('v', 'J', ":m '>+1<CR>gv=gv")
@@ -58,12 +58,8 @@ map('n', '<leader><TAB>', '<Cmd>bnext<CR>', { silent = true, desc = 'Next buffer
 map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
 map('n', '<leader>bb', function()
   local curbufnr = vim.api.nvim_get_current_buf()
-  local bufinfo
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if bufnr ~= curbufnr and vim.api.nvim_get_option_value('modified', { buf = bufnr }) == false then
-      bufinfo = vim.fn.getbufinfo(bufnr)[1]
-      if bufinfo.loaded == 1 and bufinfo.listed == 1 then vim.cmd('bd! ' .. tostring(bufnr)) end
-    end
+  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+    if buf.bufnr ~= curbufnr and buf.loaded == 1 and buf.changed == 0 then vim.cmd('bd! ' .. buf.bufnr) end
   end
 end, { desc = 'Close all other unmodified buffers' })
 
@@ -91,8 +87,6 @@ map('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Set Loc List' })
 map('n', '<leader>lj', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Next diagnostic' })
 map('n', '<leader>lk', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Prev diagnostic' })
 
-map('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code Actions' })
-map('n', '<leader>lr', vim.lsp.buf.rename, { desc = 'Rename' })
 map('n', '<leader>ls', vim.lsp.buf.signature_help, { desc = 'Signature' })
 
 nmap_leader('<leader>', function()
@@ -157,11 +151,7 @@ xmap_leader(
 map('n', 'grd', vim.lsp.buf.definition, { desc = 'Definitions' }) -- 'gd' is 'definition in function'
 map('n', 'grD', vim.lsp.buf.declaration, { desc = 'Declaration' }) -- 'gD' is 'definition in file'
 --- 'gi' by default is mapped to 'Start Insert where it stopped', so better not remap that
---- 'gr' prefix is default as of nvim 0.11
-map('n', 'gri', vim.lsp.buf.implementation, { desc = 'Implementation' })
-map('n', 'grr', vim.lsp.buf.references, { desc = 'References' })
-map('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename' })
-map('n', 'grt', vim.lsp.buf.type_definition, { desc = 'Type Definitions' })
+--- 'gra'/'gri'/'grn'/'grr'/'grt'/'gO' are default as of nvim 0.11, see :h lsp-defaults
 
 -- Formatting
 nmap_leader('lf', function() require('conform').format() end, 'Format buffer')
