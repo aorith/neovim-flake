@@ -9,6 +9,8 @@ vim.pack.add({
   { src = 'https://github.com/hedyhli/outline.nvim' },
   { src = 'https://github.com/stevearc/quicker.nvim' },
   { src = 'https://github.com/stevearc/oil.nvim' },
+
+  { src = 'https://github.com/sainnhe/gruvbox-material' },
 })
 
 if not Config.on_nix then
@@ -19,4 +21,6 @@ if not Config.on_nix then
   })
 end
 
-vim.cmd.colorscheme('miniwinter')
+vim.g.gruvbox_material_background = 'hard'
+vim.g.gruvbox_material_foreground = 'mix'
+vim.cmd.colorscheme('gruvbox-material')

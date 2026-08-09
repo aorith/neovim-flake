@@ -12,11 +12,11 @@ return {
 
   settings = {
     Lua = {
-      runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
+      runtime = { version = 'LuaJIT' },
       workspace = {
         library = { vim.env.VIMRUNTIME },
-        -- Don't analyze code from submodules
-        ignoreSubmodules = true,
+        -- ignoreSubmodules = true,
+        checkThirdParty = false,
       },
       format = { enable = false },
       telemetry = { enable = false },
