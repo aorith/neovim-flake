@@ -107,7 +107,7 @@ Config.new_autocmd('FileType', filetypes, function(ev)
   vim.o.foldlevel = 99
 
   -- enable ts based indentation only for some fts
-  if vim.tbl_contains({ 'python', 'b' }, ev.match) then
+  if vim.tbl_contains({ 'python' }, ev.match) then
     vim.b.did_indent = 1 -- prevent built-in indent scripts from loading
     vim.bo.indentexpr = 'v:lua.require("nvim-treesitter").indentexpr()'
   end

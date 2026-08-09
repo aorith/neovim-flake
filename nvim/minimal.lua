@@ -34,8 +34,8 @@ vim.keymap.set('!', '<F1>', '<nop>')
 vim.keymap.set('n', 'q', ':qa!<CR>')
 -- Copy to primary selection on select
 vim.keymap.set('v', '<LeftRelease>', '"*ygv')
-vim.keymap.set('v', '<leader>y', '"+y', { remap = true, desc = 'Copy to the system clipboard' })
-vim.keymap.set('n', '<leader>y', '"+yy', { remap = true, desc = 'Copy to the system clipboard' })
+vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Copy to the system clipboard' })
+vim.keymap.set('n', '<leader>y', '"+yy', { desc = 'Copy to the system clipboard' })
 
 vim.api.nvim_create_user_command('W', 'w', { bang = true })
 vim.api.nvim_create_user_command('Q', 'q', { bang = true })
