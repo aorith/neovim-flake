@@ -168,23 +168,6 @@ Config.new_autocmd('FocusGained', nil, function() vim.cmd('checktime') end, 'Aut
 -- Highlight on yank
 Config.new_autocmd('TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
 
--- Go to the last line edited when opening a file
-Config.new_autocmd('BufReadPost', nil, function(event)
-  -- schedule it so it runs after other 'BufReadPost' events
-  vim.schedule(function()
-    local excluded = { 'minifiles', 'minipick', 'gitcommit', 'prompt', 'help' }
-    local ft = vim.bo[event.buf].filetype
-    local bt = vim.bo[event.buf].buftype
-
-    if vim.tbl_contains(excluded, ft) or vim.tbl_contains(excluded, bt) then return end
-
-    local last_pos = vim.api.nvim_buf_get_mark(event.buf, '"')
-    if last_pos[1] > 0 and last_pos[1] <= vim.api.nvim_buf_line_count(event.buf) then
-      vim.api.nvim_win_set_cursor(0, last_pos)
-    end
-  end)
-end, 'Go to the last known line of the file')
-
 -- close some filetypes with <q>
 Config.new_autocmd('FileType', {
   'git',
