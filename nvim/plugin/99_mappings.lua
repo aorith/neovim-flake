@@ -119,10 +119,6 @@ nmap_leader('fh', '<Cmd>Pick help<CR>', 'Help tags')
 nmap_leader('fH', '<Cmd>Pick hl_groups<CR>', 'Highlight groups')
 nmap_leader('fp', '<Cmd>Pick spellsuggest<CR>', 'Spell suggest')
 nmap_leader('fk', '<Cmd>Pick keymaps<CR>', 'Keymaps')
-nmap_leader('fc', '<Cmd>Pick git_commits path="%:p"<CR>', 'Commits (current)')
-nmap_leader('fC', '<Cmd>Pick git_commits<CR>', 'Commits (all)')
-nmap_leader('fv', '<Cmd>Pick visit_paths<CR>', 'Visit paths (cwd)')
-nmap_leader('fV', '<Cmd>Pick visit_paths cwd=""<CR>', 'Visit paths (all)')
 
 local git_log_cmd = [[Git log --pretty=format:\%h\ \%as\ │\ \%s --topo-order]]
 local git_reflog_cmd = [[Git log --abbrev-commit --walk-reflogs --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]] -- similar to 'git reflog'
@@ -139,6 +135,8 @@ nmap_leader('gr', '<Cmd>tab ' .. git_reflog_cmd .. '<CR>', 'Reflog')
 nmap_leader('gg', '<Cmd>tab ' .. git_graph_cmd .. '<CR>', 'Graph')
 nmap_leader('go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>', 'Toggle diff overlay')
 nmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at cursor')
+nmap_leader('gc', '<Cmd>Pick git_commits path="%:p"<CR>', '[Pick] Commits (current)')
+nmap_leader('gC', '<Cmd>Pick git_commits<CR>', '[Pick] Commits (all)')
 
 xmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at selection') -- Show at cursor already gives info from show_range_history
 xmap_leader(

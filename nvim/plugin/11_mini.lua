@@ -4,7 +4,10 @@
 require('mini.tabline').setup()
 require('mini.extra').setup()
 require('mini.diff').setup()
-require('mini.misc').setup({ make_global = { 'put', 'put_text' } })
+require('mini.misc').setup({
+  make_global = { 'put', 'put_text' },
+})
+MiniMisc.setup_restore_cursor()
 require('mini.input').setup()
 
 require('mini.icons').setup()
@@ -99,7 +102,7 @@ require('mini.completion').setup({
   },
 })
 
-Config.new_autocmd('LspAttach', nil, function(args)
+Config.new_autocmd('mini-completion-lsp', nil, 'LspAttach', nil, function(args)
   vim.bo[args.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
 
   local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -135,7 +138,14 @@ local make_stop = function()
   end
   vim.api.nvim_create_autocmd('ModeChanged', au_opts)
 end
-Config.new_autocmd('User', 'MiniSnippetsSessionStart', make_stop, 'Stop all snippet sessions on Normal mode exit')
+Config.new_autocmd(
+  'mini-snippet-stop',
+  nil,
+  'User',
+  'MiniSnippetsSessionStart',
+  make_stop,
+  'Stop all snippet sessions on Normal mode exit'
+)
 
 -------------------------------------------------------------------------------
 -- Mini git
@@ -156,7 +166,7 @@ local align_blame = function(au_data)
   vim.wo[win_src].scrollbind, vim.wo.scrollbind = true, true
 end
 
-Config.new_autocmd('User', 'MiniGitCommandSplit', align_blame)
+Config.new_autocmd('mini-git-align-blame', nil, 'User', 'MiniGitCommandSplit', align_blame)
 
 -------------------------------------------------------------------------------
 -- Mini hipatterns
@@ -186,7 +196,7 @@ require('mini.indentscope').setup({
   },
 })
 
-Config.new_autocmd('FileType', {
+Config.new_autocmd('mini-indent-disable', nil, 'FileType', {
   'NvimTree',
   'bigfile',
   'dashboard',

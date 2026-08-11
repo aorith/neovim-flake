@@ -12,8 +12,8 @@ _G.Config = {
 }
 
 -- Define custom autocommand group and helper to create an autocommand.
-local gr = vim.api.nvim_create_augroup('ao-custom-config', {})
-Config.new_autocmd = function(event, pattern, callback, desc)
+Config.new_autocmd = function(group_name, group_opts, event, pattern, callback, desc)
+  local gr = vim.api.nvim_create_augroup('aorith-' .. group_name, group_opts or {})
   local opts = { group = gr, pattern = pattern, callback = callback, desc = desc }
   vim.api.nvim_create_autocmd(event, opts)
 end
@@ -26,7 +26,7 @@ Config.on_packchanged = function(plugin_name, kinds, callback, desc)
     if not ev.data.active then vim.cmd.packadd(plugin_name) end
     callback(ev.data)
   end
-  Config.new_autocmd('PackChanged', '*', f, desc)
+  Config.new_autocmd('pack-changed', nil, 'PackChanged', '*', f, desc)
 end
 
 -- Define a custom function to run commands in a terminal.
@@ -147,7 +147,7 @@ local function on_bigfile(ev)
   vim.notify(('Big file detected `%s`.'):format(path))
 end
 
-Config.new_autocmd('FileType', 'bigfile', function(ev)
+Config.new_autocmd('bigfile', nil, 'FileType', 'bigfile', function(ev)
   vim.api.nvim_buf_call(
     ev.buf,
     function()
@@ -163,13 +163,20 @@ end, 'Bigfile')
 -- AUTOCOMMANDS
 -------------------------------------------------------------------------------
 -- Autoread on focus (required by tmux)
-Config.new_autocmd('FocusGained', nil, function() vim.cmd('checktime') end, 'Autoread on focus gained')
+Config.new_autocmd(
+  'autoread-focus',
+  nil,
+  'FocusGained',
+  nil,
+  function() vim.cmd('checktime') end,
+  'Autoread on focus gained'
+)
 
 -- Highlight on yank
-Config.new_autocmd('TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
+Config.new_autocmd('hl-yank', nil, 'TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
 
 -- close some filetypes with <q>
-Config.new_autocmd('FileType', {
+Config.new_autocmd('close-on-q', nil, 'FileType', {
   'git',
   'diff',
   'help',
@@ -187,6 +194,8 @@ end, "Close file with 'q'")
 -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'.
 -- Do on `FileType` to always override these changes from filetype plugins.
 Config.new_autocmd(
+  'no-auto-wrap',
+  nil,
   'FileType',
   nil,
   function() vim.cmd('setlocal formatoptions-=c formatoptions-=o') end,
@@ -194,7 +203,7 @@ Config.new_autocmd(
 )
 
 -- Theme overrides
-Config.new_autocmd('ColorScheme', nil, function()
+Config.new_autocmd('theme-overrides', nil, 'ColorScheme', nil, function()
   -- Ensure that mini.cursorword always highlights without using underline
   -- vim.api.nvim_set_hl(0, "MiniCursorWord", { link = "Visual" })
   -- vim.api.nvim_set_hl(0, "MiniCursorWordCurrent", { link = "Visual" })
