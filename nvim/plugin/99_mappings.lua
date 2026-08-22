@@ -1,212 +1,222 @@
-local map = vim.keymap.set
-
--- Create `<Leader>` mappings
-local nmap_leader = function(suffix, rhs, desc, opts)
-  opts = opts or {}
-  opts.desc = desc
-  vim.keymap.set('n', '<Leader>' .. suffix, rhs, opts)
-end
-local xmap_leader = function(suffix, rhs, desc, opts)
-  opts = opts or {}
-  opts.desc = desc
-  vim.keymap.set('x', '<Leader>' .. suffix, rhs, opts)
-end
-
 -- Copy to primary selection on select
-map('v', '<LeftRelease>', '"*ygv')
+Keymap({ '<LeftRelease>', '"*ygv', mode = 'v' })
 
 -- Misc
-map('n', 'x', '"_x', { desc = "Avoid 'x' copying to the register" })
-map('v', '<leader>y', '"+y', { desc = 'Copy to the system clipboard' })
-map('n', '<leader>y', '"+yy', { desc = 'Copy to the system clipboard' })
+Keymap({ 'x', '"_x', desc = "Avoid 'x' copying to the register" })
+Leadermap({ 'y', '"+y', mode = 'x', desc = 'Copy to the system clipboard' })
+Leadermap({ 'y', '"+yy', desc = 'Copy to the system clipboard' })
 
 -- Moves lines
-map('v', 'J', ":m '>+1<CR>gv=gv")
-map('v', 'K', ":m '<-2<CR>gv=gv")
+Keymap({ 'J', ":m '>+1<CR>gv=gv", mode = 'v' })
+Keymap({ 'K', ":m '<-2<CR>gv=gv", mode = 'v' })
 
 -- Navigate wrapped lines (but moves real lines with relative number jumps, eg: 5j)
-map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
-map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+Keymap({ 'j', "v:count == 0 ? 'gj' : 'j'", expr = true })
+Keymap({ 'k', "v:count == 0 ? 'gk' : 'k'", expr = true })
 
 -- Center view on search
-map('n', 'n', 'nzz')
-map('n', 'N', 'Nzz')
+Keymap({ 'n', 'nzz' })
+Keymap({ 'N', 'Nzz' })
 
 -- Move to window using the <ctrl> hjkl keys
-map('n', '<C-h>', '<C-w>h', { desc = 'Go to left window' })
-map('n', '<C-j>', '<C-w>j', { desc = 'Go to lower window' })
-map('n', '<C-k>', '<C-w>k', { desc = 'Go to upper window' })
-map('n', '<C-l>', '<C-w>l', { desc = 'Go to right window' })
+Keymap({ '<C-h>', '<C-w>h', desc = 'Go to left window' })
+Keymap({ '<C-j>', '<C-w>j', desc = 'Go to lower window' })
+Keymap({ '<C-k>', '<C-w>k', desc = 'Go to upper window' })
+Keymap({ '<C-l>', '<C-w>l', desc = 'Go to right window', unique = false })
 -- Resize window using <ctrl> arrow keys
-map('n', '<C-Up>', '<Cmd>resize +2<CR>', { desc = 'Increase window height' })
-map('n', '<C-Down>', '<Cmd>resize -2<CR>', { desc = 'Decrease window height' })
-map('n', '<C-Left>', '<Cmd>vertical resize -2<CR>', { desc = 'Decrease window width' })
-map('n', '<C-Right>', '<Cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
+Keymap({ '<C-Up>', '<Cmd>resize +2<CR>', desc = 'Increase window height' })
+Keymap({ '<C-Down>', '<Cmd>resize -2<CR>', desc = 'Decrease window height' })
+Keymap({ '<C-Left>', '<Cmd>vertical resize -2<CR>', desc = 'Decrease window width' })
+Keymap({ '<C-Right>', '<Cmd>vertical resize +2<CR>', desc = 'Increase window width' })
 
 -- Clear search with <esc>
-map({ 'i', 'n' }, '<esc>', '<Cmd>noh<CR><ESC>', { desc = 'Escape and clear hlsearch' })
+Keymap({ '<esc>', '<Cmd>noh<CR><ESC>', mode = { 'i', 'n' }, desc = 'Escape and clear hlsearch' })
 
 -- Don't reset indent on '#', see :h smartindent
-map('i', '#', 'X#')
+Keymap({ '#', 'X#', mode = 'i' })
 
-map('n', '<leader>xl', function() require('quicker').toggle({ loclist = true }) end, { desc = 'Location List' })
-map('n', '<leader>xq', require('quicker').toggle, { desc = 'Quickfix List' })
-map('n', '<leader>xd', vim.diagnostic.setqflist, { desc = 'Diagnostics to Quickfix' })
+Leadermap({ 'xl', function() require('quicker').toggle({ loclist = true }) end, desc = 'Location List' })
+Leadermap({ 'xq', require('quicker').toggle, desc = 'Quickfix List' })
+Leadermap({ 'xd', vim.diagnostic.setqflist, desc = 'Diagnostics to Quickfix' })
 
 -- buffers
-map('n', '<leader><TAB>', '<Cmd>bnext<CR>', { silent = true, desc = 'Next buffer' })
-map('n', '<leader>ba', '<Cmd>b#<CR>', { desc = 'Alternate buffer' })
-map('n', '<leader>bb', function()
-  local curbufnr = vim.api.nvim_get_current_buf()
-  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
-    if buf.bufnr ~= curbufnr and buf.loaded == 1 and buf.changed == 0 then vim.cmd('bd! ' .. buf.bufnr) end
-  end
-end, { desc = 'Close all other unmodified buffers' })
+Leadermap({ '<TAB>', '<Cmd>bnext<CR>', silent = true, desc = 'Next buffer' })
+Leadermap({ 'ba', '<Cmd>b#<CR>', desc = 'Alternate buffer' })
+Leadermap({
+  'bb',
+  function()
+    local curbufnr = vim.api.nvim_get_current_buf()
+    for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+      if buf.bufnr ~= curbufnr and buf.loaded == 1 and buf.changed == 0 then vim.cmd('bd! ' .. buf.bufnr) end
+    end
+  end,
+  desc = 'Close all other unmodified buffers',
+})
 
 -- windows
-map('n', '<leader>wc', '<C-W>c', { desc = 'Delete window' })
-map('n', '<leader>-', '<C-W>s', { desc = 'Split window below' })
-map('n', '<leader>|', '<C-W>v', { desc = 'Split window right' })
+Leadermap({ 'wc', '<C-W>c', desc = 'Delete window' })
+Leadermap({ '-', '<C-W>s', desc = 'Split window below' })
+Leadermap({ '|', '<C-W>v', desc = 'Split window right' })
 
 -- others
-map('', '<F1>', '<nop>') -- "" == map
-map('!', '<F1>', '<nop>') -- "!" == map!
+Keymap({ '<F1>', '<nop>', mode = '' }) -- "" == map
+Keymap({ '<F1>', '<nop>', mode = '!' }) -- "!" == map!
 vim.api.nvim_create_user_command('W', 'w', { bang = true })
 vim.api.nvim_create_user_command('Q', 'q', { bang = true })
 
 -- terminal
-map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Go to normal mode' })
+Keymap({ '<Esc>', '<C-\\><C-n>', mode = 't', desc = 'Go to normal mode' })
 
 -- quick fix
-map('n', '<leader>j', '<Cmd>cnext<CR>', { desc = 'Next item in QuickFix' })
-map('n', '<leader>k', '<Cmd>cprevious<CR>', { desc = 'Previous item in QuickFix' })
+Leadermap({ 'j', '<Cmd>cnext<CR>', desc = 'Next item in QuickFix' })
+Leadermap({ 'k', '<Cmd>cprevious<CR>', desc = 'Previous item in QuickFix' })
 
 -- diagnostics
-map('n', '<leader>ll', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
-map('n', '<leader>lq', vim.diagnostic.setloclist, { desc = 'Set Loc List' })
-map('n', '<leader>lj', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Next diagnostic' })
-map('n', '<leader>lk', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Prev diagnostic' })
+Leadermap({ 'll', vim.diagnostic.open_float, desc = 'Line diagnostics' })
+Leadermap({ 'lq', vim.diagnostic.setloclist, desc = 'Set Loc List' })
+Leadermap({ 'lj', function() vim.diagnostic.jump({ count = 1, float = true }) end, desc = 'Next diagnostic' })
+Leadermap({ 'lk', function() vim.diagnostic.jump({ count = -1, float = true }) end, desc = 'Prev diagnostic' })
 
-map('n', '<leader>ls', vim.lsp.buf.signature_help, { desc = 'Signature' })
+Leadermap({ 'ls', vim.lsp.buf.signature_help, desc = 'Signature' })
 
-nmap_leader('<leader>', function()
-  MiniPick.builtin.buffers({ include_current = false }, {
-    mappings = {
-      wipeout = {
-        char = '<C-d>',
-        func = function() vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {}) end,
+Leadermap({
+  '<leader>',
+  function()
+    MiniPick.builtin.buffers({ include_current = false }, {
+      mappings = {
+        wipeout = {
+          char = '<C-d>',
+          func = function() vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {}) end,
+        },
       },
-    },
-  })
-end, 'Buffers')
-nmap_leader('bm', "<Cmd>Pick marks scope='global'<CR>", 'Global Marks')
-nmap_leader('ff', '<Cmd>Pick files<CR>', 'Files')
-nmap_leader('fg', '<Cmd>Pick grep_live<CR>', 'Grep live')
-nmap_leader('fG', '<Cmd>Pick git_files<CR>', 'Git files')
-nmap_leader('fl', '<Cmd>Pick buf_lines scope="current"<CR>', 'Lines (current)')
-nmap_leader('fL', '<Cmd>Pick buf_lines scope="all"<CR>', 'Lines (all)')
-nmap_leader('fd', '<Cmd>Pick diagnostic scope="current"<CR>', 'Diagnostic buffer')
-nmap_leader('fD', '<Cmd>Pick diagnostic scope="all"<CR>', 'Diagnostic workspace')
-nmap_leader('fa', '<Cmd>Pick git_hunks scope="staged"<CR>', 'Added hunks (all)')
-nmap_leader('fA', '<Cmd>Pick git_hunks path="%" scope="staged"<CR>', 'Added hunks (buf)')
-nmap_leader('fm', '<Cmd>Pick git_hunks path="%:p" n_context=0<CR>', 'Modified hunks (current)')
-nmap_leader('fM', '<Cmd>Pick git_hunks<CR>', 'Modified hunks (all)')
-nmap_leader('fr', '<Cmd>Pick resume<CR>', 'Resume')
-nmap_leader('fR', '<Cmd>Pick lsp scope="references"<CR>', 'References (LSP)')
-nmap_leader('fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', 'Symbols buffer (LSP)')
-nmap_leader('fS', '<Cmd>Pick lsp scope="workspace_symbol"<CR>', 'Symbols workspace (LSP)')
-nmap_leader('fh', '<Cmd>Pick help<CR>', 'Help tags')
-nmap_leader('fH', '<Cmd>Pick hl_groups<CR>', 'Highlight groups')
-nmap_leader('fp', '<Cmd>Pick spellsuggest<CR>', 'Spell suggest')
-nmap_leader('fk', '<Cmd>Pick keymaps<CR>', 'Keymaps')
+    })
+  end,
+  desc = 'Buffers',
+})
+Leadermap({ 'bm', "<Cmd>Pick marks scope='global'<CR>", desc = 'Global Marks' })
+Leadermap({ 'ff', '<Cmd>Pick files<CR>', desc = 'Files' })
+Leadermap({ 'fg', '<Cmd>Pick grep_live<CR>', desc = 'Grep live' })
+Leadermap({ 'fG', '<Cmd>Pick git_files<CR>', desc = 'Git files' })
+Leadermap({ 'fl', '<Cmd>Pick buf_lines scope="current"<CR>', desc = 'Lines (current)' })
+Leadermap({ 'fL', '<Cmd>Pick buf_lines scope="all"<CR>', desc = 'Lines (all)' })
+Leadermap({ 'fd', '<Cmd>Pick diagnostic scope="current"<CR>', desc = 'Diagnostic buffer' })
+Leadermap({ 'fD', '<Cmd>Pick diagnostic scope="all"<CR>', desc = 'Diagnostic workspace' })
+Leadermap({ 'fa', '<Cmd>Pick git_hunks scope="staged"<CR>', desc = 'Added hunks (all)' })
+Leadermap({ 'fA', '<Cmd>Pick git_hunks path="%" scope="staged"<CR>', desc = 'Added hunks (buf)' })
+Leadermap({ 'fm', '<Cmd>Pick git_hunks path="%:p" n_context=0<CR>', desc = 'Modified hunks (current)' })
+Leadermap({ 'fM', '<Cmd>Pick git_hunks<CR>', desc = 'Modified hunks (all)' })
+Leadermap({ 'fr', '<Cmd>Pick resume<CR>', desc = 'Resume' })
+Leadermap({ 'fR', '<Cmd>Pick lsp scope="references"<CR>', desc = 'References (LSP)' })
+Leadermap({ 'fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', desc = 'Symbols buffer (LSP)' })
+Leadermap({ 'fS', '<Cmd>Pick lsp scope="workspace_symbol"<CR>', desc = 'Symbols workspace (LSP)' })
+Leadermap({ 'fh', '<Cmd>Pick help<CR>', desc = 'Help tags' })
+Leadermap({ 'fH', '<Cmd>Pick hl_groups<CR>', desc = 'Highlight groups' })
+Leadermap({ 'fp', '<Cmd>Pick spellsuggest<CR>', desc = 'Spell suggest' })
+Leadermap({ 'fk', '<Cmd>Pick keymaps<CR>', desc = 'Keymaps' })
 
 local git_log_cmd = [[Git log --pretty=format:\%h\ \%as\ │\ \%s --topo-order]]
 local git_reflog_cmd = [[Git log --abbrev-commit --walk-reflogs --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]] -- similar to 'git reflog'
 local git_graph_cmd = [[Git log --graph --all --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]]
-nmap_leader('gp', '<Cmd>Git log -p -- %:p<CR>', 'Git log -p <file>')
-nmap_leader('ga', '<Cmd>Git diff --cached -- %:p<CR>', 'Added diff buffer')
-nmap_leader('gA', '<Cmd>Git diff --cached<CR>', 'Added diff')
-nmap_leader('gd', '<Cmd>Git diff -- %:p<CR>', 'Diff buffer')
-nmap_leader('gD', '<Cmd>Git diff<CR>', 'Diff')
-nmap_leader('gb', '<Cmd>Git blame -- %:p<CR>', 'Blame buffer')
-nmap_leader('gl', '<Cmd>' .. git_log_cmd .. ' --follow -- %:p<CR>', 'Log buffer')
-nmap_leader('gL', '<Cmd>' .. git_log_cmd .. '<CR>', 'Log')
-nmap_leader('gr', '<Cmd>tab ' .. git_reflog_cmd .. '<CR>', 'Reflog')
-nmap_leader('gg', '<Cmd>tab ' .. git_graph_cmd .. '<CR>', 'Graph')
-nmap_leader('go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>', 'Toggle diff overlay')
-nmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at cursor')
-nmap_leader('gc', '<Cmd>Pick git_commits path="%:p"<CR>', '[Pick] Commits (current)')
-nmap_leader('gC', '<Cmd>Pick git_commits<CR>', '[Pick] Commits (all)')
+Leadermap({ 'gp', '<Cmd>Git log -p -- %:p<CR>', desc = 'Git log -p <file>' })
+Leadermap({ 'ga', '<Cmd>Git diff --cached -- %:p<CR>', desc = 'Added diff buffer' })
+Leadermap({ 'gA', '<Cmd>Git diff --cached<CR>', desc = 'Added diff' })
+Leadermap({ 'gd', '<Cmd>Git diff -- %:p<CR>', desc = 'Diff buffer' })
+Leadermap({ 'gD', '<Cmd>Git diff<CR>', desc = 'Diff' })
+Leadermap({ 'gb', '<Cmd>Git blame -- %:p<CR>', desc = 'Blame buffer' })
+Leadermap({ 'gl', '<Cmd>' .. git_log_cmd .. ' --follow -- %:p<CR>', desc = 'Log buffer' })
+Leadermap({ 'gL', '<Cmd>' .. git_log_cmd .. '<CR>', desc = 'Log' })
+Leadermap({ 'gr', '<Cmd>tab ' .. git_reflog_cmd .. '<CR>', desc = 'Reflog' })
+Leadermap({ 'gg', '<Cmd>tab ' .. git_graph_cmd .. '<CR>', desc = 'Graph' })
+Leadermap({ 'go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>', desc = 'Toggle diff overlay' })
+Leadermap({ 'gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', desc = 'Show at cursor' })
+Leadermap({ 'gc', '<Cmd>Pick git_commits path="%:p"<CR>', desc = '[Pick] Commits (current)' })
+Leadermap({ 'gC', '<Cmd>Pick git_commits<CR>', desc = '[Pick] Commits (all)' })
 
-xmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at selection') -- Show at cursor already gives info from show_range_history
-xmap_leader(
+-- Show at cursor already gives info from show_range_history
+Leadermap({ 'gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', mode = 'x', desc = 'Show at selection' })
+Leadermap({
   'gb',
   function() vim.cmd('Git log -L ' .. vim.fn.line("'<") .. ',' .. vim.fn.line("'>") .. ':' .. vim.fn.expand('%:p')) end,
-  'Blame selection'
-)
+  mode = 'x',
+  desc = 'Blame selection',
+})
 
 -- LSP
-map('n', 'grd', vim.lsp.buf.definition, { desc = 'Definitions' }) -- 'gd' is 'definition in function'
-map('n', 'grD', vim.lsp.buf.declaration, { desc = 'Declaration' }) -- 'gD' is 'definition in file'
+Keymap({ 'grd', vim.lsp.buf.definition, desc = 'Definitions' }) -- 'gd' is 'definition in function'
+Keymap({ 'grD', vim.lsp.buf.declaration, desc = 'Declaration' }) -- 'gD' is 'definition in file'
 --- 'gi' by default is mapped to 'Start Insert where it stopped', so better not remap that
 --- 'gra'/'gri'/'grn'/'grr'/'grt'/'gO' are default as of nvim 0.11, see :h lsp-defaults
 
 -- Formatting
-nmap_leader('lf', function() require('conform').format() end, 'Format buffer')
-xmap_leader('lf', function() require('conform').format() end, 'Format buffer')
+Leadermap({ 'lf', function() require('conform').format() end, mode = { 'n', 'x' }, desc = 'Format buffer' })
 
 -- Outline
-nmap_leader('lo', '<Cmd>Outline<CR>', 'Toggle Outline')
+Leadermap({ 'lo', '<Cmd>Outline<CR>', desc = 'Toggle Outline' })
 
 -- Oil (add --preview to open with preview enabled directly, but it is distracting, rather toggle it with C-p)
-map('n', '-', '<Cmd>Oil<CR>', { desc = 'Open parent directory' })
+Keymap({ '-', '<Cmd>Oil<CR>', desc = 'Open parent directory' })
 
 -- Undotree
-nmap_leader('u', function()
-  vim.cmd('packadd nvim.undotree')
-  require('undotree').open({ command = 'leftabove 32vnew' })
-end, 'Undotree')
+Leadermap({
+  'u',
+  function()
+    vim.cmd('packadd nvim.undotree')
+    require('undotree').open({ command = 'leftabove 32vnew' })
+  end,
+  desc = 'Undotree',
+})
 
 -- Toggles
-nmap_leader('tc', '<Cmd>setlocal cursorline! cursorline?<CR>', 'Toggle cursorline')
-nmap_leader('tC', '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>', 'Toggle cursorcolumn')
-nmap_leader('td', function()
-  local is_enabled = vim.diagnostic.is_enabled({ bufnr = 0 })
-  vim.diagnostic.enable(not is_enabled, { bufnr = 0 })
-  print(is_enabled and 'nodiagnostic' or '  diagnostic')
-end, 'Toggle diagnostic')
-nmap_leader('tl', '<Cmd>setlocal list! list?<CR>', 'Toggle list')
-nmap_leader('tn', '<Cmd>setlocal number! number?<CR>', 'Toggle number')
-nmap_leader('tr', '<Cmd>setlocal relativenumber! relativenumber?<CR>', 'Toggle relativenumber')
-nmap_leader('ts', '<Cmd>setlocal spell! spell?<CR>', 'Toggle spell')
-nmap_leader('tw', '<Cmd>setlocal wrap! wrap?<CR>', 'Toggle wrap')
-nmap_leader('tx', function()
-  local ctx = require('treesitter-context')
-  ctx.toggle()
-  print(ctx.enabled() and '  tscontext' or 'notscontext')
-end, 'Toggle context')
+Leadermap({ 'tc', '<Cmd>setlocal cursorline! cursorline?<CR>', desc = 'Toggle cursorline' })
+Leadermap({ 'tC', '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>', desc = 'Toggle cursorcolumn' })
+Leadermap({
+  'td',
+  function()
+    local is_enabled = vim.diagnostic.is_enabled({ bufnr = 0 })
+    vim.diagnostic.enable(not is_enabled, { bufnr = 0 })
+    print(is_enabled and 'nodiagnostic' or '  diagnostic')
+  end,
+  desc = 'Toggle diagnostic',
+})
+Leadermap({ 'tl', '<Cmd>setlocal list! list?<CR>', desc = 'Toggle list' })
+Leadermap({ 'tn', '<Cmd>setlocal number! number?<CR>', desc = 'Toggle number' })
+Leadermap({ 'tr', '<Cmd>setlocal relativenumber! relativenumber?<CR>', desc = 'Toggle relativenumber' })
+Leadermap({ 'ts', '<Cmd>setlocal spell! spell?<CR>', desc = 'Toggle spell' })
+Leadermap({ 'tw', '<Cmd>setlocal wrap! wrap?<CR>', desc = 'Toggle wrap' })
+Leadermap({
+  'tx',
+  function()
+    local ctx = require('treesitter-context')
+    ctx.toggle()
+    print(ctx.enabled() and '  tscontext' or 'notscontext')
+  end,
+  desc = 'Toggle context',
+})
 
 -- Misc
-nmap_leader('q', function() require('mini.bufremove').delete() end, 'Delete current buffer')
-nmap_leader('z', function() require('mini.misc').zoom() end, 'Zoom window')
+Leadermap({ 'q', function() require('mini.bufremove').delete() end, desc = 'Delete current buffer' })
+Leadermap({ 'z', function() require('mini.misc').zoom() end, desc = 'Zoom window' })
 
 -- 'Harpoon' with :args
-nmap_leader('ha', '<Cmd>argadd %<Bar>argdedupe<Bar>args<CR>', 'Add current buffer to the arglist')
-nmap_leader('hd', '<Cmd>argdelete %<Bar>argdedupe<Bar>args<CR>', 'Delete current buffer to the arglist')
-nmap_leader('hc', '<Cmd>%argdelete<Bar>args<CR><C-L>', 'Clear all buffer args')
-nmap_leader('hs', function() vim.notify('Buffer args:\n' .. vim.inspect(vim.fn.argv())) end, 'Show current buffer args')
+Leadermap({ 'ha', '<Cmd>argadd %<Bar>argdedupe<Bar>args<CR>', desc = 'Add current buffer to the arglist' })
+Leadermap({ 'hd', '<Cmd>argdelete %<Bar>argdedupe<Bar>args<CR>', desc = 'Delete current buffer to the arglist' })
+Leadermap({ 'hc', '<Cmd>%argdelete<Bar>args<CR><C-L>', desc = 'Clear all buffer args' })
 for i = 1, 9 do
-  nmap_leader(i, '<Cmd>' .. i .. 'argument<CR>', 'Goto arg buffer ' .. i)
+  Leadermap({ tostring(i), '<Cmd>' .. i .. 'argument<CR>', desc = 'Goto arg buffer ' .. i })
 end
-nmap_leader('hf', '<Cmd>Pick harpoon<CR>', 'Pick')
+Leadermap({ 'hf', '<Cmd>Pick harpoon<CR>', desc = 'Pick' })
 
 -- Run cmd in terminal (overridden in some filetypes)
-nmap_leader('e', '<Cmd>Term<CR>', 'Run cmd in a terminal')
+Leadermap({ 'e', '<Cmd>Term<CR>', desc = 'Run cmd in a terminal' })
 
 -- Notes
-nmap_leader('nn', function()
-  vim.fn.chdir(Config.notes_dir)
-  require('oil').open(nil, { preview = {} })
-end, 'Notes')
-nmap_leader('nf', '<Cmd>Pick notes<CR>', 'Notes Find')
-nmap_leader('ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')
+Leadermap({
+  'nn',
+  function()
+    vim.fn.chdir(Config.notes_dir)
+    require('oil').open(nil, { preview = {} })
+  end,
+  desc = 'Notes',
+})
+Leadermap({ 'nf', '<Cmd>Pick notes<CR>', desc = 'Notes Find' })
+Leadermap({ 'ng', '<Cmd>Pick notes_grep<CR>', desc = 'Notes Grep' })

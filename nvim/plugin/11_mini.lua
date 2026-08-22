@@ -17,6 +17,9 @@ require('mini.icons').tweak_lsp_kind()
 require('mini.ai').setup() -- Enables 'ciq' (change inside quotes) or 'cib' (change inside brackets), etc.
 require('mini.bufremove').setup()
 
+-- [b/]b buffer, [q/]q quickfix, [d/]d diagnostic, [w/]w window, [y/]y yank, etc. See `:h mini.bracketed`
+require('mini.bracketed').setup()
+
 -- sa => surround around
 -- sd => surround delete
 -- sr => surround replace
@@ -102,7 +105,7 @@ require('mini.completion').setup({
   },
 })
 
-Config.new_autocmd('mini-completion-lsp', nil, 'LspAttach', nil, function(args)
+NewAutocmd('mini-completion-lsp', nil, 'LspAttach', nil, function(args)
   vim.bo[args.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
 
   local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -138,7 +141,7 @@ local make_stop = function()
   end
   vim.api.nvim_create_autocmd('ModeChanged', au_opts)
 end
-Config.new_autocmd(
+NewAutocmd(
   'mini-snippet-stop',
   nil,
   'User',
@@ -166,7 +169,7 @@ local align_blame = function(au_data)
   vim.wo[win_src].scrollbind, vim.wo.scrollbind = true, true
 end
 
-Config.new_autocmd('mini-git-align-blame', nil, 'User', 'MiniGitCommandSplit', align_blame)
+NewAutocmd('mini-git-align-blame', nil, 'User', 'MiniGitCommandSplit', align_blame)
 
 -------------------------------------------------------------------------------
 -- Mini hipatterns
@@ -196,7 +199,7 @@ require('mini.indentscope').setup({
   },
 })
 
-Config.new_autocmd('mini-indent-disable', nil, 'FileType', {
+NewAutocmd('mini-indent-disable', nil, 'FileType', {
   'NvimTree',
   'bigfile',
   'dashboard',

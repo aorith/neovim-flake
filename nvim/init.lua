@@ -1,6 +1,8 @@
 -------------------------------------------------------------------------------
 -- GLOBALS
 -------------------------------------------------------------------------------
+require('config.utils')
+
 _G.Config = {
   nvim_appname = vim.env.NVIM_APPNAME or 'nvim',
   notes_dir = vim.env.HOME .. '/Syncthing/SYNC_STUFF/notes/md',
@@ -11,39 +13,9 @@ _G.Config = {
   gopls = { goimports_args = nil },
 }
 
--- Define custom autocommand group and helper to create an autocommand.
-Config.new_autocmd = function(group_name, group_opts, event, pattern, callback, desc)
-  local gr = vim.api.nvim_create_augroup('aorith-' .. group_name, group_opts or {})
-  local opts = { group = gr, pattern = pattern, callback = callback, desc = desc }
-  vim.api.nvim_create_autocmd(event, opts)
-end
-
--- Define custom `vim.pack.add()` hook helper. See `:h vim.pack-events`.
-Config.on_packchanged = function(plugin_name, kinds, callback, desc)
-  local f = function(ev)
-    local name, kind = ev.data.spec.name, ev.data.kind
-    if not (name == plugin_name and vim.tbl_contains(kinds, kind)) then return end
-    if not ev.data.active then vim.cmd.packadd(plugin_name) end
-    callback(ev.data)
-  end
-  Config.new_autocmd('pack-changed', nil, 'PackChanged', '*', f, desc)
-end
-
--- Define a custom function to run commands in a terminal.
-Config.run_in_terminal = function(cmd)
-  if cmd == nil or cmd == '' then
-    vim.ui.input({ prompt = 'Command to run: ' }, function(input)
-      if input and input ~= '' then Config.run_in_terminal(input) end
-    end)
-    return
-  end
-
-  vim.cmd('terminal ' .. cmd)
-end
-
 vim.api.nvim_create_user_command(
   'Term',
-  function(opts) Config.run_in_terminal(opts.args ~= '' and opts.args or nil) end,
+  function(opts) RunInTerminal(opts.args ~= '' and opts.args or nil) end,
   { nargs = '?', desc = 'Run command in a terminal' }
 )
 
@@ -97,14 +69,18 @@ vim.o.expandtab     = true     -- Convert tabs to spaces
 vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
 vim.o.ignorecase    = true     -- Ignore case when searching (use `\C` to force not doing that)
 vim.o.infercase     = true     -- Infer case in built-in completion
+vim.o.shiftround    = true     -- Round indent to a multiple of 'shiftwidth'
 vim.o.shiftwidth    = 4        -- Use this number of spaces for indentation
 vim.o.smartcase     = true     -- Don't ignore case when searching if pattern has upper case
 vim.o.smartindent   = true     -- Make indenting smart
+vim.o.smoothscroll  = true     -- Scroll by screen line, not buffer line, when 'wrap' is set
 vim.o.tabstop       = 4        -- Default tab size
 vim.o.softtabstop   = -1       -- Copy shiftwidth value
 vim.o.virtualedit   = 'block'  -- Allow going past the end of line in visual block mode
 vim.o.confirm       = true     -- Confirm on exit unsaved changes
 vim.o.inccommand    = 'split'  -- Show changes in a split while running an :%s/aa/bb command
+vim.o.undolevels    = 10000    -- Increase default undo history size (default 1000)
+vim.o.updatetime    = 200      -- Faster CursorHold / swap-file write (default 4000ms)
 
 vim.o.grepformat    = '%f:%l:%c:%m'               -- Ripgrep format
 vim.o.grepprg       = 'rg --vimgrep --smart-case' -- Configure grep to use ripgrep
@@ -147,7 +123,7 @@ local function on_bigfile(ev)
   vim.notify(('Big file detected `%s`.'):format(path))
 end
 
-Config.new_autocmd('bigfile', nil, 'FileType', 'bigfile', function(ev)
+NewAutocmd('bigfile', nil, 'FileType', 'bigfile', function(ev)
   vim.api.nvim_buf_call(
     ev.buf,
     function()
@@ -162,21 +138,23 @@ end, 'Bigfile')
 -------------------------------------------------------------------------------
 -- AUTOCOMMANDS
 -------------------------------------------------------------------------------
--- Autoread on focus (required by tmux)
-Config.new_autocmd(
-  'autoread-focus',
-  nil,
-  'FocusGained',
-  nil,
-  function() vim.cmd('checktime') end,
-  'Autoread on focus gained'
-)
+-- Autoread on focus/terminal events (required by tmux); skip scratch buffers
+NewAutocmd('autoread-focus', nil, { 'FocusGained', 'TermClose', 'TermLeave' }, nil, function()
+  if vim.bo.buftype ~= 'nofile' then vim.cmd('checktime') end
+end, 'Autoread on focus/terminal events')
 
 -- Highlight on yank
-Config.new_autocmd('hl-yank', nil, 'TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
+NewAutocmd('hl-yank', nil, 'TextYankPost', nil, function() vim.hl.on_yank() end, 'Highlight on yank')
+
+-- Re-equalize splits when the terminal is resized
+NewAutocmd('resize-splits', nil, 'VimResized', nil, function()
+  local current_tab = vim.fn.tabpagenr()
+  vim.cmd('tabdo wincmd =')
+  vim.cmd('tabnext ' .. current_tab)
+end, 'Equalize splits on resize')
 
 -- close some filetypes with <q>
-Config.new_autocmd('close-on-q', nil, 'FileType', {
+NewAutocmd('close-on-q', nil, 'FileType', {
   'git',
   'diff',
   'help',
@@ -188,12 +166,12 @@ Config.new_autocmd('close-on-q', nil, 'FileType', {
   'nvim-undotree',
 }, function(event)
   vim.bo[event.buf].buflisted = false
-  vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
+  Bufmap({ 'q', '<cmd>close<cr>', silent = true })
 end, "Close file with 'q'")
 
 -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'.
 -- Do on `FileType` to always override these changes from filetype plugins.
-Config.new_autocmd(
+NewAutocmd(
   'no-auto-wrap',
   nil,
   'FileType',
@@ -203,14 +181,14 @@ Config.new_autocmd(
 )
 
 -- Theme overrides
-Config.new_autocmd('theme-overrides', nil, 'ColorScheme', nil, function()
+NewAutocmd('theme-overrides', nil, 'ColorScheme', nil, function()
   -- Ensure that mini.cursorword always highlights without using underline
   -- vim.api.nvim_set_hl(0, "MiniCursorWord", { link = "Visual" })
   -- vim.api.nvim_set_hl(0, "MiniCursorWordCurrent", { link = "Visual" })
 
   -- Transparency
-  vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-  vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+  -- vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
   -- vim.api.nvim_set_hl(0, 'MiniPickNormal', { bg = 'none' })
   -- vim.api.nvim_set_hl(0, 'MiniFilesNormal', { bg = 'none' })
 

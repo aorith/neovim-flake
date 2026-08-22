@@ -17,4 +17,4 @@ local function yaml_to_json_buffer()
   vim.cmd('vnew | set ft=json | r ! yq -o json #')
 end
 vim.api.nvim_create_user_command('YamlToJson', yaml_to_json_buffer, {})
-vim.keymap.set('n', '<localleader>j', '<cmd>YamlToJson<cr>', { buffer = 0, desc = 'YAML to JSON' })
+Bufmap({ '<localleader>j', '<cmd>YamlToJson<cr>', desc = 'YAML to JSON' })

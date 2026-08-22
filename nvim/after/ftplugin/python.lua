@@ -3,9 +3,8 @@
 vim.bo.shiftwidth = 4
 vim.bo.expandtab = true
 
-vim.keymap.set(
-  'n',
+Bufmap({
   '<Leader>e',
   "<Cmd>silent w | Term sh -c 'if command -v python; then python %; else python3 %; fi'<CR>",
-  { buffer = 0, desc = 'Run this file with Python' }
-)
+  desc = 'Run this file with Python',
+})

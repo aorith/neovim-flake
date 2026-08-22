@@ -10,8 +10,7 @@ vim.wo[winid][0].breakindent = true
 vim.wo[winid][0].conceallevel = 0
 vim.wo[winid][0].wrap = true
 
-vim.keymap.set(
-  'n',
+Bufmap({
   '<Leader>e',
   "<Cmd>silent w | silent Term sh -c 'pandoc -s --embed-resources --toc --syntax-highlighting kate -f markdown -t html5 -o /tmp/.output.html % -c "
     .. vim.env.XDG_CONFIG_HOME
@@ -19,8 +18,8 @@ vim.keymap.set(
     .. Config.nvim_appname
     .. "/extra/pandoc.css && open /tmp/.output.html'"
     .. '<CR>',
-  { buffer = 0, desc = 'Convert to HTML and open in a Browser' }
-)
+  desc = 'Convert to HTML and open in a Browser',
+})
 
 ---@diagnostic disable-next-line: inject-field
 vim.b.minihipatterns_config = {
@@ -60,7 +59,7 @@ local function markdown_todo_toggle()
   end
 end
 
-vim.keymap.set('n', '<TAB>', ']]', { remap = true, desc = 'Next header ' })
-vim.keymap.set('n', '<S-TAB>', '[[', { remap = true, desc = 'Previous header' })
-vim.keymap.set('n', '<LocalLeader>c', markdown_insert_codeblock, { desc = 'Insert code block' })
-vim.keymap.set('n', 'tt', markdown_todo_toggle, { desc = 'Toggle checkbox' })
+Bufmap({ '<TAB>', ']]', remap = true, desc = 'Next header ' })
+Bufmap({ '<S-TAB>', '[[', remap = true, desc = 'Previous header' })
+Bufmap({ '<LocalLeader>c', markdown_insert_codeblock, desc = 'Insert code block' })
+Bufmap({ 'tt', markdown_todo_toggle, desc = 'Toggle checkbox' })

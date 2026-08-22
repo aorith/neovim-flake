@@ -69,7 +69,7 @@ local function disable_treesitter_features(ev)
 end
 
 if not Config.on_nix then
-  Config.on_packchanged('nvim-treesitter', { 'update' }, function() vim.cmd('TSUpdate') end, ':TSUpdate')
+  OnPackChanged('nvim-treesitter', { 'update' }, function() vim.cmd('TSUpdate') end, ':TSUpdate')
 
   -- Install missing parsers
   local isnt_installed = function(lang) return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0 end
@@ -93,7 +93,7 @@ for _, lang in ipairs(languages) do
   end
 end
 
-Config.new_autocmd('ts-disable', nil, 'FileType', filetypes, function(ev)
+NewAutocmd('ts-disable', nil, 'FileType', filetypes, function(ev)
   if disable_treesitter_features(ev) then
     vim.notify('treesitter disabled for ' .. ev.file, vim.log.levels.DEBUG)
     return
@@ -200,7 +200,7 @@ lint.linters_by_ft = {
   cue = { 'cue' },
 }
 
-Config.new_autocmd('lint', nil, { 'BufReadPost', 'BufWritePost', 'InsertLeave' }, nil, function()
+NewAutocmd('lint', nil, { 'BufReadPost', 'BufWritePost', 'InsertLeave' }, nil, function()
   if vim.bo.filetype ~= 'bigfile' then
     lint.try_lint()
     --   lint.try_lint('typos') -- run typos on all file types

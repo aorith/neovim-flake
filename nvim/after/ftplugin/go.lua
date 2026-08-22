@@ -4,4 +4,4 @@ vim.bo.expandtab = false
 
 vim.b.miniindentscope_disable = true
 
-vim.keymap.set('n', '<Leader>e', '<Cmd>silent w | Term go run %<CR>', { buffer = 0, desc = 'Run this file with Go' })
+Bufmap({ '<Leader>e', '<Cmd>silent w | Term go run %<CR>', desc = 'Run this file with Go' })

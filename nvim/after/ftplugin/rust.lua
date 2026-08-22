@@ -1,1 +1,1 @@
-vim.keymap.set('n', '<Leader>e', '<Cmd>silent w | Term cargo run<CR>', { buffer = 0, desc = 'Run with cargo' })
+Bufmap({ '<Leader>e', '<Cmd>silent w | Term cargo run<CR>', desc = 'Run with cargo' })
