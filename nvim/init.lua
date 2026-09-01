@@ -35,6 +35,9 @@ vim.g.loaded_zipPlugin = 1
 -- Set LSP log level
 vim.lsp.log.set_level(vim.log.levels.ERROR)
 
+-- Force OSC52 even on ssh+tmux
+vim.g.clipboard = 'osc52'
+
 --stylua: ignore start
 -- UI -------------------------------------------------------------------------
 vim.o.breakindent    = true         -- Indent wrapped lines to match line start
