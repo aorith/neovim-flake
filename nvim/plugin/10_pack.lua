@@ -6,7 +6,6 @@ vim.pack.add({
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/stevearc/conform.nvim' },
   { src = 'https://github.com/mfussenegger/nvim-lint' },
-  { src = 'https://github.com/hedyhli/outline.nvim' },
   { src = 'https://github.com/stevearc/quicker.nvim' },
   { src = 'https://github.com/stevearc/oil.nvim' },
 })
@@ -19,4 +18,4 @@ if not Config.on_nix then
   })
 end
 
-vim.cmd.colorscheme('randomhue')
+vim.cmd.colorscheme('miniwinter')

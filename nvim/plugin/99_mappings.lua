@@ -150,9 +150,6 @@ Keymap({ 'grD', vim.lsp.buf.declaration, desc = 'Declaration' }) -- 'gD' is 'def
 -- Formatting
 Leadermap({ 'lf', function() require('conform').format() end, mode = { 'n', 'x' }, desc = 'Format buffer' })
 
--- Outline
-Leadermap({ 'lo', '<Cmd>Outline<CR>', desc = 'Toggle Outline' })
-
 -- Oil (add --preview to open with preview enabled directly, but it is distracting, rather toggle it with C-p)
 Keymap({ '-', '<Cmd>Oil<CR>', desc = 'Open parent directory' })
 

@@ -2,22 +2,12 @@
 -- Core
 -------------------------------------------------------------------------------
 require('mini.tabline').setup()
-
--- require('mini.statuscolumn').setup()
-
-local statuscolumn = require('mini.statuscolumn')
-require('mini.statuscolumn').setup({
-  content = statuscolumn.gen_content.main({
-    -- { format = 's=l=f', sep = ' ' },
-    { format = 's=l=f', sep = '│' },
-    -- { format = '=lfs', sep = '▏' },
-    { ltype = 'virt', lnum = '•' },
-    { ltype = 'wrap', lnum = '↳' },
-    { win = 'inactive', sep = ' ' },
-  }),
+require('mini.statuscolumn').setup()
+require('mini.cmdline').setup({
+  autocomplete = { delay = 300 },
+  autocorrect = { enable = false },
+  autopeek = { enable = false },
 })
-
-require('mini.cmdline').setup({ autocomplete = { delay = 300 }, autocorrect = { enable = false } })
 require('mini.extra').setup()
 require('mini.diff').setup({ view = { style = 'sign' } })
 require('mini.misc').setup({
