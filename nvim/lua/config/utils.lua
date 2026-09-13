@@ -105,3 +105,9 @@ _G.RunInTerminal = function(cmd)
 
   vim.cmd('terminal ' .. cmd)
 end
+
+vim.api.nvim_create_user_command(
+  'Term',
+  function(opts) RunInTerminal(opts.args ~= '' and opts.args or nil) end,
+  { nargs = '?', desc = 'Run command in a terminal' }
+)

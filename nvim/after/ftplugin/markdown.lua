@@ -9,16 +9,48 @@ vim.wo[winid][0].breakindent = true
 vim.wo[winid][0].conceallevel = 0
 vim.wo[winid][0].wrap = true
 
-Bufmap({
-  '<Leader>e',
-  "<Cmd>silent w | silent Term sh -c 'pandoc -s --embed-resources --toc --syntax-highlighting kate -f markdown -t html5 -o /tmp/.output.html % -c "
-    .. vim.env.XDG_CONFIG_HOME
-    .. '/'
-    .. Config.nvim_appname
-    .. "/extra/pandoc.css && open /tmp/.output.html'"
-    .. '<CR>',
-  desc = 'Convert to HTML and open in a Browser',
-})
+-- Check if pandoc supports --math-method=mathml
+local math_flag = nil
+local function pandoc_math_flag()
+  if math_flag == nil then
+    local help = vim.system({ 'pandoc', '--help' }, { text = true }):wait()
+    math_flag = help.stdout:find('--math-method', 1, true) and '--math-method=mathml' or '--mathml'
+  end
+  return math_flag
+end
+
+local function render_with_pandoc()
+  local extra = ('%s/%s/extra'):format(vim.env.XDG_CONFIG_HOME or (vim.env.HOME .. '/.config'), Config.nvim_appname)
+  local out = vim.fs.joinpath(vim.fn.stdpath('cache'), 'pandoc-preview.html')
+
+  vim.cmd('silent write')
+  vim.system({
+    'pandoc',
+    '--standalone',
+    '--embed-resources', -- inline images/css, so the file stands on its own
+    '--toc',
+    '--toc-depth=3',
+    '--syntax-highlighting=kate', -- token colors are overridden in 'pandoc.css'
+    pandoc_math_flag(),
+    '--from=markdown',
+    '--to=html5',
+    '--css=' .. extra .. '/pandoc.css',
+    '--include-in-header=' .. extra .. '/pandoc-header.html', -- mermaid & co.
+    '--output=' .. out,
+    vim.api.nvim_buf_get_name(0),
+  }, { text = true }, function(res)
+    vim.schedule(function()
+      if res.code ~= 0 then
+        vim.notify('pandoc: ' .. (res.stderr ~= '' and res.stderr or res.stdout), vim.log.levels.ERROR)
+        return
+      end
+      if res.stderr ~= '' then vim.notify('pandoc: ' .. res.stderr, vim.log.levels.WARN) end
+      vim.ui.open(out) -- picks xdg-open/open/wslview for the platform
+    end)
+  end)
+end
+
+Bufmap({ '<Leader>e', render_with_pandoc, desc = 'Convert to HTML and open in a Browser' })
 
 ---@diagnostic disable-next-line: inject-field
 vim.b.minihipatterns_config = {

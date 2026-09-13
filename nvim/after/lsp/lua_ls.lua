@@ -5,16 +5,18 @@ return {
     client.server_capabilities.documentRangeFormattingProvider = nil
   end,
 
-  on_attach = function(client, buf_id)
+  on_attach = function(client)
     -- Reduce very long list of triggers for better 'mini.completion' experience
-    client.server_capabilities.completionProvider.triggerCharacters = { '.', ':', '#', '(' }
+    local completion = client.server_capabilities.completionProvider
+    if completion then completion.triggerCharacters = { '.', ':', '#', '(' } end
   end,
 
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT' },
       workspace = {
-        library = { vim.env.VIMRUNTIME },
+        -- Every 'lua/' directory in 'runtimepath', so plugin APIs resolve instead of showing up as undefined
+        library = vim.api.nvim_get_runtime_file('lua', true),
         -- ignoreSubmodules = true,
         checkThirdParty = false,
       },

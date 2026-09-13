@@ -1,21 +1,31 @@
 {
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
   "Lua.workspace.checkThirdParty": false,
-  "diagnostics": {
-    "globals": [
-      "vim",
-      "MiniBufremove",
-      "MiniCompletion",
-      "MiniDeps",
-      "MiniDiff",
-      "MiniFiles",
-      "MiniGit",
-      "MiniKeymap",
-      "MiniMisc",
-      "MiniPick",
-      "MiniSnippets",
-      "MiniStatusline",
-      "MiniVisits"
-    ]
-  }
+  "Lua.diagnostics.globals": [
+    "vim",
+    "Config",
+    "Keymap",
+    "Bufmap",
+    "Leadermap",
+    "NewAutocmd",
+    "OnPackChanged",
+    "RunInTerminal",
+    "MiniAi",
+    "MiniBracketed",
+    "MiniBufremove",
+    "MiniClue",
+    "MiniCmdline",
+    "MiniCompletion",
+    "MiniDiff",
+    "MiniExtra",
+    "MiniGit",
+    "MiniHipatterns",
+    "MiniIcons",
+    "MiniIndentscope",
+    "MiniKeymap",
+    "MiniMisc",
+    "MiniNotify",
+    "MiniPick",
+    "MiniSurround"
+  ]
 }
