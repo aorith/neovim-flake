@@ -15,8 +15,12 @@ return {
     Lua = {
       runtime = { version = 'LuaJIT' },
       workspace = {
-        -- Every 'lua/' directory in 'runtimepath', so plugin APIs resolve instead of showing up as undefined
-        library = vim.api.nvim_get_runtime_file('lua', true),
+        -- Every 'lua/' directory in 'runtimepath', so plugin APIs resolve instead of showing up as undefined.
+        -- Excludes 'config' dir to avoid double counting it.
+        library = vim.tbl_filter(
+          function(path) return vim.uv.fs_realpath(path) ~= vim.uv.fs_realpath(vim.fn.stdpath('config') .. '/lua') end,
+          vim.api.nvim_get_runtime_file('lua', true)
+        ),
         -- ignoreSubmodules = true,
         checkThirdParty = false,
       },

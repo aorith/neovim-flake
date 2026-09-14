@@ -1,68 +1,62 @@
----@class MyConfig.Keymap : vim.keymap.set.Opts
----@field [1] string -- lhs
----@field [2] string|function -- rhs
----@field mode? string|string[] -- defaults to "n"
----@field ft? string|string[] -- set keymap only for these filetypes
+_G.Keys = {}
 
----Warn when there are conflicting keymaps & use API similar to lazy.nvim keymaps
----@param map MyConfig.Keymap
-_G.Keymap = function(map)
-  local mode = map.mode or 'n'
-  local lhs, rhs = map[1], map[2]
-  local opts = vim.deepcopy(map)
-  opts.ft, opts.mode, opts[1], opts[2] = nil, nil, nil, nil
+-- NOTE on 'noremap', use it always to avoid recursive mappings, which are only required in rare
+-- occasions like chaining to another mapping (e.g. a <Plug> mapping).
+-- The following mappings:
+--   nnoremap x dd
+--   nmap y x
+--   nnoremap z x
+-- Make 'y' check the mapping of 'x' which is 'dd', so 'y' deletes a line
+-- In the case of 'z' it is a noremap so it uses the builtin x mapping (delete char)
 
-  local caller = debug.getinfo(2, 'Sl') -- S: source, l: currentline
-  local source = vim.fs.basename(caller.source) .. ':' .. caller.currentline
+--- Sets a keymap with `noremap` and `silent` enabled by default.
+---
+--- @param mode string|string[] Mode(s) in which the keymap applies (e.g. "n", {"n", "v"})
+--- @param lhs string The key sequence to map (e.g. "K")
+--- @param rhs function|string The command or function to execute
+--- @param desc string Description shown in mini.clue/which-key and hover docs
+--- @param opts vim.keymap.set.Opts? Optional override vim.keymap.set options
+Keys.map = function(mode, lhs, rhs, desc, opts)
+  -- violating `unique=true` throws and error and allows to catch duplicate keymaps
+  -- set to false if the keymap is buffer only since those are supposed to overwrite global ones.
+  local unique = opts == nil or opts.buf == nil
 
-  if map[3] then
-    vim.defer_fn(function()
-      local msg = ('%s  **%s**'):format(lhs, source)
-      vim.notify(msg, vim.log.levels.WARN, { title = 'Keymap with 3 args', timeout = false })
-    end, 1000)
-    return
-  end
+  local success, _ = pcall(
+    vim.keymap.set,
+    mode,
+    lhs,
+    rhs,
+    vim.tbl_extend('force', { noremap = true, silent = true, unique = unique }, opts or {}, { desc = desc or nil })
+  )
+  if success then return end
 
-  if not map.ft then
-    -- GLOBAL keymap
-    -- 1. allow to disable with `unique=false` to overwrite nvim defaults
-    -- 2. do not set `unique` for buffer-specific maps, since they are supposed
-    --    to overwrite global ones
-    if opts.unique == nil and opts.buf == nil then opts.unique = true end
+  local modes = type(mode) == 'table' and table.concat(mode, ', ') or mode
+  local msg = ('Duplicate keymap: map=%s | modes=%s'):format(lhs, modes)
 
-    -- violating `unique=true` throws an error; using `pcall` to still load other mappings
-    local success, _ = pcall(vim.keymap.set, mode, lhs, rhs, opts)
-    if success then return end
-
-    local modes = type(mode) == 'table' and table.concat(mode, ', ') or mode
-    local msg = ('`(%s)`  %s  **%s**'):format(modes, lhs, source)
-
-    vim.defer_fn(function() -- defer for notification plugin
-      vim.notify(msg, vim.log.levels.WARN, { title = 'Duplicate keymap', timeout = false })
-    end, 1000)
-  else
-    -- FILETYPE keymap
-    vim.api.nvim_create_autocmd('FileType', {
-      desc = 'User: plugin filetype-keymap',
-      pattern = map.ft,
-      callback = function(ctx)
-        opts.buf = ctx.buf
-        vim.keymap.set(mode, lhs, rhs, opts)
-      end,
-    })
-  end
+  vim.defer_fn(
+    function() vim.notify(msg, vim.log.levels.WARN, { title = 'Duplicate Keymap', timeout = false }) end,
+    1000
+  )
 end
 
----@param map MyConfig.Keymap
-_G.Bufmap = function(map)
-  map.buf = 0
-  Keymap(map)
-end
+--- Sets a keymap prefixed with <leader> and `noremap` and `silent` enabled by default.
+---
+--- @param mode string|string[] Mode(s) in which the keymap applies (e.g. "n", {"n", "v"})
+--- @param lhs string The key sequence to map, without the leader prefix (e.g. "ff")
+--- @param rhs function|string The command or function to execute
+--- @param desc string Description shown in which-key and hover docs
+--- @param opts vim.keymap.set.Opts? Optional additional vim.keymap.set options
+Keys.map_leader = function(mode, lhs, rhs, desc, opts) Keys.map(mode, '<leader>' .. lhs, rhs, desc, opts or {}) end
 
----@param map MyConfig.Keymap
-_G.Leadermap = function(map)
-  map[1] = '<Leader>' .. map[1]
-  Keymap(map)
+--- Sets a keymap for the current buffer (buf=0) and `noremap` and `silent` enabled by default.
+---
+--- @param mode string|string[] Mode(s) in which the keymap applies (e.g. "n", {"n", "v"})
+--- @param lhs string The key sequence to map, without the leader prefix (e.g. "ff")
+--- @param rhs function|string The command or function to execute
+--- @param desc string Description shown in mini.clue/which-key and hover docs
+--- @param opts vim.keymap.set.Opts? Optional override vim.keymap.set options
+Keys.map_buffer = function(mode, lhs, rhs, desc, opts)
+  Keys.map(mode, lhs, rhs, desc, vim.tbl_extend('force', { buf = 0 }, opts or {}))
 end
 
 ---Create an autocommand under a common `aorith-*` augroup.

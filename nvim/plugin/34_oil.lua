@@ -12,4 +12,4 @@ require('oil').setup({
 
 -- Add --preview to open with preview enabled directly, but it is distracting,
 -- rather toggle it with C-p. '<Leader>nn' opens the notes dir, see 'plugin/22_mini_pick.lua'
-Keymap({ '-', '<Cmd>Oil<CR>', desc = 'Open parent directory' })
+Keys.map('n', '-', '<Cmd>Oil<CR>', 'Open parent directory')

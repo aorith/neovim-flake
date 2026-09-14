@@ -51,7 +51,7 @@ NewAutocmd('close-on-q', nil, 'FileType', {
   'nvim-undotree',
 }, function(event)
   vim.bo[event.buf].buflisted = false
-  Bufmap({ 'q', '<cmd>close<cr>', silent = true })
+  Keys.map_buffer('n', 'q', '<cmd>close<cr>', 'Close')
 end, "Close file with 'q'")
 
 -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'.

@@ -14,40 +14,38 @@ require('mini.pick').setup({
 
 vim.ui.select = MiniPick.ui_select
 
-Leadermap({
-  '<leader>',
-  function()
-    MiniPick.builtin.buffers({ include_current = false }, {
-      mappings = {
-        wipeout = {
-          char = '<C-d>',
-          func = function() vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {}) end,
-        },
+Keys.map_leader('n', '<leader>', function()
+  MiniPick.builtin.buffers({ include_current = false }, {
+    mappings = {
+      wipeout = {
+        char = '<C-d>',
+        func = function() vim.api.nvim_buf_delete(MiniPick.get_picker_matches().current.bufnr, {}) end,
       },
-    })
-  end,
-  desc = 'Buffers',
-})
-Leadermap({ 'bm', "<Cmd>Pick marks scope='global'<CR>", desc = 'Global Marks' })
-Leadermap({ 'ff', '<Cmd>Pick files<CR>', desc = 'Files' })
-Leadermap({ 'fg', '<Cmd>Pick grep_live<CR>', desc = 'Grep live' })
-Leadermap({ 'fG', '<Cmd>Pick git_files<CR>', desc = 'Git files' })
-Leadermap({ 'fl', '<Cmd>Pick buf_lines scope="current"<CR>', desc = 'Lines (current)' })
-Leadermap({ 'fL', '<Cmd>Pick buf_lines scope="all"<CR>', desc = 'Lines (all)' })
-Leadermap({ 'fd', '<Cmd>Pick diagnostic scope="current"<CR>', desc = 'Diagnostic buffer' })
-Leadermap({ 'fD', '<Cmd>Pick diagnostic scope="all"<CR>', desc = 'Diagnostic workspace' })
-Leadermap({ 'fa', '<Cmd>Pick git_hunks scope="staged"<CR>', desc = 'Added hunks (all)' })
-Leadermap({ 'fA', '<Cmd>Pick git_hunks path="%" scope="staged"<CR>', desc = 'Added hunks (buf)' })
-Leadermap({ 'fm', '<Cmd>Pick git_hunks path="%:p" n_context=0<CR>', desc = 'Modified hunks (current)' })
-Leadermap({ 'fM', '<Cmd>Pick git_hunks<CR>', desc = 'Modified hunks (all)' })
-Leadermap({ 'fr', '<Cmd>Pick resume<CR>', desc = 'Resume' })
-Leadermap({ 'fR', '<Cmd>Pick lsp scope="references"<CR>', desc = 'References (LSP)' })
-Leadermap({ 'fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', desc = 'Symbols buffer (LSP)' })
-Leadermap({ 'fS', '<Cmd>Pick lsp scope="workspace_symbol"<CR>', desc = 'Symbols workspace (LSP)' })
-Leadermap({ 'fh', '<Cmd>Pick help<CR>', desc = 'Help tags' })
-Leadermap({ 'fH', '<Cmd>Pick hl_groups<CR>', desc = 'Highlight groups' })
-Leadermap({ 'fp', '<Cmd>Pick spellsuggest<CR>', desc = 'Spell suggest' })
-Leadermap({ 'fk', '<Cmd>Pick keymaps<CR>', desc = 'Keymaps' })
+    },
+  })
+end, 'Pick Buffers')
+Keys.map_leader('n', 'bm', "<Cmd>Pick marks scope='global'<CR>", 'Global Marks')
+Keys.map_leader('n', 'ff', '<Cmd>Pick files<CR>', 'Files')
+Keys.map_leader('n', 'fg', '<Cmd>Pick grep_live<CR>', 'Grep live')
+Keys.map_leader('n', 'fG', '<Cmd>Pick git_files<CR>', 'Git files')
+Keys.map_leader('n', 'fl', '<Cmd>Pick buf_lines scope="current"<CR>', 'Lines (current)')
+Keys.map_leader('n', 'fL', '<Cmd>Pick buf_lines scope="all"<CR>', 'Lines (all)')
+Keys.map_leader('n', 'fd', '<Cmd>Pick diagnostic scope="current"<CR>', 'Diagnostic buffer')
+Keys.map_leader('n', 'fD', '<Cmd>Pick diagnostic scope="all"<CR>', 'Diagnostic workspace')
+Keys.map_leader('n', 'fa', '<Cmd>Pick git_hunks scope="staged"<CR>', 'Added hunks (all)')
+Keys.map_leader('n', 'fA', '<Cmd>Pick git_hunks path="%" scope="staged"<CR>', 'Added hunks (buf)')
+Keys.map_leader('n', 'fm', '<Cmd>Pick git_hunks path="%:p" n_context=0<CR>', 'Modified hunks (current)')
+Keys.map_leader('n', 'fM', '<Cmd>Pick git_hunks<CR>', 'Modified hunks (all)')
+Keys.map_leader('n', 'gc', '<Cmd>Pick git_commits path="%:p"<CR>', '[Pick] Commits (current)')
+Keys.map_leader('n', 'gC', '<Cmd>Pick git_commits<CR>', '[Pick] Commits (all)')
+Keys.map_leader('n', 'fr', '<Cmd>Pick resume<CR>', 'Resume')
+Keys.map_leader('n', 'fR', '<Cmd>Pick lsp scope="references"<CR>', 'References (LSP)')
+Keys.map_leader('n', 'fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', 'Symbols buffer (LSP)')
+Keys.map_leader('n', 'fS', '<Cmd>Pick lsp scope="workspace_symbol"<CR>', 'Symbols workspace (LSP)')
+Keys.map_leader('n', 'fh', '<Cmd>Pick help<CR>', 'Help tags')
+Keys.map_leader('n', 'fH', '<Cmd>Pick hl_groups<CR>', 'Highlight groups')
+Keys.map_leader('n', 'fp', '<Cmd>Pick spellsuggest<CR>', 'Spell suggest')
+Keys.map_leader('n', 'fk', '<Cmd>Pick keymaps<CR>', 'Keymaps')
 
 -------------------------------------------------------------------------------
 -- 'Harpoon' with :args
@@ -72,12 +70,12 @@ MiniPick.registry.harpoon = function()
   return MiniPick.start({ source = { items = picker_items, name = 'Harpoon', choose = choose } })
 end
 
-Leadermap({ 'ha', '<Cmd>argadd %<Bar>argdedupe<Bar>args<CR>', desc = 'Add current buffer to the arglist' })
-Leadermap({ 'hd', '<Cmd>argdelete %<Bar>argdedupe<Bar>args<CR>', desc = 'Delete current buffer to the arglist' })
-Leadermap({ 'hc', '<Cmd>%argdelete<Bar>args<CR><C-L>', desc = 'Clear all buffer args' })
-Leadermap({ 'hf', '<Cmd>Pick harpoon<CR>', desc = 'Pick' })
+Keys.map_leader('n', 'ha', '<Cmd>argadd %<Bar>argdedupe<Bar>args<CR>', 'Add current buffer to the arglist')
+Keys.map_leader('n', 'hd', '<Cmd>argdelete %<Bar>argdedupe<Bar>args<CR>', 'Delete current buffer to the arglist')
+Keys.map_leader('n', 'hc', '<Cmd>%argdelete<Bar>args<CR><C-L>', 'Clear all buffer args')
+Keys.map_leader('n', 'hf', '<Cmd>Pick harpoon<CR>', 'Pick')
 for i = 1, 9 do
-  Leadermap({ tostring(i), '<Cmd>' .. i .. 'argument<CR>', desc = 'Goto arg buffer ' .. i })
+  Keys.map_leader('n', tostring(i), '<Cmd>' .. i .. 'argument<CR>', 'Goto arg buffer ' .. i)
 end
 
 -------------------------------------------------------------------------------
@@ -97,13 +95,9 @@ MiniPick.registry.notes_grep = function()
   return MiniPick.builtin.grep_live({ globs = { '*.md' } }, opts)
 end
 
-Leadermap({
-  'nn',
-  function()
-    vim.fn.chdir(Config.notes_dir)
-    require('oil').open(nil, { preview = {} })
-  end,
-  desc = 'Notes',
-})
-Leadermap({ 'nf', '<Cmd>Pick notes<CR>', desc = 'Notes Find' })
-Leadermap({ 'ng', '<Cmd>Pick notes_grep<CR>', desc = 'Notes Grep' })
+Keys.map_leader('n', 'nn', function()
+  vim.fn.chdir(Config.notes_dir)
+  require('oil').open(nil, { preview = {} })
+end, 'Notes')
+Keys.map_leader('n', 'nf', '<Cmd>Pick notes<CR>', 'Notes Find')
+Keys.map_leader('n', 'ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')

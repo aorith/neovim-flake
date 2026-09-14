@@ -50,7 +50,7 @@ local function render_with_pandoc()
   end)
 end
 
-Bufmap({ '<Leader>e', render_with_pandoc, desc = 'Convert to HTML and open in a Browser' })
+Keys.map_buffer('n', '<Leader>e', render_with_pandoc, 'Convert to HTML and open in a Browser')
 
 ---@diagnostic disable-next-line: inject-field
 vim.b.minihipatterns_config = {
@@ -90,7 +90,5 @@ local function markdown_todo_toggle()
   end
 end
 
-Bufmap({ '<TAB>', ']]', remap = true, desc = 'Next header ' })
-Bufmap({ '<S-TAB>', '[[', remap = true, desc = 'Previous header' })
-Bufmap({ '<LocalLeader>c', markdown_insert_codeblock, desc = 'Insert code block' })
-Bufmap({ 'tt', markdown_todo_toggle, desc = 'Toggle checkbox' })
+Keys.map_buffer('n', '<LocalLeader>c', markdown_insert_codeblock, 'Insert code block')
+Keys.map_buffer('n', 'tt', markdown_todo_toggle, 'Toggle checkbox')

@@ -13,7 +13,6 @@ vim.o.updatetime = 200 -- Faster CursorHold / swap-file write (default 4000ms)
 -- Appearance
 vim.o.number = true
 vim.o.signcolumn = 'yes' -- Always reserve it, so the text doesn't shift around
-vim.o.cursorline = true
 vim.o.colorcolumn = '+1' -- Follows 'textwidth', hidden while it is 0
 vim.o.showmatch = true -- Briefly jump to the matching bracket when typing one
 vim.o.termguicolors = true -- Should be auto-detected, but ssh/nixos/tmux combos disable it

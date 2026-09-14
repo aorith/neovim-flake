@@ -1,90 +1,82 @@
 -- Copy to primary selection on select
-Keymap({ '<LeftRelease>', '"*ygv', mode = 'v' })
+Keys.map('v', '<LeftRelease>', '"*ygv', 'Copy on select')
 
 -- Misc
-Keymap({ 'x', '"_x', desc = "Avoid 'x' copying to the register" })
-Leadermap({ 'y', '"+y', mode = 'x', desc = 'Copy to the system clipboard' })
-Leadermap({ 'y', '"+yy', desc = 'Copy to the system clipboard' })
+Keys.map('n', 'x', '"_x', "Avoid 'x' copying to the register")
+Keys.map_leader('x', 'y', '"+y', 'Copy to the system clipboard')
+Keys.map_leader('n', 'y', '"+yy', 'Copy to the system clipboard')
 
 -- Moves lines
-Keymap({ 'J', ":m '>+1<CR>gv=gv", mode = 'v' })
-Keymap({ 'K', ":m '<-2<CR>gv=gv", mode = 'v' })
+Keys.map('v', 'K', ":m '<-2<CR>gv=gv", 'Move line up')
+Keys.map('v', 'J', ":m '>+1<CR>gv=gv", 'Move line down')
 
 -- Navigate wrapped lines (but moves real lines with relative number jumps, eg: 5j)
-Keymap({ 'j', "v:count == 0 ? 'gj' : 'j'", expr = true })
-Keymap({ 'k', "v:count == 0 ? 'gk' : 'k'", expr = true })
+Keys.map('n', 'k', "v:count == 0 ? 'gk' : 'k'", 'up', { expr = true })
+Keys.map('n', 'j', "v:count == 0 ? 'gj' : 'j'", 'down', { expr = true })
 
 -- Center view on search
-Keymap({ 'n', 'nzz' })
-Keymap({ 'N', 'Nzz' })
+Keys.map('n', 'n', 'nzz', 'Next search item')
+Keys.map('n', 'N', 'Nzz', 'Prev search item')
 
 -- Move to window using the <ctrl> hjkl keys
-Keymap({ '<C-h>', '<C-w>h', desc = 'Go to left window' })
-Keymap({ '<C-j>', '<C-w>j', desc = 'Go to lower window' })
-Keymap({ '<C-k>', '<C-w>k', desc = 'Go to upper window' })
-Keymap({ '<C-l>', '<C-w>l', desc = 'Go to right window', unique = false })
+Keys.map('n', '<C-h>', '<C-w>h', 'Go to left window')
+Keys.map('n', '<C-j>', '<C-w>j', 'Go to lower window')
+Keys.map('n', '<C-k>', '<C-w>k', 'Go to upper window')
+Keys.map('n', '<C-l>', '<C-w>l', 'Go to right window', { unique = false })
 -- Resize window using <ctrl> arrow keys
-Keymap({ '<C-Up>', '<Cmd>resize +2<CR>', desc = 'Increase window height' })
-Keymap({ '<C-Down>', '<Cmd>resize -2<CR>', desc = 'Decrease window height' })
-Keymap({ '<C-Left>', '<Cmd>vertical resize -2<CR>', desc = 'Decrease window width' })
-Keymap({ '<C-Right>', '<Cmd>vertical resize +2<CR>', desc = 'Increase window width' })
+Keys.map('n', '<C-Up>', '<Cmd>resize +2<CR>', 'Increase window height')
+Keys.map('n', '<C-Down>', '<Cmd>resize -2<CR>', 'Decrease window height')
+Keys.map('n', '<C-Left>', '<Cmd>vertical resize -2<CR>', 'Decrease window width')
+Keys.map('n', '<C-Right>', '<Cmd>vertical resize +2<CR>', 'Increase window width')
 
 -- Clear search with <esc>
-Keymap({ '<esc>', '<Cmd>noh<CR><ESC>', mode = { 'i', 'n' }, desc = 'Escape and clear hlsearch' })
+Keys.map({ 'i', 'n' }, '<esc>', '<Cmd>noh<CR><ESC>', 'Escape and clear hlsearch')
 
 -- Don't reset indent on '#', see :h smartindent
-Keymap({ '#', 'X#', mode = 'i' })
+Keys.map('i', '#', 'X#', '')
 
 -- buffers
-Leadermap({ '<TAB>', '<Cmd>bnext<CR>', silent = true, desc = 'Next buffer' })
-Leadermap({ 'ba', '<Cmd>b#<CR>', desc = 'Alternate buffer' })
-Leadermap({
-  'bb',
-  function()
-    local curbufnr = vim.api.nvim_get_current_buf()
-    for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
-      if buf.bufnr ~= curbufnr and buf.loaded == 1 and buf.changed == 0 then vim.cmd('bd! ' .. buf.bufnr) end
-    end
-  end,
-  desc = 'Close all other unmodified buffers',
-})
+Keys.map_leader('n', '<TAB>', '<Cmd>bnext<CR>', 'Next buffer')
+Keys.map_leader('n', 'ba', '<Cmd>b#<CR>', 'Alternate buffer')
+Keys.map_leader('n', 'bb', function()
+  local curbufnr = vim.api.nvim_get_current_buf()
+  for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+    if buf.bufnr ~= curbufnr and buf.loaded == 1 and buf.changed == 0 then vim.cmd('bd! ' .. buf.bufnr) end
+  end
+end, 'Close all other unmodified buffers')
 
 -- windows
-Leadermap({ 'wc', '<C-W>c', desc = 'Delete window' })
-Leadermap({ '-', '<C-W>s', desc = 'Split window below' })
-Leadermap({ '|', '<C-W>v', desc = 'Split window right' })
+Keys.map_leader('n', 'wc', '<C-W>c', 'Delete window')
+Keys.map_leader('n', '-', '<C-W>s', 'Split window below')
+Keys.map_leader('n', '|', '<C-W>v', 'Split window right')
 
 -- others
-Keymap({ '<F1>', '<nop>', mode = '' }) -- "" == map
-Keymap({ '<F1>', '<nop>', mode = '!' }) -- "!" == map!
+Keys.map('', '<F1>', '<nop>', 'F1 disabled') -- "" == map
+Keys.map('!', '<F1>', '<nop>', 'F1 disabled') -- "!" == map!
 vim.api.nvim_create_user_command('W', 'w', { bang = true })
 vim.api.nvim_create_user_command('Q', 'q', { bang = true })
 
 -- terminal
-Keymap({ '<Esc>', '<C-\\><C-n>', mode = 't', desc = 'Go to normal mode' })
+Keys.map('t', '<Esc>', '<C-\\><C-n>', 'Go to normal mode')
 
 -- quick fix
-Leadermap({ 'j', '<Cmd>cnext<CR>', desc = 'Next item in QuickFix' })
-Leadermap({ 'k', '<Cmd>cprevious<CR>', desc = 'Previous item in QuickFix' })
+Keys.map_leader('n', 'j', '<Cmd>cnext<CR>', 'Next item in QuickFix')
+Keys.map_leader('n', 'k', '<Cmd>cprevious<CR>', 'Previous item in QuickFix')
 
 -- Undotree, bundled with Neovim in '$VIMRUNTIME/pack/dist/opt/nvim.undotree'
-Leadermap({
-  'u',
-  function()
-    vim.cmd('packadd nvim.undotree')
-    require('undotree').open({ command = 'leftabove 32vnew' })
-  end,
-  desc = 'Undotree',
-})
+Keys.map_leader('n', 'u', function()
+  vim.cmd('packadd nvim.undotree')
+  require('undotree').open({ command = 'leftabove 32vnew' })
+end, 'Undotree')
 
 -- Toggles ('<Leader>td' is with the diagnostics, '<Leader>tx' with treesitter)
-Leadermap({ 'tc', '<Cmd>setlocal cursorline! cursorline?<CR>', desc = 'Toggle cursorline' })
-Leadermap({ 'tC', '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>', desc = 'Toggle cursorcolumn' })
-Leadermap({ 'tl', '<Cmd>setlocal list! list?<CR>', desc = 'Toggle list' })
-Leadermap({ 'tn', '<Cmd>setlocal number! number?<CR>', desc = 'Toggle number' })
-Leadermap({ 'tr', '<Cmd>setlocal relativenumber! relativenumber?<CR>', desc = 'Toggle relativenumber' })
-Leadermap({ 'ts', '<Cmd>setlocal spell! spell?<CR>', desc = 'Toggle spell' })
-Leadermap({ 'tw', '<Cmd>setlocal wrap! wrap?<CR>', desc = 'Toggle wrap' })
+Keys.map_leader('n', 'tc', '<Cmd>setlocal cursorline! cursorline?<CR>', 'Toggle cursorline')
+Keys.map_leader('n', 'tC', '<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>', 'Toggle cursorcolumn')
+Keys.map_leader('n', 'tl', '<Cmd>setlocal list! list?<CR>', 'Toggle list')
+Keys.map_leader('n', 'tn', '<Cmd>setlocal number! number?<CR>', 'Toggle number')
+Keys.map_leader('n', 'tr', '<Cmd>setlocal relativenumber! relativenumber?<CR>', 'Toggle relativenumber')
+Keys.map_leader('n', 'ts', '<Cmd>setlocal spell! spell?<CR>', 'Toggle spell')
+Keys.map_leader('n', 'tw', '<Cmd>setlocal wrap! wrap?<CR>', 'Toggle wrap')
 
 -- Run cmd in terminal (overridden in some filetypes)
-Leadermap({ 'e', '<Cmd>Term<CR>', desc = 'Run cmd in a terminal' })
+Keys.map_leader('n', 'e', '<Cmd>Term<CR>', 'Run cmd in a terminal')

@@ -62,4 +62,4 @@ require('conform').setup({
   },
 })
 
-Leadermap({ 'lf', function() require('conform').format() end, mode = { 'n', 'x' }, desc = 'Format buffer' })
+Keys.map_leader({ 'n', 'x' }, 'lf', function() require('conform').format() end, 'Format buffer')

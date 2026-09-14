@@ -71,7 +71,7 @@ local cycle_priority = function()
   vim.fn.setline(start_row + 1, line)
 end
 
-local lmap = function(key, f, desc) Bufmap({ '<LocalLeader>' .. key, f, desc = desc }) end
+local lmap = function(key, f, desc) Keys.map_buffer('n', '<LocalLeader>' .. key, f, desc) end
 
 if vim.fn.expand('%:t') == 'done.txt' then
   lmap('s', "<Cmd>w | %sort! | w | lua vim.notify('sorted')<CR>", 'Sort reverse')

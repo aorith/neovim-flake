@@ -1,5 +1,6 @@
-Bufmap({
+Keys.map_buffer(
+  'n',
   '<Leader>e',
   '<Cmd>silent w | Term hurl --color --include --pretty %<CR>',
-  desc = 'Run this file with Hurl',
-})
+  'Run this file with Hurl'
+)

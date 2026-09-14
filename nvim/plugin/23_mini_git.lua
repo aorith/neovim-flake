@@ -21,26 +21,24 @@ NewAutocmd('mini-git-align-blame', nil, 'User', 'MiniGitCommandSplit', align_bla
 local git_log_cmd = [[Git log --pretty=format:\%h\ \%as\ │\ \%s --topo-order]]
 local git_reflog_cmd = [[Git log --abbrev-commit --walk-reflogs --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]] -- similar to 'git reflog'
 local git_graph_cmd = [[Git log --graph --all --pretty=format:\%h\ \%ai\ \%al\ |\ \%s\ |\ \%d]]
-Leadermap({ 'gp', '<Cmd>Git log -p -- %:p<CR>', desc = 'Git log -p <file>' })
-Leadermap({ 'ga', '<Cmd>Git diff --cached -- %:p<CR>', desc = 'Added diff buffer' })
-Leadermap({ 'gA', '<Cmd>Git diff --cached<CR>', desc = 'Added diff' })
-Leadermap({ 'gd', '<Cmd>Git diff -- %:p<CR>', desc = 'Diff buffer' })
-Leadermap({ 'gD', '<Cmd>Git diff<CR>', desc = 'Diff' })
-Leadermap({ 'gb', '<Cmd>Git blame -- %:p<CR>', desc = 'Blame buffer' })
-Leadermap({ 'gl', '<Cmd>' .. git_log_cmd .. ' --follow -- %:p<CR>', desc = 'Log buffer' })
-Leadermap({ 'gL', '<Cmd>' .. git_log_cmd .. '<CR>', desc = 'Log' })
-Leadermap({ 'gr', '<Cmd>tab ' .. git_reflog_cmd .. '<CR>', desc = 'Reflog' })
-Leadermap({ 'gg', '<Cmd>tab ' .. git_graph_cmd .. '<CR>', desc = 'Graph' })
-Leadermap({ 'go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>', desc = 'Toggle diff overlay' })
-Leadermap({ 'gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', desc = 'Show at cursor' })
-Leadermap({ 'gc', '<Cmd>Pick git_commits path="%:p"<CR>', desc = '[Pick] Commits (current)' })
-Leadermap({ 'gC', '<Cmd>Pick git_commits<CR>', desc = '[Pick] Commits (all)' })
+Keys.map_leader('n', 'gp', '<Cmd>Git log -p -- %:p<CR>', 'Git log -p <file>')
+Keys.map_leader('n', 'ga', '<Cmd>Git diff --cached -- %:p<CR>', 'Added diff buffer')
+Keys.map_leader('n', 'gA', '<Cmd>Git diff --cached<CR>', 'Added diff')
+Keys.map_leader('n', 'gd', '<Cmd>Git diff -- %:p<CR>', 'Diff buffer')
+Keys.map_leader('n', 'gD', '<Cmd>Git diff<CR>', 'Diff')
+Keys.map_leader('n', 'gb', '<Cmd>Git blame -- %:p<CR>', 'Blame buffer')
+Keys.map_leader('n', 'gl', '<Cmd>' .. git_log_cmd .. ' --follow -- %:p<CR>', 'Log buffer')
+Keys.map_leader('n', 'gL', '<Cmd>' .. git_log_cmd .. '<CR>', 'Log')
+Keys.map_leader('n', 'gr', '<Cmd>tab ' .. git_reflog_cmd .. '<CR>', 'Reflog')
+Keys.map_leader('n', 'gg', '<Cmd>tab ' .. git_graph_cmd .. '<CR>', 'Graph')
+Keys.map_leader('n', 'go', '<Cmd>lua MiniDiff.toggle_overlay()<CR>', 'Toggle diff overlay')
+Keys.map_leader('n', 'gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at cursor')
 
 -- Show at cursor already gives info from show_range_history
-Leadermap({ 'gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', mode = 'x', desc = 'Show at selection' })
-Leadermap({
+Keys.map_leader('x', 'gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at selection')
+Keys.map_leader(
+  'x',
   'gb',
   function() vim.cmd('Git log -L ' .. vim.fn.line("'<") .. ',' .. vim.fn.line("'>") .. ':' .. vim.fn.expand('%:p')) end,
-  mode = 'x',
-  desc = 'Blame selection',
-})
+  'Blame selection'
+)

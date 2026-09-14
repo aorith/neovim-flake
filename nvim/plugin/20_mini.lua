@@ -40,8 +40,8 @@ require('mini.jump2d').setup({
   silent = true,
 })
 
-Leadermap({ 'q', function() require('mini.bufremove').delete() end, desc = 'Delete current buffer' })
-Leadermap({ 'z', function() require('mini.misc').zoom() end, desc = 'Zoom window' })
+Keys.map_leader('n', 'q', function() require('mini.bufremove').delete() end, 'Delete current buffer')
+Keys.map_leader('n', 'z', function() require('mini.misc').zoom() end, 'Zoom window')
 
 -------------------------------------------------------------------------------
 -- mini.ai

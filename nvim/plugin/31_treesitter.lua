@@ -100,12 +100,8 @@ require('treesitter-context').setup({
   mode = 'topline',
 })
 
-Leadermap({
-  'tx',
-  function()
-    local ctx = require('treesitter-context')
-    ctx.toggle()
-    print(ctx.enabled() and '  tscontext' or 'notscontext')
-  end,
-  desc = 'Toggle context',
-})
+Keys.map_leader('n', 'tx', function()
+  local ctx = require('treesitter-context')
+  ctx.toggle()
+  print(ctx.enabled() and '  tscontext' or 'notscontext')
+end, 'Toggle context')

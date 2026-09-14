@@ -18,4 +18,4 @@ if not Config.on_nix then
   })
 end
 
-vim.cmd.colorscheme('miniwinter')
+vim.cmd.colorscheme('minisummer')

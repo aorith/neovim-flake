@@ -13,5 +13,5 @@ require('quicker').setup({
   },
 })
 
-Leadermap({ 'xl', function() require('quicker').toggle({ loclist = true }) end, desc = 'Location List' })
-Leadermap({ 'xq', require('quicker').toggle, desc = 'Quickfix List' })
+Keys.map_leader('n', 'xl', function() require('quicker').toggle({ loclist = true }) end, 'Location List')
+Keys.map_leader('n', 'xq', require('quicker').toggle, 'Quickfix List')
