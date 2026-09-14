@@ -33,7 +33,7 @@ Keymap({ '<C-Right>', '<Cmd>vertical resize +2<CR>', desc = 'Increase window wid
 Keymap({ '<esc>', '<Cmd>noh<CR><ESC>', mode = { 'i', 'n' }, desc = 'Escape and clear hlsearch' })
 
 -- Don't reset indent on '#', see :h smartindent
-Keymap({ '#', 'X#', mode = 'i' })
+Keymap({ '#', 'X#', mode = 'i' })
 
 -- buffers
 Leadermap({ '<TAB>', '<Cmd>bnext<CR>', silent = true, desc = 'Next buffer' })
