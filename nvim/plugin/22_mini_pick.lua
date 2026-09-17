@@ -1,5 +1,22 @@
+local win_config = function()
+  local height = math.floor(0.618 * vim.o.lines)
+  local width = math.floor(0.618 * vim.o.columns)
+  return {
+    anchor = 'NW',
+    height = height,
+    width = width,
+    row = math.floor(0.5 * (vim.o.lines - height)),
+    col = math.floor(0.5 * (vim.o.columns - width)),
+  }
+end
+
 require('mini.pick').setup({
-  window = { config = function() return { width = vim.o.columns } end },
+  window = {
+    -- Full width
+    -- config = function() return { width = vim.o.columns } end
+
+    config = win_config,
+  },
 
   mappings = {
     choose = '<CR>',
@@ -79,7 +96,7 @@ for i = 1, 9 do
 end
 
 -------------------------------------------------------------------------------
--- Notes ('<Leader>nn' uses oil, see 'plugin/34_oil.lua')
+-- Notes
 -------------------------------------------------------------------------------
 MiniPick.registry.notes = function()
   vim.fn.chdir(Config.notes_dir)
@@ -97,7 +114,7 @@ end
 
 Keys.map_leader('n', 'nn', function()
   vim.fn.chdir(Config.notes_dir)
-  require('oil').open(nil, { preview = {} })
+  MiniFiles.open(Config.notes_dir, false)
 end, 'Notes')
 Keys.map_leader('n', 'nf', '<Cmd>Pick notes<CR>', 'Notes Find')
 Keys.map_leader('n', 'ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')

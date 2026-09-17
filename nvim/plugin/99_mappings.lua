@@ -1,22 +1,22 @@
 -- Copy to primary selection on select
-Keys.map('v', '<LeftRelease>', '"*ygv', 'Copy on select')
+Keys.map('v', '<LeftRelease>', '"*ygv')
 
 -- Misc
-Keys.map('n', 'x', '"_x', "Avoid 'x' copying to the register")
+Keys.map('n', 'x', '"_x') -- Avoid 'x' copying to the register
 Keys.map_leader('x', 'y', '"+y', 'Copy to the system clipboard')
 Keys.map_leader('n', 'y', '"+yy', 'Copy to the system clipboard')
 
 -- Moves lines
-Keys.map('v', 'K', ":m '<-2<CR>gv=gv", 'Move line up')
-Keys.map('v', 'J', ":m '>+1<CR>gv=gv", 'Move line down')
+Keys.map('v', 'K', ":m '<-2<CR>gv=gv")
+Keys.map('v', 'J', ":m '>+1<CR>gv=gv")
 
 -- Navigate wrapped lines (but moves real lines with relative number jumps, eg: 5j)
-Keys.map('n', 'k', "v:count == 0 ? 'gk' : 'k'", 'up', { expr = true })
-Keys.map('n', 'j', "v:count == 0 ? 'gj' : 'j'", 'down', { expr = true })
+Keys.map('n', 'k', "v:count == 0 ? 'gk' : 'k'", nil, { expr = true })
+Keys.map('n', 'j', "v:count == 0 ? 'gj' : 'j'", nil, { expr = true })
 
 -- Center view on search
-Keys.map('n', 'n', 'nzz', 'Next search item')
-Keys.map('n', 'N', 'Nzz', 'Prev search item')
+Keys.map('n', 'n', 'nzz')
+Keys.map('n', 'N', 'Nzz')
 
 -- Move to window using the <ctrl> hjkl keys
 Keys.map('n', '<C-h>', '<C-w>h', 'Go to left window')
@@ -30,10 +30,10 @@ Keys.map('n', '<C-Left>', '<Cmd>vertical resize -2<CR>', 'Decrease window width'
 Keys.map('n', '<C-Right>', '<Cmd>vertical resize +2<CR>', 'Increase window width')
 
 -- Clear search with <esc>
-Keys.map({ 'i', 'n' }, '<esc>', '<Cmd>noh<CR><ESC>', 'Escape and clear hlsearch')
+Keys.map({ 'i', 'n' }, '<esc>', '<Cmd>noh<CR><ESC>')
 
 -- Don't reset indent on '#', see :h smartindent
-Keys.map('i', '#', 'X#', '')
+Keys.map('i', '#', 'X#')
 
 -- buffers
 Keys.map_leader('n', '<TAB>', '<Cmd>bnext<CR>', 'Next buffer')
@@ -51,8 +51,8 @@ Keys.map_leader('n', '-', '<C-W>s', 'Split window below')
 Keys.map_leader('n', '|', '<C-W>v', 'Split window right')
 
 -- others
-Keys.map('', '<F1>', '<nop>', 'F1 disabled') -- "" == map
-Keys.map('!', '<F1>', '<nop>', 'F1 disabled') -- "!" == map!
+Keys.map('', '<F1>', '<nop>') -- "" == map
+Keys.map('!', '<F1>', '<nop>') -- "!" == map!
 vim.api.nvim_create_user_command('W', 'w', { bang = true })
 vim.api.nvim_create_user_command('Q', 'q', { bang = true })
 

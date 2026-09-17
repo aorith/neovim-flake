@@ -7,7 +7,6 @@ vim.pack.add({
   { src = 'https://github.com/stevearc/conform.nvim' },
   { src = 'https://github.com/mfussenegger/nvim-lint' },
   { src = 'https://github.com/stevearc/quicker.nvim' },
-  { src = 'https://github.com/stevearc/oil.nvim' },
 })
 
 if not Config.on_nix then

@@ -153,9 +153,9 @@ NewAutocmd('mini-indent-disable', nil, 'FileType', {
   'dashboard',
   'help',
   'man',
+  'minifiles',
   'minipick',
   'notify',
-  'oil',
 }, function() vim.b.miniindentscope_disable = true end, 'Disable mini indent scope')
 
 -------------------------------------------------------------------------------

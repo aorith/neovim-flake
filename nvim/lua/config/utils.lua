@@ -14,7 +14,7 @@ _G.Keys = {}
 --- @param mode string|string[] Mode(s) in which the keymap applies (e.g. "n", {"n", "v"})
 --- @param lhs string The key sequence to map (e.g. "K")
 --- @param rhs function|string The command or function to execute
---- @param desc string Description shown in mini.clue/which-key and hover docs
+--- @param desc string? Description shown in mini.clue/which-key and hover docs
 --- @param opts vim.keymap.set.Opts? Optional override vim.keymap.set options
 Keys.map = function(mode, lhs, rhs, desc, opts)
   -- violating `unique=true` throws and error and allows to catch duplicate keymaps
@@ -44,7 +44,7 @@ end
 --- @param mode string|string[] Mode(s) in which the keymap applies (e.g. "n", {"n", "v"})
 --- @param lhs string The key sequence to map, without the leader prefix (e.g. "ff")
 --- @param rhs function|string The command or function to execute
---- @param desc string Description shown in which-key and hover docs
+--- @param desc string? Description shown in which-key and hover docs
 --- @param opts vim.keymap.set.Opts? Optional additional vim.keymap.set options
 Keys.map_leader = function(mode, lhs, rhs, desc, opts) Keys.map(mode, '<leader>' .. lhs, rhs, desc, opts or {}) end
 
@@ -53,7 +53,7 @@ Keys.map_leader = function(mode, lhs, rhs, desc, opts) Keys.map(mode, '<leader>'
 --- @param mode string|string[] Mode(s) in which the keymap applies (e.g. "n", {"n", "v"})
 --- @param lhs string The key sequence to map, without the leader prefix (e.g. "ff")
 --- @param rhs function|string The command or function to execute
---- @param desc string Description shown in mini.clue/which-key and hover docs
+--- @param desc string? Description shown in mini.clue/which-key and hover docs
 --- @param opts vim.keymap.set.Opts? Optional override vim.keymap.set options
 Keys.map_buffer = function(mode, lhs, rhs, desc, opts)
   Keys.map(mode, lhs, rhs, desc, vim.tbl_extend('force', { buf = 0 }, opts or {}))
