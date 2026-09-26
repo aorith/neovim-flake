@@ -102,7 +102,6 @@ miniclue.setup({
     { mode = 'n', keys = '<leader>g', desc = '+Git' },
     { mode = 'x', keys = '<leader>g', desc = '+Git' },
     { mode = 'n', keys = '<leader>l', desc = '+LSP' },
-    { mode = 'n', keys = '<leader>n', desc = '+Notes' },
     { mode = 'n', keys = '<leader>w', desc = '+Window' },
     { mode = 'n', keys = '<leader>x', desc = '+Quickfix' },
     { mode = 'n', keys = '<leader>t', desc = '+Toggle' },

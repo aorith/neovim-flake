@@ -22,9 +22,8 @@ require('mini.files').setup({
   },
 
   windows = {
-    -- Cap at 3 columns: parent, current and preview
-    max_number = 3,
-    preview = true,
+    max_number = math.huge,
+    preview = false,
   },
 })
 

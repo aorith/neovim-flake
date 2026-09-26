@@ -94,27 +94,3 @@ Keys.map_leader('n', 'hf', '<Cmd>Pick harpoon<CR>', 'Pick')
 for i = 1, 9 do
   Keys.map_leader('n', tostring(i), '<Cmd>' .. i .. 'argument<CR>', 'Goto arg buffer ' .. i)
 end
-
--------------------------------------------------------------------------------
--- Notes
--------------------------------------------------------------------------------
-MiniPick.registry.notes = function()
-  vim.fn.chdir(Config.notes_dir)
-  local command = { 'fd', '--type', 'f', '--glob', '*.md' }
-  return MiniPick.builtin.cli({ command = command }, {
-    source = { name = 'Notes', cwd = Config.notes_dir },
-  })
-end
-
-MiniPick.registry.notes_grep = function()
-  vim.fn.chdir(Config.notes_dir)
-  local opts = { source = { cwd = Config.notes_dir } }
-  return MiniPick.builtin.grep_live({ globs = { '*.md' } }, opts)
-end
-
-Keys.map_leader('n', 'nn', function()
-  vim.fn.chdir(Config.notes_dir)
-  MiniFiles.open(Config.notes_dir, false)
-end, 'Notes')
-Keys.map_leader('n', 'nf', '<Cmd>Pick notes<CR>', 'Notes Find')
-Keys.map_leader('n', 'ng', '<Cmd>Pick notes_grep<CR>', 'Notes Grep')

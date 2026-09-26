@@ -21,6 +21,7 @@ vim.lsp.enable({
   'terraformls',
   'ts_ls', -- npm i -g typescript typescript-language-server
   'yamlls',
+  'zls',
 })
 
 Keys.map('n', 'grd', vim.lsp.buf.definition, 'Definitions') -- 'gd' is 'definition in function'

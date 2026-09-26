@@ -17,6 +17,7 @@ vim.o.colorcolumn = '+1' -- Follows 'textwidth', hidden while it is 0
 vim.o.showmatch = true -- Briefly jump to the matching bracket when typing one
 vim.o.termguicolors = true -- Should be auto-detected, but ssh/nixos/tmux combos disable it
 vim.o.winborder = 'rounded'
+vim.o.conceallevel = 0
 vim.o.list = true -- Show the indicators below
 vim.o.listchars = 'extends:…,trail:·,nbsp:␣,precedes:…,tab:> '
 vim.o.fillchars = 'fold:╌,horiz:═,horizdown:╦,horizup:╩,vert:║,verthoriz:╬,vertleft:╣,vertright:╠'
@@ -33,7 +34,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.scrolloff = 3 -- Lines to keep above/below the cursor
 vim.o.sidescrolloff = 3 -- Same, horizontally
-vim.o.scrollback = 99999 -- Terminal buffer history
+vim.o.scrollback = 9999 -- Terminal buffer history
 
 -- Indentation
 vim.o.expandtab = true
@@ -63,6 +64,7 @@ vim.o.undodir = vim.fn.stdpath('state') .. '/undo//'
 vim.o.undolevels = 10000 -- Default is 1000
 
 -- Completion
+vim.o.complete = '.,w,b,kspell'
 vim.o.completeopt = 'menuone,noselect,fuzzy,nosort'
 vim.o.completetimeout = 150 -- Limit completion sources delay
 vim.o.infercase = true -- Infer case in built-in completion
