@@ -23,7 +23,7 @@ require('mini.files').setup({
 
   windows = {
     max_number = math.huge,
-    preview = false,
+    preview = true,
   },
 })
 
